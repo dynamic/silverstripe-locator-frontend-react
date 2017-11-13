@@ -1,6 +1,6 @@
 {
-  "name": "dynamic/silverstripe-locator",
-  "description": "SilverStripe Locator Module. Show locations on a map. Search by geoposition.",
+  "name": "dynamic/silverstripe-locator-react",
+  "description": "A front end built in react for the SilverStripe Locator Module.",
   "keywords": [
     "silverstripe",
     "map",
@@ -22,9 +22,7 @@
   "require": {
     "silverstripe/recipe-cms": "^1.0",
     "silverstripe/vendor-plugin": "^1.0",
-    "muskie9/data-to-arraylist": "^2.0",
-    "dynamic/silverstripe-geocoder": "^1.0",
-    "symbiote/silverstripe-gridfieldextensions": "^3.0"
+    "dynamic/silverstripe-locator": "^3.0@stable"
   },
   "require-dev": {
     "phpunit/PHPUnit": "^5.7",
@@ -33,14 +31,10 @@
   "config": {
     "process-timeout": 600
   },
-  "suggest": {
-    "unclecheese/betterbuttons": "Adds new form actions and buttons to GridField detail form for usability enhancements.",
-    "unclecheese/bootstrap-forms": "Allows the creation of forms compatible with the Twitter Bootstrap CSS framework in SilverStripe."
-  },
   "autoload": {
     "psr-4": {
-      "Dynamic\\Locator\\": "src/",
-      "Dynamic\\Locator\\Tests\\": "tests/"
+      "Dynamic\\Locator\\React\\": "src/",
+      "Dynamic\\Locator\\React\\Tests\\": "tests/"
     }
   },
   "minimum-stability": "dev",
@@ -51,7 +45,7 @@
       "css"
     ],
     "branch-alias": {
-      "dev-master": "3.0.x-dev"
+      "dev-master": "1.0.x-dev"
     }
   },
   "scripts": {

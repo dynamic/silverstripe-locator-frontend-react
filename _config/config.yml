@@ -1,12 +1,9 @@
 ---
-Name: locator
+Name: locator-react
+After:
+  - locator
 ---
-Dynamic\Locator\Location:
-  extensions:
-    - Dynamic\SilverStripeGeocoder\DistanceDataExtension
-    - Dynamic\SilverStripeGeocoder\AddressDataExtension
-    - SilverStripe\Versioned\Versioned('Stage','Live')
 
 Dynamic\Locator\Locator:
-  infoWindowTemplate: 'dynamic/silverstripe-locator:templates/Dynamic/Locator/infowindow-description.html'
-  listTemplate: 'dynamic/silverstripe-locator:templates/Dynamic/Locator/location-list-description.html'
+  infoWindowTemplate: 'dynamic/silverstripe-locator-react: templates/Dynamic/Locator/infowindow-description.html'
+  listTemplate: 'dynamic/silverstripe-locator-react: templates/Dynamic/Locator/location-list-description.html'
