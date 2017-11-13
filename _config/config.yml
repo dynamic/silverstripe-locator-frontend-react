@@ -5,5 +5,11 @@ After:
 ---
 
 Dynamic\Locator\Locator:
-  infoWindowTemplate: 'dynamic/silverstripe-locator-react: templates/Dynamic/Locator/infowindow-description.html'
-  listTemplate: 'dynamic/silverstripe-locator-react: templates/Dynamic/Locator/location-list-description.html'
+  extensions:
+    - Dynamic\Locator\React\Extensions\LocatorExtension
+  infoWindowTemplate: 'dynamic/silverstripe-locator-react: client/infowindow-description.html'
+  listTemplate: 'dynamic/silverstripe-locator-react: client/location-list-description.html'
+
+Dynamic\Locator\LocatorController:
+  extensions:
+    - Dynamic\Locator\React\Extensions\LocatorControllerExtension

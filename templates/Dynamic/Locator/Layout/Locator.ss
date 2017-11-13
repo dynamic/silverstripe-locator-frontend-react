@@ -8,6 +8,6 @@
 
 </div>
 
-<% require javascript('dynamic/silverstripe-locator:client/dist/js/vendor.js') %>
-<% require javascript('dynamic/silverstripe-locator:client/dist/js/main.js') %>
+<% require javascript('dynamic/silverstripe-locator-react: client/dist/js/vendor.js') %>
+<% require javascript('dynamic/silverstripe-locator-react: client/dist/js/main.js') %>
 <% require themedCSS('locator') %>

@@ -16,6 +16,6 @@
   "unit": "$Unit",
   "limit": $Limit,
   "clusters": $Clusters,
-  "infoWindowTemplate": $InfoWindowTemplate.RAW,
-  "listTemplate": $ListTemplate.RAW
+  "infoWindowTemplate": $InfoWindowTemplateContent.RAW,
+  "listTemplate": $ListTemplateContent.RAW
 }
