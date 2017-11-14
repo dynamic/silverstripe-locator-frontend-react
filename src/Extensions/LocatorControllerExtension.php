@@ -3,8 +3,6 @@
 namespace Dynamic\Locator\React\Extensions;
 
 use SilverStripe\Core\Extension;
-use SilverStripe\ORM\ArrayList;
-use SilverStripe\ORM\ManyManyList;
 use SilverStripe\View\Requirements;
 
 /**
@@ -53,17 +51,22 @@ class LocatorControllerExtension extends Extension
      *
      * @return string
      */
-    public function categoriesString(ManyManyList $categories)
+    public function categoriesString($categories)
     {
         $string = '[';
-        $categories->each(function($cat) use (&$string) {
+        for ($i = 0; $i < $categories->count(); $i++) {
+            $cat = $categories[$i];
             $ID = $cat->ID;
             $Name = $cat->Name;
             $string .= "{
                 'ID': '{$ID}',
                 'Name': '{$Name}'
             }";
-        });
+
+            if ($i !== $categories->count() - 1) {
+                $string .= ',';
+            }
+        }
         $string .= ']';
         return $string;
     }
