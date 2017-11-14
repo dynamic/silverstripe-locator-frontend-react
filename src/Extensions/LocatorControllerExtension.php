@@ -3,6 +3,8 @@
 namespace Dynamic\Locator\React\Extensions;
 
 use SilverStripe\Core\Extension;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\ManyManyList;
 use SilverStripe\View\Requirements;
 
 /**
@@ -21,26 +23,48 @@ class LocatorControllerExtension extends Extension
         Requirements::block('jquery-locator');
 
         $radii = $this->owner->getShowRadius() ? $this->owner->getRadii() : [];
-        $categories = $this->owner->getCategories() ?
-            $this->owner->getCategories()->map('ID','Name') : [];
+        $radiiString = json_encode($radii);
 
-        $settings = array(
-            'radii' => $radii,
-            'categories' => $categories,
-            'unit' => $this->owner->Unit,
-            'limit' => $this->owner->getLimit(),
-            // 'clusters' => $this->owner->getClusters(),
-            'clusters' => false,
-            'infoWindowTemplate' => $this->owner->getInfoWindowTemplateContent(),
-            'listTemplate' => $this->owner->getListTemplateContent(),
-        );
+        $categories = $this->owner->getCategories();
+        $categoriesString = $this->owner->categoriesString($categories);
 
-        $this->owner->extend('updateSettings', $settings);
+        $unit = $this->owner->Unit ?: 'm';
+        $limit = $this->owner->getLimit();
+        // 'clusters' => $this->owner->getClusters();
+        $clusters = 'false';
+        $infoWindowTemplate = $this->owner->getInfoWindowTemplate();
+        $listTemplate = $this->owner->getListTemplate();
 
-        Requirements::javascriptTemplate(
-            "dynamic/silverstrpe-locator-react: templates/settings.template.js",
-            $settings,
-            'react-locator');
+        Requirements::customScript("
+            window.dynamic_locator = {
+                'radii': {$radiiString},
+                'categories': {$categoriesString},
+                'unit': '{$unit}',
+                'limit': {$limit},
+                'clusters': {$clusters},
+                'infoWindowTemplatePath': '{$infoWindowTemplate}',
+                'listTemplatePath': '{$listTemplate}'
+            };
+        ", 'react-locator');
     }
 
+    /**
+     * @param $categories
+     *
+     * @return string
+     */
+    public function categoriesString(ManyManyList $categories)
+    {
+        $string = '[';
+        $categories->each(function($cat) use (&$string) {
+            $ID = $cat->ID;
+            $Name = $cat->Name;
+            $string .= "{
+                'ID': '{$ID}',
+                'Name': '{$Name}'
+            }";
+        });
+        $string .= ']';
+        return $string;
+    }
 }

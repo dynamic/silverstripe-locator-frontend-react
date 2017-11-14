@@ -15,8 +15,9 @@ import * as settingsActions from '../../js/actions/settingsActions';
 locationActions.fetchLocations = jest.fn();
 jest.setMock('../../js/actions/locationActions', locationActions);
 
-// mock the fetchSettings action (because of axios)
-settingsActions.fetchSettings = jest.fn();
+// mock the actions (because of axios)
+settingsActions.fetchInfoWindow = jest.fn();
+settingsActions.fetchList = jest.fn();
 jest.setMock('../../js/actions/settingsActions', settingsActions);
 
 const dispatch = jest.fn();
@@ -30,6 +31,7 @@ test('Locator component should render', () => {
     category: '',
     dispatch,
   };
+
   const locator = shallow(
     <Locator {...props} />,
   );

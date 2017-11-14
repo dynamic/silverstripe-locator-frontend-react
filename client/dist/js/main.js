@@ -125,11 +125,13 @@ function composedMiddleware() {
 
 var store = (0, _redux.createStore)(_reducers2.default, composedMiddleware());
 
-_reactDom2.default.render(_react2.default.createElement(
-  _reactRedux.Provider,
-  { store: store },
-  _react2.default.createElement(_Locator2.default, null)
-), container);
+document.addEventListener('DOMContentLoaded', function () {
+  _reactDom2.default.render(_react2.default.createElement(
+    _reactRedux.Provider,
+    { store: store },
+    _react2.default.createElement(_Locator2.default, null)
+  ), container);
+});
 
 /***/ }),
 
@@ -146,7 +148,8 @@ Object.defineProperty(exports, "__esModule", {
 var ActionTypes = {
   FETCH_LOCATIONS: 'FETCH_LOCATIONS',
 
-  FETCH_SETTINGS: 'FETCH_SETTINGS',
+  FETCH_INFO_WINDOW: 'FETCH_INFO_WINDOW',
+  FETCH_LIST: 'FETCH_LIST',
 
   SEARCH: 'SEARCH',
 
@@ -158,9 +161,13 @@ ActionTypes.FETCH_LOCATIONS_LOADING = ActionTypes.FETCH_LOCATIONS + '_LOADING';
 ActionTypes.FETCH_LOCATIONS_SUCCESS = ActionTypes.FETCH_LOCATIONS + '_SUCCESS';
 ActionTypes.FETCH_LOCATIONS_ERROR = ActionTypes.FETCH_LOCATIONS + '_ERROR';
 
-ActionTypes.FETCH_SETTINGS_LOADING = ActionTypes.FETCH_SETTINGS + '_LOADING';
-ActionTypes.FETCH_SETTINGS_SUCCESS = ActionTypes.FETCH_SETTINGS + '_SUCCESS';
-ActionTypes.FETCH_SETTINGS_ERROR = ActionTypes.FETCH_SETTINGS + '_ERROR';
+ActionTypes.FETCH_INFO_WINDOW_LOADING = ActionTypes.FETCH_INFO_WINDOW + '_LOADING';
+ActionTypes.FETCH_INFO_WINDOW_SUCCESS = ActionTypes.FETCH_INFO_WINDOW + '_SUCCESS';
+ActionTypes.FETCH_INFO_WINDOW_ERROR = ActionTypes.FETCH_INFO_WINDOW + '_ERROR';
+
+ActionTypes.FETCH_LIST_LOADING = ActionTypes.FETCH_LIST + '_LOADING';
+ActionTypes.FETCH_LIST_SUCCESS = ActionTypes.FETCH_LIST + '_SUCCESS';
+ActionTypes.FETCH_LIST_ERROR = ActionTypes.FETCH_LIST + '_ERROR';
 
 exports.default = ActionTypes;
 
@@ -347,6 +354,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var defaultState = {
   loadedSettings: false,
+  loadedWindowTemplate: false,
+  loadedListTemplate: false,
+
+  infoWindowTemplate: null,
+  listTemplate: null,
+
   unit: 'm'
 };
 
@@ -355,28 +368,47 @@ function reducer() {
   var action = arguments[1];
 
   switch (action.type) {
-    case _ActionTypes2.default.FETCH_SETTINGS_SUCCESS:
+    case _ActionTypes2.default.FETCH_INFO_WINDOW_SUCCESS:
       {
-        var settings = action.payload.data;
+        var data = action.payload.data;
 
-        if (settings.unit === null) {
-          settings.unit = 'm';
-        }
-
-        if (settings.clusters === null) {
-          settings.clusters = false;
+        var loaded = state.loadedSettings;
+        if (state.loadedListTemplate === true) {
+          loaded = true;
         }
 
         return _extends({}, state, {
-          loadedSettings: true,
+          loadedSettings: loaded,
+          loadedWindowTemplate: true,
+          infoWindowTemplate: _handlebars2.default.compile(data),
 
-          unit: settings.unit,
-          clusters: settings.clusters,
-          limit: settings.limit,
-          radii: settings.radii,
-          categories: settings.categories,
-          infoWindowTemplate: _handlebars2.default.compile(settings.infoWindowTemplate),
-          listTemplate: _handlebars2.default.compile(settings.listTemplate)
+          unit: dynamic_locator.unit,
+          clusters: dynamic_locator.clusters,
+          limit: dynamic_locator.limit,
+          radii: dynamic_locator.radii,
+          categories: dynamic_locator.categories
+        });
+      }
+
+    case _ActionTypes2.default.FETCH_LIST_SUCCESS:
+      {
+        var _data = action.payload.data;
+
+        var _loaded = state.loadedSettings;
+        if (state.loadedWindowTemplate === true) {
+          _loaded = true;
+        }
+
+        return _extends({}, state, {
+          loadedSettings: _loaded,
+          loadedListTemplate: true,
+          listTemplate: _handlebars2.default.compile(_data),
+
+          unit: dynamic_locator.unit,
+          clusters: dynamic_locator.clusters,
+          limit: dynamic_locator.limit,
+          radii: dynamic_locator.radii,
+          categories: dynamic_locator.categories
         });
       }
 
@@ -495,7 +527,8 @@ var Locator = exports.Locator = function (_Component) {
     value: function componentWillMount() {
       var dispatch = this.props.dispatch;
 
-      dispatch((0, _settingsActions.fetchSettings)());
+      dispatch((0, _settingsActions.fetchInfoWindow)());
+      dispatch((0, _settingsActions.fetchList)());
     }
   }, {
     key: 'shouldComponentUpdate',
@@ -579,7 +612,8 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(Locator);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchSettings = fetchSettings;
+exports.fetchInfoWindow = fetchInfoWindow;
+exports.fetchList = fetchList;
 
 var _axios = __webpack_require__(202);
 
@@ -591,11 +625,23 @@ var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function fetchSettings() {
+function fetchInfoWindow() {
   var loc = window.location;
+  var path = dynamic_locator.infoWindowTemplatePath;
+
   return {
-    type: _ActionTypes2.default.FETCH_SETTINGS,
-    payload: _axios2.default.get(loc.protocol + '//' + loc.host + loc.pathname + '/settings')
+    type: _ActionTypes2.default.FETCH_INFO_WINDOW,
+    payload: _axios2.default.get(loc.protocol + '//' + loc.host + path)
+  };
+}
+
+function fetchList() {
+  var loc = window.location;
+  var path = dynamic_locator.listTemplatePath;
+
+  return {
+    type: _ActionTypes2.default.FETCH_LIST,
+    payload: _axios2.default.get(loc.protocol + '//' + loc.host + path)
   };
 }
 

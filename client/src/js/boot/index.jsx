@@ -37,9 +37,12 @@ function composedMiddleware() {
 // creates the redux store with reducers and middleware
 const store = createStore(reducers, composedMiddleware());
 
-// renders the locator
-ReactDom.render(
-  <Provider store={store}>
-    <Locator />
-  </Provider>
-  , container);
+// defers rendering until after content is loaded (only needed for settings)
+document.addEventListener('DOMContentLoaded', () => {
+  // renders the locator
+  ReactDom.render(
+    <Provider store={store}>
+      <Locator />
+    </Provider>
+    , container);
+});

@@ -20,7 +20,11 @@ class LocatorExtension extends Extension
     {
         $contents = json_encode(
             file_get_contents(
-                $this->owner->getInfoWindowTemplate()
+                preg_replace(
+                    '/\?.*$/',
+                    '',
+                    $this->owner->getInfoWindowTemplate()
+                )
             )
         );
 

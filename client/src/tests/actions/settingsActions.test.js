@@ -9,11 +9,27 @@ const mock = new MockAdaptor(axios);
 mock.onAny().reply(200);
 
 /**
- * Tests to see if what the settings action returns is valid
+ * Tests to see if what the fetch list action returns is valid
  */
-test('Settings action is valid', () => {
-  expect(actions.fetchSettings()).toEqual({
-    type: ActionType.FETCH_SETTINGS,
+test('fetch list action is valid', () => {
+  window.dynamic_locator = {
+    listTemplatePath: '',
+  };
+  expect(actions.fetchList()).toEqual({
+    type: ActionType.FETCH_LIST,
+    payload: new Promise(() => {}),
+  });
+});
+
+/**
+ * Tests to see if what the fetch window action returns is valid
+ */
+test('fetch window action is valid', () => {
+  window.dynamic_locator = {
+    infoWindowTemplatePath: '',
+  };
+  expect(actions.fetchInfoWindow()).toEqual({
+    type: ActionType.FETCH_INFO_WINDOW,
     payload: new Promise(() => {}),
   });
 });

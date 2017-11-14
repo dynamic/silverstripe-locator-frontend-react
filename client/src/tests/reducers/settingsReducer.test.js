@@ -17,66 +17,92 @@ test('Settings reducer has a default state', () => {
   expect(reducer(undefined, {
     type: 'invalid-type',
   })).toEqual({
-    loadedSettings: false,
-    unit: 'm',
-  });
+      "infoWindowTemplate": null,
+      "listTemplate": null,
+      "loadedListTemplate": false,
+      "loadedSettings": false,
+      "loadedWindowTemplate": false,
+      "unit": "m"
+    }
+  );
 });
 
 /**
- * Tests FETCH_SETTINGS_SUCCESS with everything is defined
+ * Tests FETCH_INFO_WINDOW_SUCCESS
  */
-test('Settings reducer has a valid state when everything is defined', () => {
-  expect(reducer(undefined, {
-    type: ActionType.FETCH_SETTINGS_SUCCESS,
-    payload: {
-      data: {
-        unit: 'm',
-        clusters: false,
-        limit: 0,
-        radii: [],
-        categories: [],
-        infoWindowTemplate: '',
-        listTemplate: '',
-      },
-    },
-  })).toEqual({
-    loadedSettings: true,
+test('Settings reducer has a valid state when a fetch info window action is called', () => {
+  window.dynamic_locator = {
     unit: 'm',
     clusters: false,
     limit: 0,
     radii: [],
     categories: [],
-    infoWindowTemplate: 'template',
-    listTemplate: 'template',
+    listTemplate: '',
+    listTemplatePath: '',
+    infoWindowTemplate: '',
+    infoWindowTemplatePath: '',
+  };
+
+  // so settings are loaded
+  const state = reducer(undefined, {
+    type: ActionType.FETCH_LIST_SUCCESS,
+    payload: '',
+  });
+
+  expect(reducer(state, {
+    type: ActionType.FETCH_INFO_WINDOW_SUCCESS,
+    payload: '',
+  })).toEqual({
+    "categories": [],
+    "clusters": false,
+    "limit": 0,
+    "infoWindowTemplate": "template",
+    "listTemplate": "template",
+    "loadedSettings": true,
+    "loadedListTemplate": true,
+    "loadedWindowTemplate": true,
+    "radii": [],
+    "unit": "m"
   });
 });
 
 /**
- * Tests FETCH_SETTINGS_SUCCESS with some stuff is undefined
+ * Tests FETCH_LIST_SUCCESS with everything is defined
  */
-test('Settings reducer has a valid state when some stuff is undefined', () => {
-  expect(reducer(undefined, {
-    type: ActionType.FETCH_SETTINGS_SUCCESS,
-    payload: {
-      data: {
-        unit: null,
-        clusters: null,
-        limit: 0,
-        radii: [],
-        categories: [],
-        infoWindowTemplate: '',
-        listTemplate: '',
-      },
-    },
-  })).toEqual({
-    loadedSettings: true,
+test('Settings reducer has a valid state when a fetch list action is called', () => {
+  window.dynamic_locator = {
     unit: 'm',
     clusters: false,
     limit: 0,
     radii: [],
     categories: [],
-    infoWindowTemplate: 'template',
-    listTemplate: 'template',
+    listTemplate: '',
+    listTemplatePath: '',
+    infoWindowTemplate: '',
+    infoWindowTemplatePath: '',
+  };
+
+  // so settings are loaded
+  const state = reducer(undefined, {
+    type: ActionType.FETCH_INFO_WINDOW_SUCCESS,
+    payload: '',
+  });
+
+  expect(reducer(state, {
+    type: ActionType.FETCH_LIST_SUCCESS,
+    payload: {
+      data: '',
+    },
+  })).toEqual({
+    "categories": [],
+    "clusters": false,
+    "limit": 0,
+    "infoWindowTemplate": "template",
+    "listTemplate": "template",
+    "loadedSettings": true,
+    "loadedListTemplate": true,
+    "loadedWindowTemplate": true,
+    "radii": [],
+    "unit": "m"
   });
 });
-
