@@ -22,7 +22,7 @@
   "require": {
     "silverstripe/recipe-cms": "^1.0",
     "silverstripe/vendor-plugin": "^1.0",
-    "dynamic/silverstripe-locator": "^3.0@stable"
+    "dynamic/silverstripe-locator": "^3.0"
   },
   "require-dev": {
     "phpunit/PHPUnit": "^5.7",
