@@ -32,6 +32,13 @@ build:
     analysis:
       tests:
         override: [php-scrutinizer-run]
+    js:
+      root_path: './client/src/js'
+      environment:
+        node: 6.11.1
+      tests:
+        override:
+          - npm run lint
 
 filter:
     paths: [tests/*,src/*]
