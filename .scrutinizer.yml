@@ -4,6 +4,7 @@ inherit: true
 tools:
     external_code_coverage:
       timeout: 600
+      runs: 2
     php_code_sniffer:
       config:
         standard: PSR2
@@ -38,7 +39,7 @@ build:
         node: 6.11.1
       tests:
         override:
-          - npm run lint
+          - eslint-run webpack.config.dev.js webpack.config.prod.js client/src/js
 
 filter:
     paths: [tests/*,src/*]
