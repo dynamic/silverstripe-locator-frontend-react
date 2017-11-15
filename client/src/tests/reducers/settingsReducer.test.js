@@ -19,8 +19,8 @@ test('Settings reducer has a default state', () => {
     type: 'invalid-type',
   })).toEqual({
     infoWindowTemplate: null,
-    listTemplat: null,
-    loadedListTemplat: false,
+    listTemplate: null,
+    loadedListTemplate: false,
     loadedSettings: false,
     loadedWindowTemplate: false,
     unit: 'm',
