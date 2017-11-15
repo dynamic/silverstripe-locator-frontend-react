@@ -2,21 +2,21 @@ inherit: true
 
 #Copied from https://www.adayinthelifeof.nl/2013/11/20/external-code-coverage-with-travis-scrutinizer/
 tools:
-    external_code_coverage:
-      timeout: 600
-      runs: 2
-    php_code_sniffer:
-      config:
-        standard: PSR2
-    php_cs_fixer:
-      extensions:
-        # Default:
-        - php
-      fixers: []
-      enabled: false
-      filter:
-            paths: [tests/*,src/*]
-            excluded_paths: []
+  external_code_coverage:
+    timeout: 600
+    runs: 2
+  php_code_sniffer:
+    config:
+      standard: PSR2
+  php_cs_fixer:
+    extensions:
+      # Default:
+      - php
+    fixers: []
+    enabled: false
+    filter:
+      paths: [tests/*,src/*]
+      excluded_paths: []
 coding_style:
   php:
     indentation:
@@ -24,9 +24,10 @@ coding_style:
         use_tabs: false
 
 checks:
-    php:
-        code_rating: true
-        duplication: true
+  php:
+    code_rating: true
+    duplication: true
+  javascript: true
 
 build:
   nodes:
@@ -42,4 +43,4 @@ build:
           - eslint-run webpack.config.dev.js webpack.config.prod.js client/src/js
 
 filter:
-    paths: [tests/*,src/*]
+  paths: [tests/*,src/*]
