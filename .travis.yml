@@ -121,8 +121,7 @@ script:
   # javascript with coverage
   - |
     if [[ $LANG == JS ]] && [[ $COVERAGE == 1 ]]; then
-      npm run test:coverage && \
-      wget https://scrutinizer-ci.com/ocular.phar;
+      npm run test:coverage;
     fi
 
   # javascript with linting
@@ -145,5 +144,4 @@ after_success:
   - |
     if [[ $LANG == JS ]] && [[ $COVERAGE == 1 ]]; then
       bash <(curl -s https://codecov.io/bash) -F js
-      travis_retry php ocular.phar code-coverage:upload --format=php-clover --access-token=$SCRUT_TOKEN coverage/clover.xml;
     fi

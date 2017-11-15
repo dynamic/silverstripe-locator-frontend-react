@@ -17,6 +17,7 @@ tools:
     filter:
       paths: [tests/*,src/*]
       excluded_paths: []
+
 coding_style:
   php:
     indentation:
@@ -27,20 +28,14 @@ checks:
   php:
     code_rating: true
     duplication: true
-  javascript: true
 
 build:
   nodes:
     analysis:
       tests:
         override: [php-scrutinizer-run]
-    js:
-      root_path: './client/src/js'
-      environment:
-        node: 6.11.1
-      tests:
-        override:
-          - eslint-run webpack.config.dev.js webpack.config.prod.js client/src/js
 
 filter:
-  paths: [tests/*,src/*]
+  paths:
+    - 'tests/*'
+    - 'src/*'

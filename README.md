@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/dynamic/silverstripe-locator-frontend-react.svg?branch=master)](https://travis-ci.org/dynamic/silverstripe-locator-frontend-react)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dynamic/silverstripe-locator-frontend-react/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dynamic/silverstripe-locator-frontend-react/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/dynamic/silverstripe-locator-frontend-react/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dynamic/silverstripe-locator-frontend-react/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/dynamic/silverstripe-locator-frontend-react/badges/build.png?b=master)](https://scrutinizer-ci.com/g/dynamic/silverstripe-locator-frontend-react/build-status/master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b8ab3bc961aa17e3d4db/maintainability)](https://codeclimate.com/github/dynamic/silverstripe-locator-frontend-react/maintainability)
 [![codecov](https://codecov.io/gh/dynamic/silverstripe-locator-frontend-react/branch/master/graph/badge.svg)](https://codecov.io/gh/dynamic/silverstripe-locator-frontend-react)
 
 SilverStripe Locator displays a filterable map of locations. You can choose whether to show all locations on load, or enable auto geocoding to filter the initial list based on the visitor's location. 
