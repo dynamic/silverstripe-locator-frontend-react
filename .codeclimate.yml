@@ -1,0 +1,32 @@
+---
+engines:
+  eslint:
+    enabled: true
+  phpcodesniffer:
+    enabled: true
+    config:
+      standard: "phpcs.xml.dist"
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    exclude_paths:
+      - "**/tests/"
+    config:
+      languages:
+        javascript:
+        php:
+
+prepare:
+    fetch:
+        - url: "https://raw.githubusercontent.com/dynamic/silverstripe-locator-frontend-react/master/phpcs.xml.dist"
+          path: "phpcs.xml.dist"
+
+ratings:
+  paths:
+  - "**.js"
+  - "**.php"
+  - "**.css"
+
+exclude_paths:
+  - "client/dist/"
