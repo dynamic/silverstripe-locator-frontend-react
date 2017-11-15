@@ -8,6 +8,14 @@ engines:
       standard: "phpcs.xml.dist"
   csslint:
     enabled: true
+  duplication:
+    enabled: true
+    exclude_paths:
+      - "**/tests/"
+    config:
+      languages:
+        javascript:
+        php:
 
 prepare:
     fetch:
