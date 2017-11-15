@@ -11,7 +11,7 @@
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "test:coverage:watch": "jest --coverage --watchAll",
-    "lint": "eslint webpack.config.dev.js webpack.config.prod.js client/src/js"
+    "lint": "eslint webpack.config.dev.js webpack.config.prod.js client/src/js client/src/tests"
   },
   "keywords": [
     "locator",

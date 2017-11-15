@@ -1,3 +1,4 @@
+/* global window */
 import handlebars from 'handlebars';
 
 import ActionType from '../../../src/js/actions/ActionTypes';
@@ -17,14 +18,13 @@ test('Settings reducer has a default state', () => {
   expect(reducer(undefined, {
     type: 'invalid-type',
   })).toEqual({
-      "infoWindowTemplate": null,
-      "listTemplate": null,
-      "loadedListTemplate": false,
-      "loadedSettings": false,
-      "loadedWindowTemplate": false,
-      "unit": "m"
-    }
-  );
+    infoWindowTemplate: null,
+    listTemplat: null,
+    loadedListTemplat: false,
+    loadedSettings: false,
+    loadedWindowTemplate: false,
+    unit: 'm',
+  });
 });
 
 /**
@@ -53,16 +53,16 @@ test('Settings reducer has a valid state when a fetch info window action is call
     type: ActionType.FETCH_INFO_WINDOW_SUCCESS,
     payload: '',
   })).toEqual({
-    "categories": [],
-    "clusters": false,
-    "limit": 0,
-    "infoWindowTemplate": "template",
-    "listTemplate": "template",
-    "loadedSettings": true,
-    "loadedListTemplate": true,
-    "loadedWindowTemplate": true,
-    "radii": [],
-    "unit": "m"
+    categories: [],
+    clusters: false,
+    limit: 0,
+    infoWindowTemplate: 'template',
+    listTemplate: 'template',
+    loadedSettings: true,
+    loadedListTemplate: true,
+    loadedWindowTemplate: true,
+    radii: [],
+    unit: 'm',
   });
 });
 
@@ -94,15 +94,15 @@ test('Settings reducer has a valid state when a fetch list action is called', ()
       data: '',
     },
   })).toEqual({
-    "categories": [],
-    "clusters": false,
-    "limit": 0,
-    "infoWindowTemplate": "template",
-    "listTemplate": "template",
-    "loadedSettings": true,
-    "loadedListTemplate": true,
-    "loadedWindowTemplate": true,
-    "radii": [],
-    "unit": "m"
+    categories: [],
+    clusters: false,
+    limit: 0,
+    infoWindowTemplate: 'template',
+    listTemplate: 'template',
+    loadedSettings: true,
+    loadedListTemplate: true,
+    loadedWindowTemplate: true,
+    radii: [],
+    unit: 'm',
   });
 });
