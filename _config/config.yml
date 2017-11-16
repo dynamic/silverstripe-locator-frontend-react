@@ -2,12 +2,19 @@
 Name: locator-react
 After:
   - locator
+  - silverstripegeocoderconfig
 ---
 
 Dynamic\Locator\Locator:
   infoWindowTemplate: 'dynamic/silverstripe-locator-react: client/infowindow-description.html'
   listTemplate: 'dynamic/silverstripe-locator-react: client/location-list-description.html'
+  radius_var: 'radius'
+  category_var: 'category'
 
 Dynamic\Locator\LocatorController:
   extensions:
     - Dynamic\Locator\React\Extensions\LocatorControllerExtension
+
+Dynamic\SilverStripeGeocoder\DistanceDataExtension:
+  address_var: 'address'
+  unit_var: 'unit'
