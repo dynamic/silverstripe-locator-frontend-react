@@ -372,6 +372,7 @@ function reducer() {
       {
         var data = action.payload.data;
 
+
         var loaded = state.loadedSettings;
         if (state.loadedListTemplate === true) {
           loaded = true;
@@ -393,6 +394,7 @@ function reducer() {
     case _ActionTypes2.default.FETCH_LIST_SUCCESS:
       {
         var _data = action.payload.data;
+
 
         var _loaded = state.loadedSettings;
         if (state.loadedWindowTemplate === true) {

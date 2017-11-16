@@ -1,11 +1,11 @@
 // ===================
 // == General Stuff ==
 // ===================
-.typography img.loading {
-  border: none;
+.typography .loading {
+  border: 0;
 }
 
 .loc-name {
-  color: #AD2118;
+  color: $bright-red;
   font-weight: bold;
 }

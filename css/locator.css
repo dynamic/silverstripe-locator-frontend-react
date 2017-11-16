@@ -473,8 +473,8 @@ select.form-control-lg:not([size]):not([multiple]) {
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
-  position: relative;
   margin: 0;
+  position: relative;
 }
 
 @media (min-width: 576px) {
@@ -487,10 +487,10 @@ select.form-control-lg:not([size]):not([multiple]) {
 
 .map-area .loc-list,
 .map-area .map-container {
-  box-sizing: border-box;
   position: relative;
   width: 100%;
   min-height: 1px;
+  box-sizing: border-box;
 }
 
 @media (min-width: 576px) {
@@ -525,23 +525,23 @@ select.form-control-lg:not([size]):not([multiple]) {
   }
 }
 
-.typography img.loading {
-  border: none;
+.typography .loading {
+  border: 0;
 }
 
 .loc-name {
-  color: #AD2118;
+  color: #ad2118;
   font-weight: bold;
 }
 
 .locator-search {
-  width: 100%;
-  max-width: 100%;
   margin: 0;
+  max-width: 100%;
+  width: 100%;
 }
 
 .locator-search .form-group,
-.locator-search input.form-control {
+.locator-search .form-control {
   box-sizing: border-box;
 }
 
@@ -600,8 +600,8 @@ select.form-control-lg:not([size]):not([multiple]) {
   max-width: 100%;
 }
 
-.locator-search .fieldset input[type="submit"],
-.locator-search .fieldset input[type="reset"] {
+.locator-search .fieldset [type="submit"],
+.locator-search .fieldset [type="reset"] {
   float: none;
   width: 100%;
 }
