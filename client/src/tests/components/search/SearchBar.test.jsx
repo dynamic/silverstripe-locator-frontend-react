@@ -115,7 +115,7 @@ test('handleSubmit test', () => {
   });
 
   // test an actual search
-  search.find('[name="address"]').node.value = 'address test';
+  search.find('[name="address"]').instance().value = 'address test';
 
   // submit and check
   search.find('form').simulate('submit');

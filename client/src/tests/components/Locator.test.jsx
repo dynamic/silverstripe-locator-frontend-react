@@ -57,7 +57,7 @@ test('Locator component should not render', () => {
     <Locator {...props} />,
   );
 
-  expect(locator.getNode()).toEqual(null);
+  expect(locator.getElement()).toEqual(null);
 });
 
 test('Locator component should update', () => {

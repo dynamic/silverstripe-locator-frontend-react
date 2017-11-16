@@ -41,7 +41,7 @@ test('Category dropdown component should not render', () => {
     />,
   );
 
-  expect(dropdown.getNode()).toEqual(null);
+  expect(dropdown.getElement()).toEqual(null);
 });
 
 test('Category dropdown default empty value test', () => {
