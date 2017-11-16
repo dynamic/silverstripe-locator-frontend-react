@@ -558,26 +558,6 @@ select.form-control-lg:not([size]):not([multiple]) {
   padding-left: 15px;
 }
 
-.locator-search .fieldset.actions {
-  justify-content: space-around;
-}
-
-@media (min-width: 576px) {
-  .locator-search .fieldset.actions .form-group {
-    -webkit-box-flex: 0;
-            flex: 0 0 50%;
-    max-width: 50%;
-  }
-}
-
-@media (min-width: 768px) {
-  .locator-search .fieldset.actions .form-group {
-    -webkit-box-flex: 0;
-            flex: 0 0 33.33333%;
-    max-width: 33.33333%;
-  }
-}
-
 .locator-search .fieldset .form-group {
   position: relative;
   width: 100%;
@@ -606,6 +586,26 @@ select.form-control-lg:not([size]):not([multiple]) {
   width: 100%;
 }
 
+.fieldset.actions {
+  justify-content: space-around;
+}
+
+@media (min-width: 576px) {
+  .fieldset.actions .form-group {
+    -webkit-box-flex: 0;
+            flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .fieldset.actions .form-group {
+    -webkit-box-flex: 0;
+            flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+  }
+}
+
 .map-container a {
   color: #e76737;
   text-decoration: none;
@@ -617,11 +617,11 @@ select.form-control-lg:not([size]):not([multiple]) {
 }
 
 .map-container .custom-marker {
-  width: 32px;
-  height: 37px;
   color: #fff;
-  padding: 3px;
   cursor: pointer;
+  height: 37px;
+  padding: 3px;
+  width: 32px;
 }
 
 .marker-content {
@@ -630,13 +630,13 @@ select.form-control-lg:not([size]):not([multiple]) {
 
 .map {
   float: right;
-  width: 100%;
   height: 530px;
+  width: 100%;
 }
 
 .gm-style .cluster img {
-  margin: 0;
   border: 0;
+  margin: 0;
   padding: 0;
 }
 
@@ -644,15 +644,29 @@ select.form-control-lg:not([size]):not([multiple]) {
   height: 530px;
 }
 
+@media (min-width: 576px) and (max-width: 991px) {
+  .loc-list .list-label {
+    margin-left: 0;
+  }
+
+  .loc-list .list-content {
+    padding: 10px 0;
+  }
+
+  .loc-list .list-details {
+    width: 140px;
+  }
+}
+
 .loc-list .list-label {
-  float: left;
-  margin: 10px 0 0 6px;
-  padding: 2px 3px;
-  width: 27px;
-  text-align: center;
   background: #451400;
   color: #fff;
+  float: left;
   font-weight: bold;
+  margin: 10px 0 0 6px;
+  padding: 2px 3px;
+  text-align: center;
+  width: 27px;
 }
 
 .loc-list .list-details {
@@ -666,20 +680,20 @@ select.form-control-lg:not([size]):not([multiple]) {
 }
 
 .loc-list .loc-dist {
-  font-weight: bold;
-  font-style: italic;
   color: #8e8e8e;
+  font-style: italic;
+  font-weight: bold;
 }
 
 .loc-list .list-location {
-  display: block;
+  border: 1px solid transparent;
   box-sizing: border-box;
   clear: left;
+  cursor: pointer;
+  display: block;
   float: left;
   margin: 0;
-  cursor: pointer;
   width: 99%;
-  border: 1px solid transparent;
 }
 
 .loc-list .list-location.first {
@@ -697,26 +711,12 @@ select.form-control-lg:not([size]):not([multiple]) {
 .loc-list .list-location.focus {
   border: 1px solid rgba(82, 168, 236, 0.9);
   box-shadow: 0 0 8px rgba(82, 168, 236, 0.7);
-  transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+  transition: border .2s linear 0s, box-shadow .2s linear 0s;
   z-index: 1;
 }
 
-@media (min-width: 576px) and (max-width: 991px) {
-  .loc-list .list-label {
-    margin-left: 0px;
-  }
-
-  .loc-list .list-content {
-    padding: 10px 0px;
-  }
-
-  .loc-list .list-details {
-    width: 140px;
-  }
-}
-
 .ReactVirtualized__List:focus {
-  border: none;
+  border: 0;
   outline: none;
 }
 
@@ -725,37 +725,37 @@ select.form-control-lg:not([size]):not([multiple]) {
 }
 
 .loading {
+  background: rgba(255, 255, 255, 0.75);
+  bottom: 0;
   display: block;
-  visibility: hidden;
+  left: 0;
   opacity: 0;
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
   right: 0;
-  transition: visibility 0s, opacity 0.5s linear;
-  background: rgba(255, 255, 255, 0.75);
+  top: 0;
+  transition: visibility 0s, opacity .5s linear;
+  visibility: hidden;
 }
 
 .loading.show {
-  visibility: visible;
   opacity: 1;
+  visibility: visible;
 }
 
 .loading .loading-content {
   padding-top: 30px;
   position: absolute;
+  text-align: center;
   top: 20%;
   width: 100%;
-  text-align: center;
 }
 
 .loading .loading-content .spinner {
+  background: url(../client/dist/images/ajax-loader.gif) no-repeat scroll center/25px 25px;
+  height: 25px;
+  margin: auto;
   padding: 5px;
   width: 25px;
-  height: 25px;
-  background: url(../client/dist/images/ajax-loader.gif) no-repeat scroll center/25px 25px;
-  margin: auto;
 }
 
 .loading .loading-content span {

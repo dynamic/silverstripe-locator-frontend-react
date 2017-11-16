@@ -15,20 +15,6 @@
     @include make-row;
     @include make-col-ready;
 
-    &.actions {
-      justify-content: space-around;
-
-      .form-group {
-        @include media-breakpoint-up(sm) {
-          @include make-col(6);
-        }
-
-        @include media-breakpoint-up(md) {
-          @include make-col(4);
-        }
-      }
-    }
-
     .form-group {
       @include make-col-ready;
     }
@@ -49,6 +35,20 @@
     [type="reset"] {
       float: none;
       width: 100%;
+    }
+  }
+}
+
+.fieldset.actions {
+  justify-content: space-around;
+
+  .form-group {
+    @include media-breakpoint-up(sm) {
+      @include make-col(6);
+    }
+
+    @include media-breakpoint-up(md) {
+      @include make-col(4);
     }
   }
 }
