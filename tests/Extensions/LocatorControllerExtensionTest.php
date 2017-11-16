@@ -41,10 +41,10 @@ class LocatorControllerExtensionTest extends SapphireTest
 
         $string = $controller->categoriesString($locator->Categories());
         $this->assertEquals("[{
-                'ID': '1',
+                'ID': 1,
                 'Name': 'Service'
             },{
-                'ID': '4',
+                'ID': 4,
                 'Name': 'Technology'
             }]", $string);
     }

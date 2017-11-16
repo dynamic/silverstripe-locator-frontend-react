@@ -59,7 +59,7 @@ class LocatorControllerExtension extends Extension
             $ID = $cat->ID;
             $Name = $cat->Name;
             $string .= "{
-                'ID': '{$ID}',
+                'ID': {$ID},
                 'Name': '{$Name}'
             }";
 

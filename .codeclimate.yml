@@ -8,6 +8,8 @@ engines:
       standard: "phpcs.xml.dist"
   csslint:
     enabled: true
+  phpcodesniffer:
+    enabled: true
   duplication:
     enabled: true
     exclude_paths:
