@@ -9,9 +9,7 @@ export function fetchInfoWindow() {
 
   return {
     type: ActionType.FETCH_INFO_WINDOW,
-    payload: axios.get(
-      `${loc.protocol}//${loc.host}${path}`,
-    ),
+    payload: axios.get(`${loc.protocol}//${loc.host}${path}`),
   };
 }
 
@@ -21,8 +19,6 @@ export function fetchList() {
 
   return {
     type: ActionType.FETCH_LIST,
-    payload: axios.get(
-      `${loc.protocol}//${loc.host}${path}`,
-    ),
+    payload: axios.get(`${loc.protocol}//${loc.host}${path}`),
   };
 }

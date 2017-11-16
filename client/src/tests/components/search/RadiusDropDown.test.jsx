@@ -34,7 +34,7 @@ test('Radius dropdown component should not render', () => {
     />,
   );
 
-  expect(dropdown.getNode()).toEqual(null);
+  expect(dropdown.getElement()).toEqual(null);
 });
 
 test('Radius dropdown default valid value test', () => {

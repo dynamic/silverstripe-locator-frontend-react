@@ -19,7 +19,7 @@ const defaultState = {
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
     case ActionType.FETCH_INFO_WINDOW_SUCCESS: {
-      const data = action.payload.data;
+      const { data } = action.payload;
 
       let loaded = state.loadedSettings;
       if (state.loadedListTemplate === true) {
@@ -41,7 +41,7 @@ export default function reducer(state = defaultState, action) {
     }
 
     case ActionType.FETCH_LIST_SUCCESS: {
-      const data = action.payload.data;
+      const { data } = action.payload;
 
       let loaded = state.loadedSettings;
       if (state.loadedWindowTemplate === true) {

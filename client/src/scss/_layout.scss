@@ -3,9 +3,8 @@
 // ====================
 .map-area {
   @include make-row-no-gutter;
-  position: relative;
-
   margin: 0;
+  position: relative;
 
   @include media-breakpoint-up(sm) {
     flex-direction: row-reverse;
@@ -13,8 +12,8 @@
 
   .loc-list,
   .map-container {
-    box-sizing: border-box;
     @include make-col-ready-no-gutter;
+    box-sizing: border-box;
   }
 
   .loc-list {

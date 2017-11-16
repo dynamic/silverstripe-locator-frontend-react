@@ -6,14 +6,17 @@ engines:
     enabled: true
     config:
       standard: "phpcs.xml.dist"
-  csslint:
+  scss-lint:
     enabled: true
   phpcodesniffer:
     enabled: true
   duplication:
     enabled: true
     exclude_paths:
+      # tests usually have a chance of being repetitive
       - "**/tests/"
+      # the webpack config files are almost duplicates (only have two because of windows)
+      - "webpack.config.*.js"
     config:
       languages:
         javascript:

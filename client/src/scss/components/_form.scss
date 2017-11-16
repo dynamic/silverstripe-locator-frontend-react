@@ -2,32 +2,18 @@
 // == Search Form ==
 // =================
 .locator-search {
-  width: 100%;
-  max-width: 100%;
   margin: 0;
+  max-width: 100%;
+  width: 100%;
 
   .form-group,
-  input.form-control {
+  .form-control {
     box-sizing: border-box;
   }
 
   .fieldset {
     @include make-row;
     @include make-col-ready;
-
-    &.actions {
-      justify-content: space-around;
-
-      .form-group {
-        @include media-breakpoint-up(sm) {
-          @include make-col(6);
-        }
-
-        @include media-breakpoint-up(md) {
-          @include make-col(4);
-        }
-      }
-    }
 
     .form-group {
       @include make-col-ready;
@@ -45,10 +31,24 @@
       max-width: 100%;
     }
 
-    input[type="submit"],
-    input[type="reset"] {
+    [type="submit"],
+    [type="reset"] {
       float: none;
       width: 100%;
+    }
+  }
+}
+
+.fieldset.actions {
+  justify-content: space-around;
+
+  .form-group {
+    @include media-breakpoint-up(sm) {
+      @include make-col(6);
+    }
+
+    @include media-breakpoint-up(md) {
+      @include make-col(4);
     }
   }
 }

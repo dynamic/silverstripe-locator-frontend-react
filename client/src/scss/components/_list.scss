@@ -7,15 +7,29 @@
 .loc-list {
   height: 530px;
 
+  @include media-breakpoint-between(sm, md) {
+    .list-label {
+      margin-left: 0;
+    }
+
+    .list-content {
+      padding: 10px 0;
+    }
+
+    .list-details {
+      width: 140px;
+    }
+  }
+
   .list-label {
+    background: $dark-red;
+    color: $white;
     float: left;
+    font-weight: bold;
     margin: 10px 0 0 6px;
     padding: 2px 3px;
-    width: 27px;
     text-align: center;
-    background: #451400;
-    color: #fff;
-    font-weight: bold;
+    width: 27px;
   }
 
   .list-details {
@@ -29,21 +43,21 @@
   }
 
   .loc-dist {
-    font-weight: bold;
+    color: $light-grey;
     font-style: italic;
-    color: #8e8e8e;
+    font-weight: bold;
   }
 
   .list-location {
-    display: block;
-    box-sizing: border-box;
-    clear: left;
-    float: left;
-    margin: 0;
-    cursor: pointer;
-    width: 99%;
     // Adding this to prevent moving elements when adding the list-focus class
     border: 1px solid transparent;
+    box-sizing: border-box;
+    clear: left;
+    cursor: pointer;
+    display: block;
+    float: left;
+    margin: 0;
+    width: 99%;
 
     &.first {
       margin-top: 0;
@@ -54,36 +68,22 @@
     }
 
     &.even {
-      background-color: rgb(238, 238, 238);
+      background-color: $off-white;
     }
 
     &.focus {
-      border: 1px solid rgba(82, 168, 236, 0.9);
-      box-shadow: 0 0 8px rgba(82, 168, 236, 0.7);
-      transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+      border: 1px solid $bright-blue;
+      box-shadow: 0 0 8px $blue;
+      transition: border .2s linear 0s, box-shadow .2s linear 0s;
       // so the border doesn't get blocked by other elements
       z-index: 1;
-    }
-  }
-
-  @include media-breakpoint-between(sm, md) {
-    .list-label {
-      margin-left: 0px;
-    }
-
-    .list-content {
-      padding: 10px 0px;
-    }
-
-    .list-details {
-      width: 140px;
     }
   }
 }
 
 // react-virtulized stuff
 .ReactVirtualized__List:focus {
-  border: none;
+  border: 0;
   outline: none;
 }
 
