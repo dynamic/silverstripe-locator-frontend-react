@@ -86,6 +86,10 @@
     "collectCoverageFrom": [
       "**/client/src/**/*.{js,jsx}"
     ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/client/src/tests/"
+    ],
     "moduleDirectories": [
       "node_modules",
       "client/src/js"
