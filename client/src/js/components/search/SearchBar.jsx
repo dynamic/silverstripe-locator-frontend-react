@@ -31,6 +31,13 @@ export class SearchBar extends Component {
     return vars.replace(/([&\s]+$)/g, '').replace(/(\s)/g, '+');
   }
 
+  static getDropdownValue(name) {
+    if (document.getElementsByName(name)[0] !== undefined) {
+      return document.getElementsByName(name)[0].value;
+    }
+    return '';
+  }
+
   /**
    * Used to create the SearchBar.
    * needed to allow use of this keyword in handler.
@@ -50,16 +57,8 @@ export class SearchBar extends Component {
     event.preventDefault();
 
     const address = document.getElementsByName('address')[0].value;
-
-    let radius = '';
-    if (document.getElementsByName('radius')[0] !== undefined) {
-      radius = document.getElementsByName('radius')[0].value;
-    }
-
-    let category = '';
-    if (document.getElementsByName('category')[0] !== undefined) {
-      category = document.getElementsByName('category')[0].value;
-    }
+    const radius = this.getDropdownValue('radius');
+    const category = this.getDropdownValue('category');
 
     const params = {
       address,

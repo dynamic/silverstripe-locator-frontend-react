@@ -35,3 +35,6 @@ ratings:
 
 exclude_paths:
   - "client/dist/"
+  # for local
+  - "node_modules/"
+  - "coverage/"
