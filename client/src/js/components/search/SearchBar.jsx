@@ -57,8 +57,8 @@ export class SearchBar extends Component {
     event.preventDefault();
 
     const address = document.getElementsByName('address')[0].value;
-    const radius = this.getDropdownValue('radius');
-    const category = this.getDropdownValue('category');
+    const radius = SearchBar.getDropdownValue('radius');
+    const category = SearchBar.getDropdownValue('category');
 
     const params = {
       address,
@@ -69,12 +69,10 @@ export class SearchBar extends Component {
     // selects dispatch and unit from this.props.
     // const dispatch = this.props.dispatch; const unit = this.props.unit;
     const { dispatch, unit } = this.props;
-    dispatch(
-      fetchLocations({
-        ...params,
-        unit,
-      }),
-    );
+    dispatch(fetchLocations({
+      ...params,
+      unit,
+    }));
 
     // changes the url for the window and adds it to the browser history(no redirect)
     const loc = window.location;
@@ -89,7 +87,9 @@ export class SearchBar extends Component {
    * @returns {XML}
    */
   render() {
-    const { address, category, radii, categories, unit } = this.props;
+    const {
+      address, category, radii, categories, unit,
+    } = this.props;
     let { radius } = this.props;
     if (typeof radius === 'string') {
       radius = Number(radius);

@@ -31,9 +31,9 @@ function settings() {
  * The reducer for creating a part in the store for things like radius and categories
  */
 export default function reducer(state = defaultState, action) {
-  const { data } = action.payload;
   switch (action.type) {
     case ActionType.FETCH_INFO_WINDOW_SUCCESS: {
+      const { data } = action.payload;
       let loaded = state.loadedSettings;
       if (state.loadedListTemplate === true) {
         loaded = true;
@@ -49,6 +49,7 @@ export default function reducer(state = defaultState, action) {
     }
 
     case ActionType.FETCH_LIST_SUCCESS: {
+      const { data } = action.payload;
       let loaded = state.loadedSettings;
       if (state.loadedWindowTemplate === true) {
         loaded = true;
