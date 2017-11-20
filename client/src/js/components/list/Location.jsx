@@ -70,23 +70,13 @@ class Location extends Component {
   }
 
   /**
-   * renders the component
-   * @returns {XML}
+   * Gets the class for the rendered component
+   * @return {string}
    */
-  render() {
-    const { location, index, current, search, template, unit, onClick, style } = this.props;
-    const htmlToReactParser = new HtmlToReactParser();
-
-    const loc = {
-      ...location,
-      Distance: this.getDistance(),
-      DirectionsLink: `http://maps.google.com/maps?saddr=${Location.cleanAddress(search)}&daddr=${this.getDaddr()}`,
-      Unit: unit,
-      Number: index + 1,
-    };
-
-    const id = `loc-${location.ID}`;
-
+  getClassName() {
+    const {
+      index, current,
+    } = this.props;
     let className = 'list-location';
     // if it should be focused
     if (current) {
@@ -100,8 +90,32 @@ class Location extends Component {
     if (index === 0) {
       className += ' first';
     }
+    return className;
+  }
+
+  /**
+   * renders the component
+   * @returns {XML}
+   */
+  render() {
+    const {
+      location, index, search, template, unit, onClick, style,
+    } = this.props;
+    const htmlToReactParser = new HtmlToReactParser();
+
+    const loc = {
+      ...location,
+      Distance: this.getDistance(),
+      DirectionsLink: `http://maps.google.com/maps?saddr=${Location.cleanAddress(search)}&daddr=${this.getDaddr()}`,
+      Unit: unit,
+      Number: index + 1,
+    };
+
+    const id = `loc-${location.ID}`;
+    const className = this.getClassName();
+
     return (
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
       <div
         id={id}
         data-markerid={index}

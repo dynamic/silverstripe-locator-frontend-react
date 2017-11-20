@@ -31,6 +31,13 @@ export class SearchBar extends Component {
     return vars.replace(/([&\s]+$)/g, '').replace(/(\s)/g, '+');
   }
 
+  static getDropdownValue(name) {
+    if (document.getElementsByName(name)[0] !== undefined) {
+      return document.getElementsByName(name)[0].value;
+    }
+    return '';
+  }
+
   /**
    * Used to create the SearchBar.
    * needed to allow use of this keyword in handler.
@@ -50,16 +57,8 @@ export class SearchBar extends Component {
     event.preventDefault();
 
     const address = document.getElementsByName('address')[0].value;
-
-    let radius = '';
-    if (document.getElementsByName('radius')[0] !== undefined) {
-      radius = document.getElementsByName('radius')[0].value;
-    }
-
-    let category = '';
-    if (document.getElementsByName('category')[0] !== undefined) {
-      category = document.getElementsByName('category')[0].value;
-    }
+    const radius = SearchBar.getDropdownValue('radius');
+    const category = SearchBar.getDropdownValue('category');
 
     const params = {
       address,
@@ -70,12 +69,10 @@ export class SearchBar extends Component {
     // selects dispatch and unit from this.props.
     // const dispatch = this.props.dispatch; const unit = this.props.unit;
     const { dispatch, unit } = this.props;
-    dispatch(
-      fetchLocations({
-        ...params,
-        unit,
-      }),
-    );
+    dispatch(fetchLocations({
+      ...params,
+      unit,
+    }));
 
     // changes the url for the window and adds it to the browser history(no redirect)
     const loc = window.location;
@@ -90,7 +87,9 @@ export class SearchBar extends Component {
    * @returns {XML}
    */
   render() {
-    const { address, category, radii, categories, unit } = this.props;
+    const {
+      address, category, radii, categories, unit,
+    } = this.props;
     let { radius } = this.props;
     if (typeof radius === 'string') {
       radius = Number(radius);

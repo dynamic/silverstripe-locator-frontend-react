@@ -20,6 +20,7 @@ engines:
     config:
       languages:
         javascript:
+          mass_threshold: 85
         php:
 
 prepare:
@@ -35,3 +36,6 @@ ratings:
 
 exclude_paths:
   - "client/dist/"
+  # for local
+  - "node_modules/"
+  - "coverage/"
