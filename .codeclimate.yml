@@ -20,7 +20,7 @@ engines:
     config:
       languages:
         javascript:
-          mass_threshold: 50
+          mass_threshold: 85
         php:
 
 prepare:
