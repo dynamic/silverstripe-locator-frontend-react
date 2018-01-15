@@ -2,9 +2,11 @@
 // == Search Form ==
 // =================
 .locator-search {
-  margin: 0;
-  max-width: 100%;
-  width: 100%;
+  margin: 5px 0 0 0;
+
+  @include media-breakpoint-up(sm) {
+    margin: 0;
+  }
 
   .form-group,
   .form-control {
@@ -12,43 +14,74 @@
   }
 
   .fieldset {
-    @include make-row;
+    @include make-row-no-gutter;
     @include make-col-ready;
 
-    .form-group {
-      @include make-col-ready;
+    .filter-button {
+      @include make-col(12);
+
+      button {
+        width: 100%;
+        outline: none;
+      }
     }
 
-    .address-input,
+    .filter {
+      @include make-row-no-gutter;
+      @include make-col-ready-no-gutter;
+      @include make-col(12);
+      padding-top: 5px;
+      overflow: hidden;
+      transition: max-height 0.25s ease-in-out;
+
+      &.closed {
+        max-height: 0;
+      }
+
+      &.open {
+        max-height: 100px;
+      }
+    }
+
+    .address-input {
+      @include make-col(12);
+
+      button {
+        width: auto;
+        max-width: 100%;
+        font-size: 14px;
+        line-height: 1.428;
+        padding: 0 10px;
+      }
+    }
+
     .radius-dropdown,
-    .address-input + .category-dropdown {
+    .category-dropdown {
+      @include make-col-ready-no-gutter;
+      @include make-col(12);
+    }
+
+    .category-dropdown + .radius-dropdown,
+    .category-dropdown {
       @include media-breakpoint-up(md) {
         @include make-col(6);
       }
     }
 
+    .category-dropdown + .radius-dropdown {
+      @include media-breakpoint-up(md) {
+        padding-left: 3px;
+      }
+    }
+
+    .category-dropdown {
+      @include media-breakpoint-up(md) {
+        padding-right: 3px;
+      }
+    }
+
     select {
       max-width: 100%;
-    }
-
-    [type="submit"],
-    [type="reset"] {
-      float: none;
-      width: 100%;
-    }
-  }
-}
-
-.fieldset.actions {
-  justify-content: space-around;
-
-  .form-group {
-    @include media-breakpoint-up(sm) {
-      @include make-col(6);
-    }
-
-    @include media-breakpoint-up(md) {
-      @include make-col(4);
     }
   }
 }

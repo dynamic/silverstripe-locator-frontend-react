@@ -1,38 +1,45 @@
 // ====================
 // == General Layout ==
 // ====================
-.map-area {
+.locator-area {
   @include make-row-no-gutter;
   margin: 0;
   position: relative;
+  flex-direction: column-reverse;
 
   @include media-breakpoint-up(sm) {
-    flex-direction: row-reverse;
+    flex-direction: row;
   }
 
+  .locator-sidebar,
+  .locator-search,
   .loc-list,
   .map-container {
     @include make-col-ready-no-gutter;
     box-sizing: border-box;
   }
 
-  .loc-list {
+  .locator-sidebar {
+    @include make-row-no-gutter;
+    position: relative;
+    flex-direction: column;
+
     @include media-breakpoint-up(sm) {
-      @include make-col(4);
+      @include make-col(6);
     }
 
     @include media-breakpoint-up(md) {
-      @include make-col(3);
+      @include make-col(5);
     }
   }
 
   .map-container {
     @include media-breakpoint-up(sm) {
-      @include make-col(8);
+      @include make-col(6);
     }
 
     @include media-breakpoint-up(md) {
-      @include make-col(9);
+      @include make-col(7);
     }
   }
 }

@@ -5,7 +5,13 @@
 // loc-name is in general
 
 .loc-list {
-  height: 530px;
+  height: auto;
+  height: 300px;
+
+  @include media-breakpoint-up(sm) {
+    flex-grow: 1;
+    height: auto;
+  }
 
   @include media-breakpoint-between(sm, md) {
     .list-label {
