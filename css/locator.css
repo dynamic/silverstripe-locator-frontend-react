@@ -758,6 +758,15 @@ select.form-control-lg:not([size]):not([multiple]),
   max-width: 100%;
 }
 
+@media (min-width: 768px) {
+  .locator-search .fieldset .address-input {
+    -webkit-box-flex: initial;
+            flex: initial;
+    -webkit-box-flex: 1;
+            flex-grow: 1;
+  }
+}
+
 .locator-search .fieldset .radius-dropdown,
 .locator-search .fieldset .category-dropdown {
   position: relative;
@@ -793,6 +802,18 @@ select.form-control-lg:not([size]):not([multiple]),
   max-width: 100%;
 }
 
+.locator-search .always-shown {
+  display: block;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .locator-search .always-shown {
+    display: -webkit-box;
+    display: flex;
+  }
+}
+
 .locator-search .address-input button {
   font-size: 14px;
   line-height: 1.428;
@@ -807,14 +828,33 @@ select.form-control-lg:not([size]):not([multiple]),
   max-width: 100%;
 }
 
+@media (min-width: 768px) {
+  .locator-search .filter-button {
+    -webkit-box-flex: initial;
+            flex: initial;
+    width: auto;
+  }
+}
+
 .locator-search .filter-button button {
+  height: 100%;
   outline: none;
   width: 100%;
 }
 
-.locator-search .filter-button svg[data-prefix="fas"] {
-  width: .75em;
+@media (min-width: 768px) {
+  .locator-search .filter-button button {
+    padding: 0 0 0 12px;
+  }
+}
+
+.locator-search .filter-icon {
   vertical-align: super;
+  width: .75em;
+}
+
+.locator-search .filter-icon.no-show {
+  visibility: hidden;
 }
 
 .locator-search .filter {

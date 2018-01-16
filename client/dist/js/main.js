@@ -800,7 +800,8 @@ var SearchBar = exports.SearchBar = function (_Component) {
 
       var hasFilter = category !== '' || !(radius === '' || radius < 1);
 
-      var filterClasses = this.state.showFilter ? 'filter form-row open' : 'filter form-row closed';
+      var filterIndicatorClass = hasFilter ? 'filter-icon' : 'filter-icon no-show';
+      var filterClasses = this.state.showFilter ? 'filter open' : 'filter closed';
 
       return _react2.default.createElement(
         'form',
@@ -810,40 +811,44 @@ var SearchBar = exports.SearchBar = function (_Component) {
           { className: 'fieldset' },
           _react2.default.createElement(
             'div',
-            { className: 'address-input input-group' },
+            { className: 'always-shown' },
             _react2.default.createElement(
-              'label',
-              { htmlFor: 'address', className: 'sr-only' },
-              'Address or zip code'
+              'div',
+              { className: 'address-input input-group' },
+              _react2.default.createElement(
+                'label',
+                { htmlFor: 'address', className: 'sr-only' },
+                'Address or zip code'
+              ),
+              _react2.default.createElement('input', {
+                type: 'text',
+                name: 'address',
+                className: 'form-control',
+                placeholder: 'address or zip code',
+                defaultValue: address
+              }),
+              _react2.default.createElement(
+                'span',
+                { className: 'input-group-btn' },
+                _react2.default.createElement(
+                  'button',
+                  _defineProperty({
+                    className: 'btn btn-secondary',
+                    type: 'button'
+                  }, 'type', 'submit'),
+                  _react2.default.createElement(_reactFontawesome2.default, { icon: _fontawesomeFreeSolid.faSearch })
+                )
+              )
             ),
-            _react2.default.createElement('input', {
-              type: 'text',
-              name: 'address',
-              className: 'form-control',
-              placeholder: 'address or zip code',
-              defaultValue: address
-            }),
             _react2.default.createElement(
-              'span',
-              { className: 'input-group-btn' },
+              'div',
+              { className: 'filter-button' },
               _react2.default.createElement(
                 'button',
-                _defineProperty({
-                  className: 'btn btn-secondary',
-                  type: 'button'
-                }, 'type', 'submit'),
-                _react2.default.createElement(_reactFontawesome2.default, { icon: _fontawesomeFreeSolid.faSearch })
+                { type: 'button', className: 'btn btn-link', onClick: this.handleFilter },
+                'Filter',
+                _react2.default.createElement(_reactFontawesome2.default, { icon: _fontawesomeFreeSolid.faCheckCircle, className: filterIndicatorClass })
               )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'filter-button' },
-            _react2.default.createElement(
-              'button',
-              { type: 'button', className: 'btn btn-link', onClick: this.handleFilter },
-              'Filter',
-              hasFilter && _react2.default.createElement(_reactFontawesome2.default, { icon: _fontawesomeFreeSolid.faCheckCircle })
             )
           ),
           _react2.default.createElement(

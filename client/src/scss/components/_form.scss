@@ -19,6 +19,11 @@
 
     .address-input {
       @include make-col(12);
+
+      @include media-breakpoint-up(md) {
+        flex: initial;
+        flex-grow: 1;
+      }
     }
 
     .radius-dropdown,
@@ -51,6 +56,15 @@
     }
   }
 
+  .always-shown {
+    display: block;
+    width: 100%;
+
+    @include media-breakpoint-up(md) {
+      display: flex;
+    }
+  }
+
   .address-input button {
     font-size: 14px;
     line-height: 1.428;
@@ -61,15 +75,28 @@
 
   .filter-button {
     @include make-col(12);
+    @include media-breakpoint-up(md) {
+      flex: initial;
+      width: auto;
+    }
 
     button {
+      height: 100%;
       outline: none;
       width: 100%;
+
+      @include media-breakpoint-up(md) {
+        padding: 0 0 0 12px;
+      }
     }
-    
-    svg[data-prefix="fas"] {
-      width: .75em;
-      vertical-align: super;
+  }
+
+  .filter-icon {
+    vertical-align: super;
+    width: .75em;
+
+    &.no-show {
+      visibility: hidden;
     }
   }
 

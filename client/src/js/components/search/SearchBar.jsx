@@ -120,32 +120,35 @@ export class SearchBar extends Component {
 
     const hasFilter = category !== '' || !(radius === '' || radius < 1);
 
-    let filterClasses = this.state.showFilter ? 'filter form-row open' : 'filter form-row closed';
+    const filterIndicatorClass = hasFilter ? 'filter-icon' : 'filter-icon no-show';
+    const filterClasses = this.state.showFilter ? 'filter open' : 'filter closed';
 
     return (
       <form onSubmit={this.handleSubmit} className="locator-search">
         {/* not a fieldset because no flexbox */}
         <div className="fieldset">
-          <div className="address-input input-group">
-            <label htmlFor="address" className="sr-only">Address or zip code</label>
-            <input
-              type="text"
-              name="address"
-              className="form-control"
-              placeholder="address or zip code"
-              defaultValue={address}
-            />
-            <span className="input-group-btn">
-              <button
-                className="btn btn-secondary"
-                type="button"
-                type="submit"><FontAwesomeIcon icon={faSearch} /></button>
-            </span>
-          </div>
-          <div className="filter-button">
-            <button type="button" className="btn btn-link" onClick={this.handleFilter}>Filter{hasFilter &&
-              <FontAwesomeIcon icon={faCheckCircle}/>
-            }</button>
+          <div className="always-shown">
+            <div className="address-input input-group">
+              <label htmlFor="address" className="sr-only">Address or zip code</label>
+              <input
+                type="text"
+                name="address"
+                className="form-control"
+                placeholder="address or zip code"
+                defaultValue={address}
+              />
+              <span className="input-group-btn">
+                <button
+                  className="btn btn-secondary"
+                  type="button"
+                  type="submit"><FontAwesomeIcon icon={faSearch} /></button>
+              </span>
+            </div>
+            <div className="filter-button">
+              <button type="button" className="btn btn-link" onClick={this.handleFilter}>Filter
+                <FontAwesomeIcon icon={faCheckCircle} className={filterIndicatorClass}/>
+              </button>
+            </div>
           </div>
           <div className={filterClasses}>
             <CategoryDropDown categories={categories} category={category} />
