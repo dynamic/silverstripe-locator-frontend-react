@@ -812,6 +812,11 @@ select.form-control-lg:not([size]):not([multiple]),
   width: 100%;
 }
 
+.locator-search .filter-button svg[data-prefix="fas"] {
+  width: .75em;
+  vertical-align: super;
+}
+
 .locator-search .filter {
   display: -webkit-box;
   display: flex;

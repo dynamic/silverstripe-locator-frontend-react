@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/fontawesome-free-solid';
+import { faSearch, faCheckCircle } from '@fortawesome/fontawesome-free-solid';
 
 import { fetchLocations } from 'actions/locationActions';
+import { search } from 'actions/searchActions';
 import RadiusDropDown from 'components/search/RadiusDropDown';
 import CategoryDropDown from 'components/search/CategoryDropDown';
 
@@ -47,6 +48,7 @@ export class SearchBar extends Component {
    */
   constructor(props) {
     super(props);
+    // this is in state because only this uses it.
     this.state = {
       showFilter: false,
     };
@@ -75,6 +77,15 @@ export class SearchBar extends Component {
     // selects dispatch and unit from this.props.
     // const dispatch = this.props.dispatch; const unit = this.props.unit;
     const { dispatch, unit } = this.props;
+
+    // dispatches search (updates search values)
+    dispatch(search({
+      address,
+      radius,
+      category,
+    }));
+
+    // dispatches fetch locations (gets the locations)
     dispatch(fetchLocations({
       ...params,
       unit,
@@ -107,13 +118,15 @@ export class SearchBar extends Component {
       radius = Number(radius);
     }
 
+    const hasFilter = category !== '' || !(radius === '' || radius < 1);
+
     let filterClasses = this.state.showFilter ? 'filter form-row open' : 'filter form-row closed';
 
     return (
       <form onSubmit={this.handleSubmit} className="locator-search">
         {/* not a fieldset because no flexbox */}
         <div className="fieldset">
-          <div class="address-input input-group">
+          <div className="address-input input-group">
             <label htmlFor="address" className="sr-only">Address or zip code</label>
             <input
               type="text"
@@ -122,15 +135,17 @@ export class SearchBar extends Component {
               placeholder="address or zip code"
               defaultValue={address}
             />
-            <span class="input-group-btn">
+            <span className="input-group-btn">
               <button
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 type="button"
                 type="submit"><FontAwesomeIcon icon={faSearch} /></button>
             </span>
           </div>
           <div className="filter-button">
-            <button type="button" className="btn btn-link" onClick={this.handleFilter}>Filter</button>
+            <button type="button" className="btn btn-link" onClick={this.handleFilter}>Filter{hasFilter &&
+              <FontAwesomeIcon icon={faCheckCircle}/>
+            }</button>
           </div>
           <div className={filterClasses}>
             <CategoryDropDown categories={categories} category={category} />
