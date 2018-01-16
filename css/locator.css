@@ -727,7 +727,7 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 .locator-search {
-  margin: 5px 0 0 0;
+  margin-top: 5px;
 }
 
 @media (min-width: 576px) {
@@ -759,11 +759,11 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 .locator-search .fieldset .address-input button {
-  width: auto;
-  max-width: 100%;
   font-size: 14px;
   line-height: 1.428;
+  max-width: 100%;
   padding: 0 10px;
+  width: auto;
 }
 
 .locator-search .fieldset .radius-dropdown,
