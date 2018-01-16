@@ -650,11 +650,11 @@ select.form-control-lg:not([size]):not([multiple]),
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
-  margin: 0;
-  position: relative;
   -webkit-box-orient: vertical;
   -webkit-box-direction: reverse;
           flex-direction: column-reverse;
+  margin: 0;
+  position: relative;
 }
 
 @media (min-width: 576px) {
@@ -679,10 +679,10 @@ select.form-control-lg:not([size]):not([multiple]),
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
-  position: relative;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
+  position: relative;
 }
 
 @media (min-width: 576px) {
@@ -752,40 +752,6 @@ select.form-control-lg:not([size]):not([multiple]),
   padding-left: 15px;
 }
 
-.locator-search .fieldset .filter-button {
-  -webkit-box-flex: 0;
-          flex: 0 0 100%;
-  max-width: 100%;
-}
-
-.locator-search .fieldset .filter-button button {
-  width: 100%;
-  outline: none;
-}
-
-.locator-search .fieldset .filter {
-  display: -webkit-box;
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-  width: 100%;
-  min-height: 1px;
-  -webkit-box-flex: 0;
-          flex: 0 0 100%;
-  max-width: 100%;
-  padding-top: 5px;
-  overflow: hidden;
-  transition: max-height 0.25s ease-in-out;
-}
-
-.locator-search .fieldset .filter.closed {
-  max-height: 0;
-}
-
-.locator-search .fieldset .filter.open {
-  max-height: 100px;
-}
-
 .locator-search .fieldset .address-input {
   -webkit-box-flex: 0;
           flex: 0 0 100%;
@@ -835,6 +801,40 @@ select.form-control-lg:not([size]):not([multiple]),
   max-width: 100%;
 }
 
+.locator-search .filter-button {
+  -webkit-box-flex: 0;
+          flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.locator-search .filter-button button {
+  outline: none;
+  width: 100%;
+}
+
+.locator-search .filter {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  -webkit-box-flex: 0;
+          flex: 0 0 100%;
+  max-width: 100%;
+  overflow: hidden;
+  padding-top: 5px;
+  transition: max-height .25s ease-in-out;
+}
+
+.locator-search .filter.closed {
+  max-height: 0;
+}
+
+.locator-search .filter.open {
+  max-height: 100px;
+}
+
 .map-container a {
   color: #e76737;
   text-decoration: none;
@@ -870,7 +870,6 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 .loc-list {
-  height: auto;
   height: 300px;
 }
 

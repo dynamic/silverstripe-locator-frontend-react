@@ -17,32 +17,6 @@
     @include make-row-no-gutter;
     @include make-col-ready;
 
-    .filter-button {
-      @include make-col(12);
-
-      button {
-        width: 100%;
-        outline: none;
-      }
-    }
-
-    .filter {
-      @include make-row-no-gutter;
-      @include make-col-ready-no-gutter;
-      @include make-col(12);
-      padding-top: 5px;
-      overflow: hidden;
-      transition: max-height 0.25s ease-in-out;
-
-      &.closed {
-        max-height: 0;
-      }
-
-      &.open {
-        max-height: 100px;
-      }
-    }
-
     .address-input {
       @include make-col(12);
 
@@ -82,6 +56,32 @@
 
     select {
       max-width: 100%;
+    }
+  }
+
+  .filter-button {
+    @include make-col(12);
+
+    button {
+      outline: none;
+      width: 100%;
+    }
+  }
+
+  .filter {
+    @include make-row-no-gutter;
+    @include make-col-ready-no-gutter;
+    @include make-col(12);
+    overflow: hidden;
+    padding-top: 5px;
+    transition: max-height .25s ease-in-out;
+
+    &.closed {
+      max-height: 0;
+    }
+
+    &.open {
+      max-height: 100px;
     }
   }
 }

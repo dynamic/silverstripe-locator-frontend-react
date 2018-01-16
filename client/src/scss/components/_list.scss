@@ -5,7 +5,6 @@
 // loc-name is in general
 
 .loc-list {
-  height: auto;
   height: 300px;
 
   @include media-breakpoint-up(sm) {

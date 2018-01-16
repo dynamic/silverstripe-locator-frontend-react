@@ -3,9 +3,9 @@
 // ====================
 .locator-area {
   @include make-row-no-gutter;
+  flex-direction: column-reverse;
   margin: 0;
   position: relative;
-  flex-direction: column-reverse;
 
   @include media-breakpoint-up(sm) {
     flex-direction: row;
@@ -21,8 +21,8 @@
 
   .locator-sidebar {
     @include make-row-no-gutter;
-    position: relative;
     flex-direction: column;
+    position: relative;
 
     @include media-breakpoint-up(sm) {
       @include make-col(6);
