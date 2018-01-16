@@ -21,14 +21,6 @@
       @include make-col(12);
     }
 
-    .address-input button {
-      font-size: 14px;
-      line-height: 1.428;
-      max-width: 100%;
-      padding: 0 10px;
-      width: auto;
-    }
-
     .radius-dropdown,
     .category-dropdown {
       @include make-col-ready-no-gutter;
@@ -57,6 +49,14 @@
     select {
       max-width: 100%;
     }
+  }
+
+  .address-input button {
+    font-size: 14px;
+    line-height: 1.428;
+    max-width: 100%;
+    padding: 0 10px;
+    width: auto;
   }
 
   .filter-button {

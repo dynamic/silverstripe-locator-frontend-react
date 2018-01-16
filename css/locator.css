@@ -758,14 +758,6 @@ select.form-control-lg:not([size]):not([multiple]),
   max-width: 100%;
 }
 
-.locator-search .fieldset .address-input button {
-  font-size: 14px;
-  line-height: 1.428;
-  max-width: 100%;
-  padding: 0 10px;
-  width: auto;
-}
-
 .locator-search .fieldset .radius-dropdown,
 .locator-search .fieldset .category-dropdown {
   position: relative;
@@ -799,6 +791,14 @@ select.form-control-lg:not([size]):not([multiple]),
 
 .locator-search .fieldset select {
   max-width: 100%;
+}
+
+.locator-search .address-input button {
+  font-size: 14px;
+  line-height: 1.428;
+  max-width: 100%;
+  padding: 0 10px;
+  width: auto;
 }
 
 .locator-search .filter-button {
