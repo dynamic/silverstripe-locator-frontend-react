@@ -651,21 +651,18 @@ select.form-control-lg:not([size]):not([multiple]),
   display: flex;
   flex-wrap: wrap;
   -webkit-box-orient: vertical;
-  -webkit-box-direction: reverse;
-          flex-direction: column-reverse;
+  -webkit-box-direction: normal;
+          flex-direction: column;
   margin: 0;
   position: relative;
 }
 
 @media (min-width: 576px) {
   .locator-area {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-            flex-direction: row;
+    height: 530px;
   }
 }
 
-.locator-area .locator-sidebar,
 .locator-area .locator-search,
 .locator-area .loc-list,
 .locator-area .map-container {
@@ -675,44 +672,52 @@ select.form-control-lg:not([size]):not([multiple]),
   box-sizing: border-box;
 }
 
-.locator-area .locator-sidebar {
-  display: -webkit-box;
-  display: flex;
-  flex-wrap: wrap;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-          flex-direction: column;
-  position: relative;
+.locator-area .locator-search {
+  -webkit-box-ordinal-group: 2;
+          order: 1;
+}
+
+.locator-area .loc-list {
+  -webkit-box-ordinal-group: 4;
+          order: 3;
 }
 
 @media (min-width: 576px) {
-  .locator-area .locator-sidebar {
-    -webkit-box-flex: 0;
-            flex: 0 0 50%;
+  .locator-area .loc-list {
+    -webkit-box-ordinal-group: 3;
+            order: 2;
+  }
+}
+
+@media (min-width: 576px) {
+  .locator-area .locator-search,
+  .locator-area .loc-list {
     max-width: 50%;
   }
 }
 
-@media (min-width: 768px) {
-  .locator-area .locator-sidebar {
-    -webkit-box-flex: 0;
-            flex: 0 0 41.66667%;
+@media (min-width: 992px) {
+  .locator-area .locator-search,
+  .locator-area .loc-list {
     max-width: 41.66667%;
   }
 }
 
+.locator-area .map-container {
+  -webkit-box-ordinal-group: 3;
+          order: 2;
+}
+
 @media (min-width: 576px) {
   .locator-area .map-container {
-    -webkit-box-flex: 0;
-            flex: 0 0 50%;
     max-width: 50%;
+    -webkit-box-ordinal-group: 4;
+            order: 3;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .locator-area .map-container {
-    -webkit-box-flex: 0;
-            flex: 0 0 58.33333%;
     max-width: 58.33333%;
   }
 }

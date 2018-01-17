@@ -562,12 +562,8 @@ var Locator = exports.Locator = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'locator-area' },
-        _react2.default.createElement(
-          'div',
-          { className: 'locator-sidebar' },
-          _react2.default.createElement(_SearchBar2.default, null),
-          _react2.default.createElement(_List2.default, null)
-        ),
+        _react2.default.createElement(_SearchBar2.default, null),
+        _react2.default.createElement(_List2.default, null),
         _react2.default.createElement(_MapContainer2.default, null),
         _react2.default.createElement(_Loading2.default, null)
       );

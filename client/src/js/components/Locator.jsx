@@ -58,10 +58,8 @@ export class Locator extends Component {
     }
     return (
       <div className="locator-area">
-        <div className="locator-sidebar">
-          <Search />
-          <List />
-        </div>
+        <Search />
+        <List />
         <MapContainer />
         <Loading />
       </div>

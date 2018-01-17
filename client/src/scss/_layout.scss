@@ -3,15 +3,15 @@
 // ====================
 .locator-area {
   @include make-row-no-gutter;
-  flex-direction: column-reverse;
+  flex-direction: column;
   margin: 0;
   position: relative;
 
   @include media-breakpoint-up(sm) {
-    flex-direction: row;
+    // needed so columns wrap the right way
+    height: $map-height;
   }
 
-  .locator-sidebar,
   .locator-search,
   .loc-list,
   .map-container {
@@ -19,27 +19,39 @@
     box-sizing: border-box;
   }
 
-  .locator-sidebar {
-    @include make-row-no-gutter;
-    flex-direction: column;
-    position: relative;
+  .locator-search {
+    order: 1;
+  }
+
+  .loc-list {
+    order: 3;
 
     @include media-breakpoint-up(sm) {
-      @include make-col(6);
+      order: 2;
+    }
+  }
+
+  .locator-search,
+  .loc-list {
+    @include media-breakpoint-up(sm) {
+      max-width: 50%;
     }
 
-    @include media-breakpoint-up(md) {
-      @include make-col(5);
+    @include media-breakpoint-up(lg) {
+      max-width: ((5 / 12) * 100%);
     }
   }
 
   .map-container {
+    order: 2;
+
     @include media-breakpoint-up(sm) {
-      @include make-col(6);
+      max-width: 50%;
+      order: 3;
     }
 
-    @include media-breakpoint-up(md) {
-      @include make-col(7);
+    @include media-breakpoint-up(lg) {
+      max-width: ((7 / 12) * 100%);
     }
   }
 }
