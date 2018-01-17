@@ -5,7 +5,7 @@
 // loc-name is in general
 
 .loc-list {
-  height: 300px;
+  height: $list-height;
 
   @include media-breakpoint-up(sm) {
     flex-grow: 1;

@@ -23,6 +23,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function fetchLocations(params) {
   var loc = window.location;
+
+  if (params.address === '') {
+    delete params.address;
+  }
+
+  if (params.radius === -1) {
+    delete params.radius;
+  }
+
+  if (params.category === '') {
+    delete params.category;
+  }
+
   return {
     type: _ActionTypes2.default.FETCH_LOCATIONS,
     payload: _axios2.default.get(loc.protocol + '//' + loc.host + loc.pathname + '/json', {

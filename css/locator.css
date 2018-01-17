@@ -920,7 +920,7 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 .loc-list {
-  height: 300px;
+  height: 530px;
 }
 
 @media (min-width: 576px) {
