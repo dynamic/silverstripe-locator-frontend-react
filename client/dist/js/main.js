@@ -335,11 +335,13 @@ function reducer() {
       });
 
     case _ActionTypes2.default.FETCH_LOCATIONS_SUCCESS:
-      var center = action.payload.data.center !== undefined ? action.payload.data.center : defaultState.center;
-      return _extends({}, state, {
-        isLoading: false,
-        center: center
-      });
+      {
+        var center = action.payload !== undefined && action.payload.data.center !== undefined ? action.payload.data.center : defaultState.center;
+        return _extends({}, state, {
+          isLoading: false,
+          center: center
+        });
+      }
 
     default:
       return state;

@@ -30,7 +30,8 @@ class LocatorControllerExtension extends Extension
         $limit = $this->owner->getLimit();
         $defaultLat = $this->owner->DefaultLat;
         $defaultLng = $this->owner->DefaultLng;
-        $clusters = $this->owner->Clusters;
+        // otherwise this is 0 or 1
+        $clusters = $this->owner->Clusters ? 'true' : 'false';
         $infoWindowTemplate = $this->owner->getInfoWindowTemplate();
         $listTemplate = $this->owner->getListTemplate();
 
