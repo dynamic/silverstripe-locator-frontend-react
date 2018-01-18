@@ -13,7 +13,7 @@ test('Map reducer has a default state', () => {
     isLoading: true,
     center: {
       Lat: 91,
-      Lng: 181
+      Lng: 181,
     },
   });
 });
@@ -33,7 +33,7 @@ test('Map reducer has a valid clicked state', () => {
     showCurrent: true,
     center: {
       Lat: 91,
-      Lng: 181
+      Lng: 181,
     },
   });
 });
@@ -64,7 +64,7 @@ test('Map reducer has a valid search state', () => {
     isLoading: true,
     center: {
       Lat: 91,
-      Lng: 181
+      Lng: 181,
     },
   });
 });

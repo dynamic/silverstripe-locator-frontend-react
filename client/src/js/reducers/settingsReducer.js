@@ -32,7 +32,7 @@ function settings() {
     defaultCenter: {
       lat: dynamic_locator.defaultCenter.lat,
       lng: dynamic_locator.defaultCenter.lng,
-    }
+    },
   };
 }
 

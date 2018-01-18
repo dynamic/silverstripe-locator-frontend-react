@@ -33,5 +33,4 @@ class LocatorExtension extends DataExtension
                 ->setRightTitle('Cluster the markers when zoomed out.'),
         ]);
     }
-
 }

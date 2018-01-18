@@ -9,7 +9,7 @@ const defaultState = {
   center: {
     Lat: 91.0,
     Lng: 181.0,
-  }
+  },
 };
 
 export default function reducer(state = defaultState, action) {
@@ -40,7 +40,7 @@ export default function reducer(state = defaultState, action) {
         isLoading: true,
       };
 
-    case ActionType.FETCH_LOCATIONS_SUCCESS:
+    case ActionType.FETCH_LOCATIONS_SUCCESS: {
       const center = action.payload !== undefined && action.payload.data.center !== undefined ?
         action.payload.data.center :
         defaultState.center;
@@ -49,6 +49,7 @@ export default function reducer(state = defaultState, action) {
         isLoading: false,
         center,
       };
+    }
 
     default:
       return state;
