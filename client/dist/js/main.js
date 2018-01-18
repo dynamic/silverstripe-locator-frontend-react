@@ -299,7 +299,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var defaultState = {
   current: -1,
   showCurrent: false,
-  isLoading: true
+  isLoading: true,
+
+  center: {
+    Lat: 91.0,
+    Lng: 181.0
+  }
 };
 
 function reducer() {
@@ -330,8 +335,10 @@ function reducer() {
       });
 
     case _ActionTypes2.default.FETCH_LOCATIONS_SUCCESS:
+      var center = action.payload.data.center !== undefined ? action.payload.data.center : defaultState.center;
       return _extends({}, state, {
-        isLoading: false
+        isLoading: false,
+        center: center
       });
 
     default:
@@ -373,7 +380,12 @@ var defaultState = {
   infoWindowTemplate: null,
   listTemplate: null,
 
-  unit: 'm'
+  unit: 'm',
+
+  defaultCenter: {
+    lat: 0,
+    lng: 0
+  }
 };
 
 function settings() {
@@ -382,7 +394,11 @@ function settings() {
     clusters: dynamic_locator.clusters,
     limit: dynamic_locator.limit,
     radii: dynamic_locator.radii,
-    categories: dynamic_locator.categories
+    categories: dynamic_locator.categories,
+    defaultCenter: {
+      lat: dynamic_locator.defaultCenter.lat,
+      lng: dynamic_locator.defaultCenter.lng
+    }
   };
 }
 
@@ -1275,7 +1291,9 @@ var MapContainer = exports.MapContainer = function (_Component) {
       var _props2 = this.props,
           current = _props2.current,
           showCurrent = _props2.showCurrent,
-          clusters = _props2.clusters;
+          clusters = _props2.clusters,
+          center = _props2.center,
+          defaultCenter = _props2.defaultCenter;
 
       return _react2.default.createElement(
         'div',
@@ -1288,7 +1306,9 @@ var MapContainer = exports.MapContainer = function (_Component) {
           onMarkerClose: this.handleMarkerClose,
           current: current,
           showCurrent: showCurrent,
-          clusters: clusters
+          clusters: clusters,
+          center: center,
+          defaultCenter: defaultCenter
         })
       );
     }
@@ -1303,7 +1323,15 @@ MapContainer.propTypes = {
   current: _propTypes2.default.number.isRequired,
   showCurrent: _propTypes2.default.bool.isRequired,
   clusters: _propTypes2.default.bool.isRequired,
-  template: _propTypes2.default.func.isRequired
+  template: _propTypes2.default.func.isRequired,
+  center: _propTypes2.default.shape({
+    Lat: _propTypes2.default.number.isRequired,
+    Lng: _propTypes2.default.number.isRequired
+  }).isRequired,
+  defaultCenter: _propTypes2.default.shape({
+    lat: _propTypes2.default.number.isRequired,
+    lng: _propTypes2.default.number.isRequired
+  }).isRequired
 };
 
 MapContainer.defaultProps = {
@@ -1316,7 +1344,9 @@ function mapStateToProps(state) {
     showCurrent: state.map.showCurrent,
     clusters: state.settings.clusters,
     template: state.settings.infoWindowTemplate,
-    locations: state.locations.locations
+    locations: state.locations.locations,
+    center: state.map.center,
+    defaultCenter: state.settings.defaultCenter
   };
 }
 
@@ -1333,6 +1363,9 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(MapContainer);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.markers = markers;
 exports.Map = Map;
 
@@ -1380,13 +1413,19 @@ function markers(props) {
 }
 
 function Map(props) {
+  var opts = {};
+  if (props.center.Lat !== 91 && props.center.Lng !== 181) {
+    opts.center = {
+      lat: props.center.Lat,
+      lng: props.center.Lng
+    };
+  }
   return _react2.default.createElement(
     _reactGoogleMaps.GoogleMap,
-    {
+    _extends({
       defaultZoom: 9,
-      defaultCenter: { lat: 43.8483258, lng: -87.7709294 }
-
-    },
+      defaultCenter: { lat: props.defaultCenter.lat, lng: props.defaultCenter.lng }
+    }, opts),
     props.clusters === true ? _react2.default.createElement(
       _MarkerClusterer2.default,
       {
@@ -1400,7 +1439,15 @@ function Map(props) {
 }
 
 Map.propTypes = {
-  clusters: _propTypes2.default.bool.isRequired
+  clusters: _propTypes2.default.bool.isRequired,
+  center: _propTypes2.default.shape({
+    Lat: _propTypes2.default.number.isRequired,
+    Lng: _propTypes2.default.number.isRequired
+  }).isRequired,
+  defaultCenter: _propTypes2.default.shape({
+    Lat: _propTypes2.default.number.isRequired,
+    Lng: _propTypes2.default.number.isRequired
+  }).isRequired
 };
 
 exports.default = (0, _reactGoogleMaps.withGoogleMap)(Map);

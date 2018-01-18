@@ -28,8 +28,9 @@ class LocatorControllerExtension extends Extension
 
         $unit = $this->owner->Unit ?: 'm';
         $limit = $this->owner->getLimit();
-        // 'clusters' => $this->owner->getClusters();
-        $clusters = 'false';
+        $defaultLat = $this->owner->DefaultLat;
+        $defaultLng = $this->owner->DefaultLng;
+        $clusters = $this->owner->Clusters;
         $infoWindowTemplate = $this->owner->getInfoWindowTemplate();
         $listTemplate = $this->owner->getListTemplate();
 
@@ -41,7 +42,11 @@ class LocatorControllerExtension extends Extension
                 'limit': {$limit},
                 'clusters': {$clusters},
                 'infoWindowTemplatePath': '{$infoWindowTemplate}',
-                'listTemplatePath': '{$listTemplate}'
+                'listTemplatePath': '{$listTemplate}',
+                'defaultCenter': {
+                    'lat': {$defaultLat},
+                    'lng': {$defaultLng}
+                }
             };
         ", 'react-locator');
     }

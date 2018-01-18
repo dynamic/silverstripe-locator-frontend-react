@@ -24,6 +24,10 @@ test('Settings reducer has a default state', () => {
     loadedSettings: false,
     loadedWindowTemplate: false,
     unit: 'm',
+    defaultCenter: {
+      lat: 0,
+      lng: 0,
+    },
   });
 });
 
@@ -41,6 +45,10 @@ test('Settings reducer has a valid state when a fetch info window action is call
     listTemplatePath: '',
     infoWindowTemplate: '',
     infoWindowTemplatePath: '',
+    defaultCenter: {
+      lat: 0,
+      lng: 0,
+    },
   };
 
   // so settings are loaded
@@ -63,6 +71,10 @@ test('Settings reducer has a valid state when a fetch info window action is call
     loadedWindowTemplate: true,
     radii: [],
     unit: 'm',
+    defaultCenter: {
+      lat: 0,
+      lng: 0,
+    },
   });
 });
 
@@ -80,6 +92,10 @@ test('Settings reducer has a valid state when a fetch list action is called', ()
     listTemplatePath: '',
     infoWindowTemplate: '',
     infoWindowTemplatePath: '',
+    defaultCenter: {
+      lat: 0,
+      lng: 0,
+    },
   };
 
   // so settings are loaded
@@ -104,5 +120,9 @@ test('Settings reducer has a valid state when a fetch list action is called', ()
     loadedWindowTemplate: true,
     radii: [],
     unit: 'm',
+    defaultCenter: {
+      lat: 0,
+      lng: 0,
+    },
   });
 });

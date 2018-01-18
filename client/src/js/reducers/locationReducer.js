@@ -1,7 +1,7 @@
 import ActionType from 'actions/ActionTypes';
 
 const defaultState = {
-  locations: [],
+  locations: []
 };
 
 export default function reducer(state = defaultState, action) {

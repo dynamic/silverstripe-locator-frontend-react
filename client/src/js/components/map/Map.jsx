@@ -34,11 +34,19 @@ export function markers(props) {
  * @constructor
  */
 export function Map(props) {
+  // we don't want a center if it is invalid
+  const opts = {};
+  if (props.center.Lat !== 91 && props.center.Lng !== 181) {
+    opts.center = {
+      lat: props.center.Lat,
+      lng: props.center.Lng,
+    }
+  }
   return (
     <GoogleMap
       defaultZoom={9}
-      defaultCenter={{ lat: 43.8483258, lng: -87.7709294 }}
-
+      defaultCenter={{ lat: props.defaultCenter.lat, lng: props.defaultCenter.lng }}
+      {...opts}
     >
       {props.clusters === true ? <MarkerClusterer
         averageCenter
@@ -54,6 +62,14 @@ export function Map(props) {
 
 Map.propTypes = {
   clusters: PropTypes.bool.isRequired,
+  center: PropTypes.shape({
+    Lat: PropTypes.number.isRequired,
+    Lng: PropTypes.number.isRequired,
+  }).isRequired,
+  defaultCenter: PropTypes.shape({
+    Lat: PropTypes.number.isRequired,
+    Lng: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default withGoogleMap(Map);

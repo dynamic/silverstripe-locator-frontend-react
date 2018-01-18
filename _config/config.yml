@@ -10,6 +10,8 @@ Dynamic\Locator\Locator:
   listTemplate: 'dynamic/silverstripe-locator-react: client/location-list-description.html'
   radius_var: 'radius'
   category_var: 'category'
+  extensions:
+    - Dynamic\Locator\React\Extensions\LocatorExtension
 
 Dynamic\Locator\LocatorController:
   extensions:

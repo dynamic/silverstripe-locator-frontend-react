@@ -11,6 +11,10 @@ test('Map reducer has a default state', () => {
     current: -1,
     showCurrent: false,
     isLoading: true,
+    center: {
+      Lat: 91,
+      Lng: 181
+    },
   });
 });
 
@@ -27,13 +31,17 @@ test('Map reducer has a valid clicked state', () => {
     current: 1,
     isLoading: true,
     showCurrent: true,
+    center: {
+      Lat: 91,
+      Lng: 181
+    },
   });
 });
 
 /**
  * Tests the MARKER_CLICK state
  */
-test('Location reducer has a valid closed state', () => {
+test('Map reducer has a valid closed state', () => {
   expect(reducer({
     current: 1,
   }, {
@@ -47,20 +55,24 @@ test('Location reducer has a valid closed state', () => {
 /**
  * Tests the SEARCH state
  */
-test('Location reducer has a valid search state', () => {
+test('Map reducer has a valid search state', () => {
   expect(reducer(undefined, {
     type: ActionType.SEARCH,
   })).toEqual({
     current: -1,
     showCurrent: false,
     isLoading: true,
+    center: {
+      Lat: 91,
+      Lng: 181
+    },
   });
 });
 
 /**
  * Tests the FETCH_LOCATIONS_LOADING state
  */
-test('Location reducer has a valid loading state', () => {
+test('Map reducer has a valid loading state', () => {
   expect(reducer({
     current: -1,
     showCurrent: false,
@@ -77,12 +89,16 @@ test('Location reducer has a valid loading state', () => {
 /**
  * Tests the FETCH_LOCATIONS_SUCCESS state
  */
-test('Location reducer has a valid success state', () => {
+test('Map reducer has a valid success state', () => {
   expect(reducer(undefined, {
     type: ActionType.FETCH_LOCATIONS_SUCCESS,
   })).toEqual({
     current: -1,
     showCurrent: false,
     isLoading: false,
+    center: {
+      Lat: 91,
+      Lng: 181,
+    },
   });
 });

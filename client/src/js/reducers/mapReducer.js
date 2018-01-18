@@ -4,6 +4,12 @@ const defaultState = {
   current: -1,
   showCurrent: false,
   isLoading: true,
+  // center is invalid, can't be shown on map
+  // see the Map component (Map.jsx)
+  center: {
+    Lat: 91.0,
+    Lng: 181.0,
+  }
 };
 
 export default function reducer(state = defaultState, action) {
@@ -35,9 +41,13 @@ export default function reducer(state = defaultState, action) {
       };
 
     case ActionType.FETCH_LOCATIONS_SUCCESS:
+      const center = action.payload !== undefined && action.payload.data.center !== undefined ?
+        action.payload.data.center :
+        defaultState.center;
       return {
         ...state,
         isLoading: false,
+        center,
       };
 
     default:
