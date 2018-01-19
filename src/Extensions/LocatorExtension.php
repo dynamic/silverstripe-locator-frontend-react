@@ -18,6 +18,7 @@ class LocatorExtension extends DataExtension
         'DefaultLat' => 'Decimal(10,7)',
         'DefaultLng' => 'Decimal(10,7)',
         'Clusters' => 'Boolean',
+        'Autocomplete' => 'Boolean',
     ];
 
     public function updateCMSFields(FieldList $fields)
@@ -31,6 +32,8 @@ class LocatorExtension extends DataExtension
                 ->setScale(7),
             CheckboxField::create('Clusters')
                 ->setRightTitle('Cluster the markers when zoomed out.'),
+            CheckboxField::create('Autocomplete')
+                ->setRightTitle('Address field will suggest locations')
         ]);
     }
 }

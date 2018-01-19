@@ -39,6 +39,7 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.1.1",
     "react-google-maps": "^9.2.2",
+    "react-places-autocomplete": "^6.0.2",
     "react-redux": "^5.0.6",
     "react-virtualized": "^9.12.0",
     "redux": "^3.7.2",

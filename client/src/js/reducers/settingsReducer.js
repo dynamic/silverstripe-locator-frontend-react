@@ -16,6 +16,7 @@ const defaultState = {
     lat: 0,
     lng: 0,
   },
+  autocomplete: false,
 };
 
 /**
@@ -33,6 +34,7 @@ function settings() {
       lat: dynamic_locator.defaultCenter.lat,
       lng: dynamic_locator.defaultCenter.lng,
     },
+    autocomplete: dynamic_locator.autocomplete,
   };
 }
 

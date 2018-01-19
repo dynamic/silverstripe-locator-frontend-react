@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faSearch, faCheckCircle } from '@fortawesome/fontawesome-free-solid';
+import PlacesAutocomplete from 'react-places-autocomplete';
 
 import { fetchLocations } from 'actions/locationActions';
 import { search } from 'actions/searchActions';
@@ -48,12 +49,13 @@ export class SearchBar extends Component {
    */
   constructor(props) {
     super(props);
-    // this is in state because only this uses it.
-    this.state = {
-      showFilter: false,
-    };
+
+    this.showFilter = false;
+    this.searchAddress = props.address;
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
+    this.handleAddressChange = this.handleAddressChange.bind(this);
   }
 
 
@@ -61,8 +63,13 @@ export class SearchBar extends Component {
    * 'Submits' form. Really just fires state change and changes the url.
    */
   handleSubmit(event) {
-    // stops the submit from reloading
-    event.preventDefault();
+    if (typeof event === 'string' || event instanceof String) {
+      this.searchAddress = event;
+      document.getElementsByName('address')[0].value = event;
+    } else {
+      // stops the submit from reloading
+      event.preventDefault();
+    }
 
     const address = document.getElementsByName('address')[0].value;
     const radius = SearchBar.getDropdownValue('radius');
@@ -100,9 +107,49 @@ export class SearchBar extends Component {
   }
 
   handleFilter(event) {
-    this.setState({
-      showFilter: !this.state.showFilter
-    });
+    this.showFilter = !this.showFilter;
+  }
+
+  handleAddressChange(searchAddress) {
+    this.searchAddress = searchAddress;
+  }
+
+  /**
+   * Gets the address input.
+   * @return {*}
+   */
+  getAddressInput() {
+    const {address, radii, center, autocomplete} = this.props;
+    if (autocomplete === true) {
+      const inputProps = {
+        value: this.searchAddress,
+        onChange: this.handleAddressChange,
+        placeholder: 'address or zip code',
+        name: 'address',
+      };
+      const cssClasses = {
+        root: 'form-control autocomplete-root',
+        input: 'form-control',
+      };
+      const options = {
+        location: new google.maps.LatLng(center.lat, center.lng),
+        radius: Math.max(...radii),
+      };
+      return (<PlacesAutocomplete
+        inputProps={inputProps}
+        classNames={cssClasses}
+        onSelect={this.handleSubmit}
+        onEnterKeyDown={this.handleSubmit}
+        options={options}
+      />);
+    }
+    return (<input
+      type="text"
+      name="address"
+      className="form-control"
+      placeholder="address or zip code"
+      defaultValue={address}
+    />);
   }
 
   /**
@@ -111,7 +158,7 @@ export class SearchBar extends Component {
    */
   render() {
     const {
-      address, category, radii, categories, unit,
+      address, category, radii, categories, unit, autocomplete
     } = this.props;
     let { radius } = this.props;
     if (typeof radius === 'string') {
@@ -121,7 +168,7 @@ export class SearchBar extends Component {
     const hasFilter = category !== '' || !(radius === '' || radius < 1);
 
     const filterIndicatorClass = hasFilter ? 'filter-icon' : 'filter-icon no-show';
-    const filterClasses = this.state.showFilter ? 'filter open' : 'filter closed';
+    const filterClasses = this.showFilter ? 'filter open' : 'filter closed';
 
     return (
       <form onSubmit={this.handleSubmit} className="locator-search">
@@ -130,13 +177,7 @@ export class SearchBar extends Component {
           <div className="always-shown">
             <div className="address-input input-group">
               <label htmlFor="address" className="sr-only">Address or zip code</label>
-              <input
-                type="text"
-                name="address"
-                className="form-control"
-                placeholder="address or zip code"
-                defaultValue={address}
-              />
+              {this.getAddressInput()}
               <span className="input-group-btn">
                 <button
                   className="btn btn-secondary"
@@ -179,6 +220,11 @@ SearchBar.propTypes = {
     PropTypes.array,
   ]).isRequired,
   unit: PropTypes.string.isRequired,
+  autocomplete: PropTypes.bool.isRequired,
+  center: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
+  }).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
@@ -201,6 +247,8 @@ export function mapStateToProps(state) {
 
     // other
     unit: state.settings.unit,
+    autocomplete: state.settings.autocomplete,
+    center: state.settings.defaultCenter,
   };
 }
 

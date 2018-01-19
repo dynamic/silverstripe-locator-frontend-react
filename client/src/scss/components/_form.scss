@@ -73,6 +73,11 @@
     width: auto;
   }
 
+  .address-input .autocomplete-root {
+    border: 0;
+    padding: 0;
+  }
+
   .filter-button {
     @include make-col(12);
     @include media-breakpoint-up(md) {

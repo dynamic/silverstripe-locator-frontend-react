@@ -38,8 +38,8 @@ test('Map should render without clusters', () => {
         Lng: 0,
       }}
       center={{
-        Lat: 91,
-        Lng: 181,
+        Lat: 90,
+        Lng: 180,
       }}
     />,
   );

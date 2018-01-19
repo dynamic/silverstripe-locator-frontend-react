@@ -827,6 +827,11 @@ select.form-control-lg:not([size]):not([multiple]),
   width: auto;
 }
 
+.locator-search .address-input .autocomplete-root {
+  border: 0;
+  padding: 0;
+}
+
 .locator-search .filter-button {
   -webkit-box-flex: 0;
           flex: 0 0 100%;

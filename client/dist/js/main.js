@@ -144,7 +144,7 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _redux = __webpack_require__(75);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(33);
 
 var _reduxThunk = __webpack_require__(253);
 
@@ -387,7 +387,8 @@ var defaultState = {
   defaultCenter: {
     lat: 0,
     lng: 0
-  }
+  },
+  autocomplete: false
 };
 
 function settings() {
@@ -400,7 +401,8 @@ function settings() {
     defaultCenter: {
       lat: dynamic_locator.defaultCenter.lat,
       lng: dynamic_locator.defaultCenter.lng
-    }
+    },
+    autocomplete: dynamic_locator.autocomplete
   };
 }
 
@@ -512,7 +514,7 @@ var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(33);
 
 var _locationActions = __webpack_require__(129);
 
@@ -522,15 +524,15 @@ var _SearchBar = __webpack_require__(289);
 
 var _SearchBar2 = _interopRequireDefault(_SearchBar);
 
-var _MapContainer = __webpack_require__(296);
+var _MapContainer = __webpack_require__(301);
 
 var _MapContainer2 = _interopRequireDefault(_MapContainer);
 
-var _List = __webpack_require__(541);
+var _List = __webpack_require__(546);
 
 var _List2 = _interopRequireDefault(_List);
 
-var _Loading = __webpack_require__(597);
+var _Loading = __webpack_require__(602);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -697,7 +699,7 @@ var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(33);
 
 var _reactFontawesome = __webpack_require__(290);
 
@@ -705,21 +707,27 @@ var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
 var _fontawesomeFreeSolid = __webpack_require__(292);
 
+var _reactPlacesAutocomplete = __webpack_require__(293);
+
+var _reactPlacesAutocomplete2 = _interopRequireDefault(_reactPlacesAutocomplete);
+
 var _locationActions = __webpack_require__(129);
 
-var _searchActions = __webpack_require__(293);
+var _searchActions = __webpack_require__(298);
 
-var _RadiusDropDown = __webpack_require__(294);
+var _RadiusDropDown = __webpack_require__(299);
 
 var _RadiusDropDown2 = _interopRequireDefault(_RadiusDropDown);
 
-var _CategoryDropDown = __webpack_require__(295);
+var _CategoryDropDown = __webpack_require__(300);
 
 var _CategoryDropDown2 = _interopRequireDefault(_CategoryDropDown);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -760,18 +768,24 @@ var SearchBar = exports.SearchBar = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
 
-    _this.state = {
-      showFilter: false
-    };
+    _this.showFilter = false;
+    _this.searchAddress = props.address;
+
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleFilter = _this.handleFilter.bind(_this);
+    _this.handleAddressChange = _this.handleAddressChange.bind(_this);
     return _this;
   }
 
   _createClass(SearchBar, [{
     key: 'handleSubmit',
     value: function handleSubmit(event) {
-      event.preventDefault();
+      if (typeof event === 'string' || event instanceof String) {
+        this.searchAddress = event;
+        document.getElementsByName('address')[0].value = event;
+      } else {
+        event.preventDefault();
+      }
 
       var address = document.getElementsByName('address')[0].value;
       var radius = SearchBar.getDropdownValue('radius');
@@ -806,19 +820,63 @@ var SearchBar = exports.SearchBar = function (_Component) {
   }, {
     key: 'handleFilter',
     value: function handleFilter(event) {
-      this.setState({
-        showFilter: !this.state.showFilter
+      this.showFilter = !this.showFilter;
+    }
+  }, {
+    key: 'handleAddressChange',
+    value: function handleAddressChange(searchAddress) {
+      this.searchAddress = searchAddress;
+    }
+  }, {
+    key: 'getAddressInput',
+    value: function getAddressInput() {
+      var _props2 = this.props,
+          address = _props2.address,
+          radii = _props2.radii,
+          center = _props2.center,
+          autocomplete = _props2.autocomplete;
+
+      if (autocomplete === true) {
+        var inputProps = {
+          value: this.searchAddress,
+          onChange: this.handleAddressChange,
+          placeholder: 'address or zip code',
+          name: 'address'
+        };
+        var cssClasses = {
+          root: 'form-control autocomplete-root',
+          input: 'form-control'
+        };
+        var options = {
+          location: new google.maps.LatLng(center.lat, center.lng),
+          radius: Math.max.apply(Math, _toConsumableArray(radii))
+        };
+        return _react2.default.createElement(_reactPlacesAutocomplete2.default, {
+          inputProps: inputProps,
+          classNames: cssClasses,
+          onSelect: this.handleSubmit,
+          onEnterKeyDown: this.handleSubmit,
+          options: options
+        });
+      }
+      return _react2.default.createElement('input', {
+        type: 'text',
+        name: 'address',
+        className: 'form-control',
+        placeholder: 'address or zip code',
+        defaultValue: address
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _props2 = this.props,
-          address = _props2.address,
-          category = _props2.category,
-          radii = _props2.radii,
-          categories = _props2.categories,
-          unit = _props2.unit;
+      var _props3 = this.props,
+          address = _props3.address,
+          category = _props3.category,
+          radii = _props3.radii,
+          categories = _props3.categories,
+          unit = _props3.unit,
+          autocomplete = _props3.autocomplete;
       var radius = this.props.radius;
 
       if (typeof radius === 'string') {
@@ -828,7 +886,7 @@ var SearchBar = exports.SearchBar = function (_Component) {
       var hasFilter = category !== '' || !(radius === '' || radius < 1);
 
       var filterIndicatorClass = hasFilter ? 'filter-icon' : 'filter-icon no-show';
-      var filterClasses = this.state.showFilter ? 'filter open' : 'filter closed';
+      var filterClasses = this.showFilter ? 'filter open' : 'filter closed';
 
       return _react2.default.createElement(
         'form',
@@ -847,13 +905,7 @@ var SearchBar = exports.SearchBar = function (_Component) {
                 { htmlFor: 'address', className: 'sr-only' },
                 'Address or zip code'
               ),
-              _react2.default.createElement('input', {
-                type: 'text',
-                name: 'address',
-                className: 'form-control',
-                placeholder: 'address or zip code',
-                defaultValue: address
-              }),
+              this.getAddressInput(),
               _react2.default.createElement(
                 'span',
                 { className: 'input-group-btn' },
@@ -901,6 +953,11 @@ SearchBar.propTypes = {
 
   categories: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.array]).isRequired,
   unit: _propTypes2.default.string.isRequired,
+  autocomplete: _propTypes2.default.bool.isRequired,
+  center: _propTypes2.default.shape({
+    lat: _propTypes2.default.number.isRequired,
+    lng: _propTypes2.default.number.isRequired
+  }).isRequired,
   dispatch: _propTypes2.default.func.isRequired
 };
 
@@ -913,7 +970,9 @@ function mapStateToProps(state) {
     radii: state.settings.radii,
     categories: state.settings.categories,
 
-    unit: state.settings.unit
+    unit: state.settings.unit,
+    autocomplete: state.settings.autocomplete,
+    center: state.settings.defaultCenter
   };
 }
 
@@ -921,7 +980,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(SearchBar);
 
 /***/ }),
 
-/***/ 293:
+/***/ 298:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -949,7 +1008,7 @@ function search() {
 
 /***/ }),
 
-/***/ 294:
+/***/ 299:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1070,7 +1129,7 @@ exports.default = RadiusDropDown;
 
 /***/ }),
 
-/***/ 295:
+/***/ 300:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1185,7 +1244,7 @@ exports.default = CategoryDropDown;
 
 /***/ }),
 
-/***/ 296:
+/***/ 301:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1208,13 +1267,13 @@ var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(33);
 
 var _htmlToReact = __webpack_require__(136);
 
 var _mapActions = __webpack_require__(146);
 
-var _Map = __webpack_require__(346);
+var _Map = __webpack_require__(351);
 
 var _Map2 = _interopRequireDefault(_Map);
 
@@ -1356,7 +1415,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(MapContainer);
 
 /***/ }),
 
-/***/ 346:
+/***/ 351:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1379,9 +1438,9 @@ var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactGoogleMaps = __webpack_require__(347);
+var _reactGoogleMaps = __webpack_require__(352);
 
-var _MarkerClusterer = __webpack_require__(539);
+var _MarkerClusterer = __webpack_require__(544);
 
 var _MarkerClusterer2 = _interopRequireDefault(_MarkerClusterer);
 
@@ -1456,7 +1515,7 @@ exports.default = (0, _reactGoogleMaps.withGoogleMap)(Map);
 
 /***/ }),
 
-/***/ 541:
+/***/ 546:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1479,13 +1538,13 @@ var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(33);
 
-var _reactVirtualized = __webpack_require__(542);
+var _reactVirtualized = __webpack_require__(547);
 
 var _mapActions = __webpack_require__(146);
 
-var _Location = __webpack_require__(596);
+var _Location = __webpack_require__(601);
 
 var _Location2 = _interopRequireDefault(_Location);
 
@@ -1687,7 +1746,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(List);
 
 /***/ }),
 
-/***/ 596:
+/***/ 601:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1873,7 +1932,7 @@ exports.default = Location;
 
 /***/ }),
 
-/***/ 597:
+/***/ 602:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1896,7 +1955,7 @@ var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(33);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

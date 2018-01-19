@@ -28,6 +28,7 @@ test('Settings reducer has a default state', () => {
       lat: 0,
       lng: 0,
     },
+    autocomplete: false,
   });
 });
 
