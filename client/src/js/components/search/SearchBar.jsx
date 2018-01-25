@@ -50,7 +50,9 @@ export class SearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.showFilter = false;
+    this.state = {
+      showFilter: false,
+    };
     this.searchAddress = props.address;
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -107,7 +109,9 @@ export class SearchBar extends Component {
   }
 
   handleFilter(event) {
-    this.showFilter = !this.showFilter;
+    this.setState({
+      showFilter: !this.state.showFilter,
+    });
   }
 
   handleAddressChange(searchAddress) {
@@ -168,7 +172,7 @@ export class SearchBar extends Component {
     const hasFilter = category !== '' || !(radius === '' || radius < 1);
 
     const filterIndicatorClass = hasFilter ? 'filter-icon' : 'filter-icon no-show';
-    const filterClasses = this.showFilter ? 'filter open' : 'filter closed';
+    const filterClasses = this.state.showFilter ? 'filter open' : 'filter closed';
 
     return (
       <form onSubmit={this.handleSubmit} className="locator-search">

@@ -768,7 +768,9 @@ var SearchBar = exports.SearchBar = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
 
-    _this.showFilter = false;
+    _this.state = {
+      showFilter: false
+    };
     _this.searchAddress = props.address;
 
     _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -820,7 +822,9 @@ var SearchBar = exports.SearchBar = function (_Component) {
   }, {
     key: 'handleFilter',
     value: function handleFilter(event) {
-      this.showFilter = !this.showFilter;
+      this.setState({
+        showFilter: !this.state.showFilter
+      });
     }
   }, {
     key: 'handleAddressChange',
@@ -886,7 +890,7 @@ var SearchBar = exports.SearchBar = function (_Component) {
       var hasFilter = category !== '' || !(radius === '' || radius < 1);
 
       var filterIndicatorClass = hasFilter ? 'filter-icon' : 'filter-icon no-show';
-      var filterClasses = this.showFilter ? 'filter open' : 'filter closed';
+      var filterClasses = this.state.showFilter ? 'filter open' : 'filter closed';
 
       return _react2.default.createElement(
         'form',
