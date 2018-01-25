@@ -179,10 +179,10 @@ test('handleFilter test', () => {
     />,
   );
 
-  expect(search.instance().showFilter).toBe(false);
+  expect(search.instance().state.showFilter).toBe(false);
 
   search.instance().handleFilter();
-  expect(search.instance().showFilter).toBe(true);
+  expect(search.instance().state.showFilter).toBe(true);
 });
 
 test('handleAddressChange test', () => {
