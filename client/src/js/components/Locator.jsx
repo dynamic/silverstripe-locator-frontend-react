@@ -57,13 +57,11 @@ export class Locator extends Component {
       return null;
     }
     return (
-      <div>
+      <div className="locator-area">
         <Search />
-        <div className="map-area">
-          <MapContainer />
-          <List />
-          <Loading />
-        </div>
+        <List />
+        <MapContainer />
+        <Loading />
       </div>
     );
   }

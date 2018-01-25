@@ -1,38 +1,57 @@
 // ====================
 // == General Layout ==
 // ====================
-.map-area {
+.locator-area {
   @include make-row-no-gutter;
+  flex-direction: column;
   margin: 0;
   position: relative;
 
   @include media-breakpoint-up(sm) {
-    flex-direction: row-reverse;
+    // needed so columns wrap the right way
+    height: $map-height;
   }
 
+  .locator-search,
   .loc-list,
   .map-container {
     @include make-col-ready-no-gutter;
     box-sizing: border-box;
   }
 
+  .locator-search {
+    order: 1;
+  }
+
+  .loc-list {
+    order: 3;
+
+    @include media-breakpoint-up(sm) {
+      order: 2;
+    }
+  }
+
+  .locator-search,
   .loc-list {
     @include media-breakpoint-up(sm) {
-      @include make-col(4);
+      max-width: 50%;
     }
 
-    @include media-breakpoint-up(md) {
-      @include make-col(3);
+    @include media-breakpoint-up(lg) {
+      max-width: ((5 / 12) * 100%);
     }
   }
 
   .map-container {
+    order: 2;
+
     @include media-breakpoint-up(sm) {
-      @include make-col(8);
+      max-width: 50%;
+      order: 3;
     }
 
-    @include media-breakpoint-up(md) {
-      @include make-col(9);
+    @include media-breakpoint-up(lg) {
+      max-width: ((7 / 12) * 100%);
     }
   }
 }

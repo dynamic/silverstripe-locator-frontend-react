@@ -2,6 +2,8 @@
 
 namespace Dynamic\Locator\React\Extensions;
 
+use Dynamic\SilverStripeGeocoder\GoogleGeocoder;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Extension;
 use SilverStripe\View\Requirements;
 
@@ -20,6 +22,22 @@ class LocatorControllerExtension extends Extension
         // stops script from loading
         Requirements::block('jquery-locator');
 
+        // because we need another library when using autocomplete
+        if ($this->owner->Autocomplete) {
+            // google maps api key
+            $key = Config::inst()->get(GoogleGeocoder::class, 'geocoder_api_key');
+            Requirements::block("https://maps.google.com/maps/api/js?key={$key}");
+            Requirements::javascript("https://maps.google.com/maps/api/js?key={$key}&libraries=places");
+        }
+
+        $this->customScript();
+    }
+
+    /**
+     * Generates the custom script for settings
+     */
+    private function customScript()
+    {
         $radii = $this->owner->getShowRadius() ? $this->owner->getRadii() : [];
         $radiiString = json_encode($radii);
 
@@ -28,8 +46,11 @@ class LocatorControllerExtension extends Extension
 
         $unit = $this->owner->Unit ?: 'm';
         $limit = $this->owner->getLimit();
-        // 'clusters' => $this->owner->getClusters();
-        $clusters = 'false';
+        $defaultLat = $this->owner->DefaultLat;
+        $defaultLng = $this->owner->DefaultLng;
+        // otherwise this is 0 or 1
+        $clusters = $this->owner->Clusters ? 'true' : 'false';
+        $autocomplete = $this->owner->Autocomplete ? 'true' : 'false';
         $infoWindowTemplate = $this->owner->getInfoWindowTemplate();
         $listTemplate = $this->owner->getListTemplate();
 
@@ -41,7 +62,12 @@ class LocatorControllerExtension extends Extension
                 'limit': {$limit},
                 'clusters': {$clusters},
                 'infoWindowTemplatePath': '{$infoWindowTemplate}',
-                'listTemplatePath': '{$listTemplate}'
+                'listTemplatePath': '{$listTemplate}',
+                'defaultCenter': {
+                    'lat': {$defaultLat},
+                    'lng': {$defaultLng}
+                },
+                'autocomplete': {$autocomplete}
             };
         ", 'react-locator');
     }
@@ -68,6 +94,7 @@ class LocatorControllerExtension extends Extension
             }
         }
         $string .= ']';
+
         return $string;
     }
 }

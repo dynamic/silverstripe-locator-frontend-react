@@ -16,6 +16,13 @@ const fetch = jest.fn();
 mock.fetchLocations = fetch;
 jest.setMock('../../../js/actions/locationActions', mock);
 
+// mocks the google api
+window.google = {
+  maps: {
+    LatLng: class{},
+  },
+};
+
 test('SearchBar component should render', () => {
   let search = shallow(
     <SearchBar
@@ -25,6 +32,11 @@ test('SearchBar component should render', () => {
       category=""
       categories={[]}
       unit="m"
+      autocomplete={false}
+      center={{
+        lat: 0,
+        lng: 0,
+      }}
       dispatch={dispatch}
     />,
   );
@@ -42,6 +54,11 @@ test('SearchBar component should render', () => {
       category=""
       categories={[]}
       unit="m"
+      autocomplete={true}
+      center={{
+        lat: 0,
+        lng: 0,
+      }}
       dispatch={dispatch}
     />,
   );
@@ -96,6 +113,11 @@ test('handleSubmit test', () => {
       categories={[]}
       unit="m"
       dispatch={dispatch}
+      autocomplete={false}
+      center={{
+        lat: 0,
+        lng: 0,
+      }}
     />,
     {
       attachTo: div,
@@ -126,9 +148,65 @@ test('handleSubmit test', () => {
     unit: 'm',
   });
 
+  search.instance().handleSubmit('aaa');
+  expect(fetch).toBeCalledWith({
+    address: 'aaa',
+    category: '',
+    radius: '',
+    unit: 'm',
+  });
+
   // clean up
   search.detach();
   document.body.removeChild(div);
+});
+
+test('handleFilter test', () => {
+  const search = shallow(
+    <SearchBar
+      address=""
+      radius={-1}
+      radii={[]}
+      category=""
+      categories={[]}
+      unit="m"
+      autocomplete={false}
+      center={{
+        lat: 0,
+        lng: 0,
+      }}
+      dispatch={dispatch}
+    />,
+  );
+
+  expect(search.instance().showFilter).toBe(false);
+
+  search.instance().handleFilter();
+  expect(search.instance().showFilter).toBe(true);
+});
+
+test('handleAddressChange test', () => {
+  const search = shallow(
+    <SearchBar
+      address=""
+      radius={-1}
+      radii={[]}
+      category=""
+      categories={[]}
+      unit="m"
+      autocomplete={false}
+      center={{
+        lat: 0,
+        lng: 0,
+      }}
+      dispatch={dispatch}
+    />,
+  );
+
+  expect(search.instance().searchAddress).toBe('');
+
+  search.instance().handleAddressChange('aaa');
+  expect(search.instance().searchAddress).toBe('aaa');
 });
 
 /**

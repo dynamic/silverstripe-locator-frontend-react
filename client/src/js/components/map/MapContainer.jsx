@@ -72,7 +72,7 @@ export class MapContainer extends Component {
   }
 
   render() {
-    const { current, showCurrent, clusters } = this.props;
+    const { current, showCurrent, clusters, center, defaultCenter } = this.props;
     return (
       <div className="map-container">
         <Map
@@ -88,6 +88,8 @@ export class MapContainer extends Component {
           current={current}
           showCurrent={showCurrent}
           clusters={clusters}
+          center={center}
+          defaultCenter={defaultCenter}
         />
       </div>
     );
@@ -106,6 +108,14 @@ MapContainer.propTypes = {
   showCurrent: PropTypes.bool.isRequired,
   clusters: PropTypes.bool.isRequired,
   template: PropTypes.func.isRequired,
+  center: PropTypes.shape({
+    Lat: PropTypes.number.isRequired,
+    Lng: PropTypes.number.isRequired,
+  }).isRequired,
+  defaultCenter: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 /**
@@ -128,6 +138,8 @@ export function mapStateToProps(state) {
     clusters: state.settings.clusters,
     template: state.settings.infoWindowTemplate,
     locations: state.locations.locations,
+    center: state.map.center,
+    defaultCenter: state.settings.defaultCenter,
   };
 }
 

@@ -33,6 +33,14 @@ test('Map should render without clusters', () => {
     <Map
       clusters={false}
       markers={[]}
+      defaultCenter={{
+        Lat: 0,
+        Lng: 0,
+      }}
+      center={{
+        Lat: 90,
+        Lng: 180,
+      }}
     />,
   );
 
@@ -46,6 +54,14 @@ test('Map should render with clusters', () => {
       // eslint-disable-next-line react/jsx-boolean-value
       clusters={true}
       markers={[]}
+      defaultCenter={{
+        Lat: 0,
+        Lng: 0,
+      }}
+      center={{
+        Lat: 91,
+        Lng: 181,
+      }}
     />,
   );
 

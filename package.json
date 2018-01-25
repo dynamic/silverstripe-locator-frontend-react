@@ -23,6 +23,9 @@
   "author": "Dynamic <dev@dynamicagency.com>",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.2",
+    "@fortawesome/fontawesome-free-solid": "^5.0.4",
+    "@fortawesome/react-fontawesome": "0.0.17",
     "axios": "^0.17.1",
     "bootstrap": "^4.0.0-beta.2",
     "es6-promise": "^4.1.1",
@@ -36,6 +39,7 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.1.1",
     "react-google-maps": "^9.2.2",
+    "react-places-autocomplete": "^6.0.2",
     "react-redux": "^5.0.6",
     "react-virtualized": "^9.12.0",
     "redux": "^3.7.2",

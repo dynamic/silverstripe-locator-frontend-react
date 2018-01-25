@@ -11,6 +11,12 @@ const defaultState = {
   listTemplate: null,
 
   unit: 'm',
+
+  defaultCenter: {
+    lat: 0,
+    lng: 0,
+  },
+  autocomplete: false,
 };
 
 /**
@@ -24,6 +30,11 @@ function settings() {
     limit: dynamic_locator.limit,
     radii: dynamic_locator.radii,
     categories: dynamic_locator.categories,
+    defaultCenter: {
+      lat: dynamic_locator.defaultCenter.lat,
+      lng: dynamic_locator.defaultCenter.lng,
+    },
+    autocomplete: dynamic_locator.autocomplete,
   };
 }
 

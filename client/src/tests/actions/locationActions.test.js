@@ -12,7 +12,11 @@ mock.onAny().reply(200);
  * Tests to see if what the locations action returns is valid
  */
 test('Locations action is valid', () => {
-  expect(actions.fetchLocations()).toEqual({
+  expect(actions.fetchLocations({
+    radius: -1,
+    category: '',
+    address: '',
+  })).toEqual({
     type: ActionType.FETCH_LOCATIONS,
     payload: new Promise(() => {}),
   });
