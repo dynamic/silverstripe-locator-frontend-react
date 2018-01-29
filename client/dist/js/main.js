@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 129:
+/***/ 113:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11,11 +11,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchLocations = fetchLocations;
 
-var _axios = __webpack_require__(130);
+var _axios = __webpack_require__(114);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _ActionTypes = __webpack_require__(19);
+var _ActionTypes = __webpack_require__(16);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -46,7 +46,7 @@ function fetchLocations(params) {
 
 /***/ }),
 
-/***/ 146:
+/***/ 130:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59,7 +59,7 @@ exports.openMarker = openMarker;
 exports.highlightLocation = highlightLocation;
 exports.closeMarker = closeMarker;
 
-var _ActionTypes = __webpack_require__(19);
+var _ActionTypes = __webpack_require__(16);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -90,7 +90,7 @@ function closeMarker(target) {
 
 /***/ }),
 
-/***/ 19:
+/***/ 16:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109,7 +109,9 @@ var ActionTypes = {
   SEARCH: 'SEARCH',
 
   MARKER_CLICK: 'MARKER_CLICK',
-  MARKER_CLOSE: 'MARKER_CLOSE'
+  MARKER_CLOSE: 'MARKER_CLOSE',
+
+  PAGE_CHANGE: 'PAGE_CHANGE'
 };
 
 ActionTypes.FETCH_LOCATIONS_LOADING = ActionTypes.FETCH_LOCATIONS + '_LOADING';
@@ -128,37 +130,37 @@ exports.default = ActionTypes;
 
 /***/ }),
 
-/***/ 216:
+/***/ 184:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(31);
+var _reactDom = __webpack_require__(64);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _redux = __webpack_require__(75);
+var _redux = __webpack_require__(65);
 
-var _reactRedux = __webpack_require__(33);
+var _reactRedux = __webpack_require__(28);
 
-var _reduxThunk = __webpack_require__(253);
+var _reduxThunk = __webpack_require__(221);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reduxPromiseMiddleware = __webpack_require__(254);
+var _reduxPromiseMiddleware = __webpack_require__(222);
 
 var _reduxPromiseMiddleware2 = _interopRequireDefault(_reduxPromiseMiddleware);
 
-var _reducers = __webpack_require__(256);
+var _reducers = __webpack_require__(224);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _Locator = __webpack_require__(268);
+var _Locator = __webpack_require__(236);
 
 var _Locator2 = _interopRequireDefault(_Locator);
 
@@ -186,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ 256:
+/***/ 224:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -196,23 +198,27 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(75);
+var _redux = __webpack_require__(65);
 
-var _searchReducer = __webpack_require__(257);
+var _searchReducer = __webpack_require__(225);
 
 var _searchReducer2 = _interopRequireDefault(_searchReducer);
 
-var _mapReducer = __webpack_require__(264);
+var _mapReducer = __webpack_require__(231);
 
 var _mapReducer2 = _interopRequireDefault(_mapReducer);
 
-var _settingsReducer = __webpack_require__(265);
+var _settingsReducer = __webpack_require__(232);
 
 var _settingsReducer2 = _interopRequireDefault(_settingsReducer);
 
-var _locationReducer = __webpack_require__(267);
+var _locationReducer = __webpack_require__(234);
 
 var _locationReducer2 = _interopRequireDefault(_locationReducer);
+
+var _listReducer = __webpack_require__(235);
+
+var _listReducer2 = _interopRequireDefault(_listReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -220,14 +226,15 @@ var reducers = (0, _redux.combineReducers)({
   search: _searchReducer2.default,
   map: _mapReducer2.default,
   settings: _settingsReducer2.default,
-  locations: _locationReducer2.default
+  locations: _locationReducer2.default,
+  list: _listReducer2.default
 });
 
 exports.default = reducers;
 
 /***/ }),
 
-/***/ 257:
+/***/ 225:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -241,11 +248,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = reducer;
 
-var _ActionTypes = __webpack_require__(19);
+var _ActionTypes = __webpack_require__(16);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
-var _url = __webpack_require__(258);
+var _url = __webpack_require__(112);
 
 var _url2 = _interopRequireDefault(_url);
 
@@ -256,6 +263,8 @@ var defaultState = Object.assign({
   radius: -1,
   category: ''
 }, _url2.default.parse(window.location.href, true).query);
+
+delete defaultState.page;
 
 function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
@@ -276,7 +285,7 @@ function reducer() {
 
 /***/ }),
 
-/***/ 264:
+/***/ 231:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -290,7 +299,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = reducer;
 
-var _ActionTypes = __webpack_require__(19);
+var _ActionTypes = __webpack_require__(16);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -350,7 +359,7 @@ function reducer() {
 
 /***/ }),
 
-/***/ 265:
+/***/ 232:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -364,11 +373,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = reducer;
 
-var _handlebars = __webpack_require__(266);
+var _handlebars = __webpack_require__(233);
 
 var _handlebars2 = _interopRequireDefault(_handlebars);
 
-var _ActionTypes = __webpack_require__(19);
+var _ActionTypes = __webpack_require__(16);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -388,7 +397,8 @@ var defaultState = {
     lat: 0,
     lng: 0
   },
-  autocomplete: false
+  autocomplete: false,
+  defaultLimit: 20
 };
 
 function settings() {
@@ -450,7 +460,7 @@ function reducer() {
 
 /***/ }),
 
-/***/ 267:
+/***/ 234:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -464,7 +474,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = reducer;
 
-var _ActionTypes = __webpack_require__(19);
+var _ActionTypes = __webpack_require__(16);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -491,7 +501,54 @@ function reducer() {
 
 /***/ }),
 
-/***/ 268:
+/***/ 235:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = reducer;
+
+var _ActionTypes = __webpack_require__(16);
+
+var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
+
+var _url = __webpack_require__(112);
+
+var _url2 = _interopRequireDefault(_url);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var page = _url2.default.parse(window.location.href, true).query.page;
+
+var defaultState = {
+  page: isNaN(page) ? 1 : page
+};
+
+function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _ActionTypes2.default.PAGE_CHANGE:
+      return _extends({}, state, {
+        page: action.payload.page
+      });
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
+/***/ 236:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -506,33 +563,33 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.mapStateToProps = mapStateToProps;
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(0);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(33);
+var _reactRedux = __webpack_require__(28);
 
-var _locationActions = __webpack_require__(129);
+var _locationActions = __webpack_require__(113);
 
-var _settingsActions = __webpack_require__(288);
+var _settingsActions = __webpack_require__(256);
 
-var _SearchBar = __webpack_require__(289);
+var _SearchBar = __webpack_require__(257);
 
 var _SearchBar2 = _interopRequireDefault(_SearchBar);
 
-var _MapContainer = __webpack_require__(301);
+var _MapContainer = __webpack_require__(269);
 
 var _MapContainer2 = _interopRequireDefault(_MapContainer);
 
-var _List = __webpack_require__(546);
+var _List = __webpack_require__(519);
 
 var _List2 = _interopRequireDefault(_List);
 
-var _Loading = __webpack_require__(602);
+var _Loading = __webpack_require__(521);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -630,7 +687,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(Locator);
 
 /***/ }),
 
-/***/ 288:
+/***/ 256:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -642,11 +699,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.fetchInfoWindow = fetchInfoWindow;
 exports.fetchList = fetchList;
 
-var _axios = __webpack_require__(130);
+var _axios = __webpack_require__(114);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _ActionTypes = __webpack_require__(19);
+var _ActionTypes = __webpack_require__(16);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -674,7 +731,7 @@ function fetchList() {
 
 /***/ }),
 
-/***/ 289:
+/***/ 257:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -691,35 +748,35 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.mapStateToProps = mapStateToProps;
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(0);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(33);
+var _reactRedux = __webpack_require__(28);
 
-var _reactFontawesome = __webpack_require__(290);
+var _reactFontawesome = __webpack_require__(258);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
-var _fontawesomeFreeSolid = __webpack_require__(292);
+var _fontawesomeFreeSolid = __webpack_require__(260);
 
-var _reactPlacesAutocomplete = __webpack_require__(293);
+var _reactPlacesAutocomplete = __webpack_require__(261);
 
 var _reactPlacesAutocomplete2 = _interopRequireDefault(_reactPlacesAutocomplete);
 
-var _locationActions = __webpack_require__(129);
+var _locationActions = __webpack_require__(113);
 
-var _searchActions = __webpack_require__(298);
+var _searchActions = __webpack_require__(266);
 
-var _RadiusDropDown = __webpack_require__(299);
+var _RadiusDropDown = __webpack_require__(267);
 
 var _RadiusDropDown2 = _interopRequireDefault(_RadiusDropDown);
 
-var _CategoryDropDown = __webpack_require__(300);
+var _CategoryDropDown = __webpack_require__(268);
 
 var _CategoryDropDown2 = _interopRequireDefault(_CategoryDropDown);
 
@@ -984,7 +1041,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(SearchBar);
 
 /***/ }),
 
-/***/ 298:
+/***/ 266:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -995,7 +1052,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.search = search;
 
-var _ActionTypes = __webpack_require__(19);
+var _ActionTypes = __webpack_require__(16);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -1012,7 +1069,7 @@ function search() {
 
 /***/ }),
 
-/***/ 299:
+/***/ 267:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1024,11 +1081,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(0);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -1133,7 +1190,7 @@ exports.default = RadiusDropDown;
 
 /***/ }),
 
-/***/ 300:
+/***/ 268:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1145,11 +1202,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(0);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -1248,7 +1305,7 @@ exports.default = CategoryDropDown;
 
 /***/ }),
 
-/***/ 301:
+/***/ 269:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1263,21 +1320,21 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.mapStateToProps = mapStateToProps;
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(0);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(33);
+var _reactRedux = __webpack_require__(28);
 
-var _htmlToReact = __webpack_require__(136);
+var _htmlToReact = __webpack_require__(120);
 
-var _mapActions = __webpack_require__(146);
+var _mapActions = __webpack_require__(130);
 
-var _Map = __webpack_require__(351);
+var _Map = __webpack_require__(319);
 
 var _Map2 = _interopRequireDefault(_Map);
 
@@ -1419,7 +1476,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(MapContainer);
 
 /***/ }),
 
-/***/ 351:
+/***/ 319:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1434,17 +1491,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 exports.markers = markers;
 exports.Map = Map;
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(0);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactGoogleMaps = __webpack_require__(352);
+var _reactGoogleMaps = __webpack_require__(320);
 
-var _MarkerClusterer = __webpack_require__(544);
+var _MarkerClusterer = __webpack_require__(517);
 
 var _MarkerClusterer2 = _interopRequireDefault(_MarkerClusterer);
 
@@ -1510,8 +1567,8 @@ Map.propTypes = {
     Lng: _propTypes2.default.number.isRequired
   }).isRequired,
   defaultCenter: _propTypes2.default.shape({
-    Lat: _propTypes2.default.number.isRequired,
-    Lng: _propTypes2.default.number.isRequired
+    lat: _propTypes2.default.number.isRequired,
+    lng: _propTypes2.default.number.isRequired
   }).isRequired
 };
 
@@ -1519,7 +1576,7 @@ exports.default = (0, _reactGoogleMaps.withGoogleMap)(Map);
 
 /***/ }),
 
-/***/ 546:
+/***/ 519:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1534,21 +1591,19 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.mapStateToProps = mapStateToProps;
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(0);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(33);
+var _reactRedux = __webpack_require__(28);
 
-var _reactVirtualized = __webpack_require__(547);
+var _mapActions = __webpack_require__(130);
 
-var _mapActions = __webpack_require__(146);
-
-var _Location = __webpack_require__(601);
+var _Location = __webpack_require__(520);
 
 var _Location2 = _interopRequireDefault(_Location);
 
@@ -1569,52 +1624,10 @@ var List = exports.List = function (_Component) {
     var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
 
     _this.handleLocationClick = _this.handleLocationClick.bind(_this);
-    _this.renderRow = _this.renderRow.bind(_this);
-    _this.resizeAll = _this.resizeAll.bind(_this);
-
-    _this.cache = new _reactVirtualized.CellMeasurerCache({ defaultHeight: 85, fixedWidth: true });
-    _this.mostRecentWidth = 0;
-    _this.lastDistance = -1;
-    _this.resizeAllFlag = false;
     return _this;
   }
 
   _createClass(List, [{
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate(prevProps) {
-      var locations = this.props.locations;
-
-      if (this.resizeAllFlag) {
-        this.resizeAllFlag = false;
-        this.cache.clearAll();
-        if (this.list) {
-          this.list.recomputeRowHeights();
-        }
-      } else if (locations !== prevProps.locations) {
-        var index = prevProps.locations.length;
-        this.cache.clear(index, 0);
-        if (this.list) {
-          this.list.recomputeRowHeights(index);
-        }
-      }
-      this.scrollToCurrentIndex();
-    }
-  }, {
-    key: 'resizeAll',
-    value: function resizeAll() {
-      this.resizeAllFlag = false;
-      this.cache.clearAll();
-      if (this.list) {
-        this.list.recomputeRowHeights();
-      }
-
-      var locations = this.props.locations;
-
-      if (locations.length > 0) {
-        this.lastDistance = locations[0].Distance;
-      }
-    }
-  }, {
     key: 'scrollToCurrentIndex',
     value: function scrollToCurrentIndex() {
       var _props = this.props,
@@ -1637,47 +1650,39 @@ var List = exports.List = function (_Component) {
       dispatch((0, _mapActions.openMarker)(target));
     }
   }, {
-    key: 'renderRow',
-    value: function renderRow(_ref) {
-      var index = _ref.index,
-          key = _ref.key,
-          style = _ref.style,
-          parent = _ref.parent;
+    key: 'renderList',
+    value: function renderList() {
+      var _this2 = this;
+
       var _props2 = this.props,
+          page = _props2.page,
+          defaultLimit = _props2.defaultLimit,
+          locations = _props2.locations,
           current = _props2.current,
           search = _props2.search,
           unit = _props2.unit,
-          template = _props2.template,
-          locations = _props2.locations;
+          template = _props2.template;
 
-      var location = locations[index];
-      return _react2.default.createElement(
-        _reactVirtualized.CellMeasurer,
-        {
-          cache: this.cache,
-          columnIndex: 0,
-          key: key,
-          parent: parent,
-          rowIndex: index
-        },
-        _react2.default.createElement(_Location2.default, {
-          key: key,
-          style: style,
+      var realPage = page - 1 ? page - 1 : 0;
+
+      var lim = defaultLimit;
+
+      return locations.slice(realPage * lim, page * lim).map(function (location, index) {
+        return _react2.default.createElement(_Location2.default, {
+          key: location.ID,
           location: location,
-          index: index,
+          index: realPage * lim + index,
           current: current === location.ID,
           search: search.length > 0,
           unit: unit,
-          onClick: this.handleLocationClick,
+          onClick: _this2.handleLocationClick,
           template: template
-        })
-      );
+        });
+      });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var _props3 = this.props,
           locations = _props3.locations,
           current = _props3.current;
@@ -1685,35 +1690,7 @@ var List = exports.List = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'loc-list', role: 'list' },
-        _react2.default.createElement(
-          _reactVirtualized.AutoSizer,
-          null,
-          function (_ref2) {
-            var width = _ref2.width,
-                height = _ref2.height;
-
-            if (_this2.mostRecentWidth && _this2.mostRecentWidth !== width || locations.length > 0 && _this2.lastDistance !== locations[0].Distance) {
-              _this2.resizeAllFlag = true;
-              setTimeout(_this2.resizeAll, 0);
-            }
-
-            _this2.mostRecentWidth = width;
-
-            return _react2.default.createElement(_reactVirtualized.List, {
-              ref: function ref(list) {
-                _this2.list = list;
-              },
-              current: current,
-              deferredMeasurementCache: _this2.cache,
-              width: width,
-              height: height,
-              rowCount: locations.length,
-              rowHeight: _this2.cache.rowHeight,
-              rowRenderer: _this2.renderRow,
-              scrollToAlignment: 'start'
-            });
-          }
-        )
+        this.renderList()
       );
     }
   }]);
@@ -1727,7 +1704,9 @@ List.propTypes = {
   search: _propTypes2.default.string,
   unit: _propTypes2.default.string.isRequired,
   dispatch: _propTypes2.default.func.isRequired,
-  template: _propTypes2.default.func.isRequired
+  template: _propTypes2.default.func.isRequired,
+  defaultLimit: _propTypes2.default.number.isRequired,
+  page: _propTypes2.default.number.isRequired
 };
 
 List.defaultProps = {
@@ -1742,7 +1721,9 @@ function mapStateToProps(state) {
     search: state.search.address,
     unit: state.settings.unit,
     template: state.settings.listTemplate,
-    locations: state.locations.locations
+    locations: state.locations.locations,
+    defaultLimit: state.settings.defaultLimit,
+    page: state.list.page
   };
 }
 
@@ -1750,7 +1731,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(List);
 
 /***/ }),
 
-/***/ 601:
+/***/ 520:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1764,15 +1745,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(0);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _htmlToReact = __webpack_require__(136);
+var _htmlToReact = __webpack_require__(120);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1864,8 +1845,7 @@ var Location = function (_Component) {
           search = _props2.search,
           template = _props2.template,
           unit = _props2.unit,
-          _onClick = _props2.onClick,
-          style = _props2.style;
+          _onClick = _props2.onClick;
 
       var htmlToReactParser = new _htmlToReact.Parser();
 
@@ -1888,7 +1868,6 @@ var Location = function (_Component) {
           onClick: function onClick() {
             return _onClick(location.ID);
           },
-          style: style,
           role: 'listitem'
         },
         htmlToReactParser.parse(template(loc))
@@ -1927,16 +1906,14 @@ Location.propTypes = {
   search: _propTypes2.default.bool.isRequired,
   unit: _propTypes2.default.string.isRequired,
   onClick: _propTypes2.default.func.isRequired,
-  template: _propTypes2.default.func.isRequired,
-
-  style: _propTypes2.default.object.isRequired
+  template: _propTypes2.default.func.isRequired
 };
 
 exports.default = Location;
 
 /***/ }),
 
-/***/ 602:
+/***/ 521:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1951,15 +1928,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.mapStateToProps = mapStateToProps;
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(0);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(33);
+var _reactRedux = __webpack_require__(28);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2020,5 +1997,5 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(Loading);
 
 /***/ })
 
-},[216]);
+},[184]);
 //# sourceMappingURL=main.js.map

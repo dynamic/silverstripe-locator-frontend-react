@@ -680,6 +680,7 @@ select.form-control-lg:not([size]):not([multiple]),
 .locator-area .loc-list {
   -webkit-box-ordinal-group: 4;
           order: 3;
+  overflow-y: scroll;
 }
 
 @media (min-width: 576px) {
@@ -1005,15 +1006,6 @@ select.form-control-lg:not([size]):not([multiple]),
   box-shadow: 0 0 8px rgba(82, 168, 236, 0.7);
   transition: border .2s linear 0s, box-shadow .2s linear 0s;
   z-index: 1;
-}
-
-.ReactVirtualized__List:focus {
-  border: 0;
-  outline: none;
-}
-
-.ReactVirtualized__Grid__innerScrollContainer {
-  padding-bottom: 10px;
 }
 
 .loading {

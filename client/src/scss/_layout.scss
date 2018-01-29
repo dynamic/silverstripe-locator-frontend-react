@@ -25,6 +25,7 @@
 
   .loc-list {
     order: 3;
+    overflow-y: scroll;
 
     @include media-breakpoint-up(sm) {
       order: 2;

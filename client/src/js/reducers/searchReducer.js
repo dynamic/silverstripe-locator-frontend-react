@@ -8,6 +8,8 @@ const defaultState = Object.assign({
   category: '',
 }, url.parse(window.location.href, true).query);
 
+delete defaultState.page;
+
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
     case ActionType.SEARCH:

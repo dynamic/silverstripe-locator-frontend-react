@@ -17,6 +17,7 @@ const defaultState = {
     lng: 0,
   },
   autocomplete: false,
+  defaultLimit: 20,
 };
 
 /**
@@ -35,6 +36,7 @@ function settings() {
       lng: dynamic_locator.defaultCenter.lng,
     },
     autocomplete: dynamic_locator.autocomplete,
+    //defaultLimit: dynamic_locator.defaultLimit,
   };
 }
 
