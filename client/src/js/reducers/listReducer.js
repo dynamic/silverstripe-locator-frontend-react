@@ -2,10 +2,10 @@
 import ActionType from 'actions/ActionTypes';
 import url from 'url';
 
-const page = url.parse(window.location.href, true).query.page;
+const { page } = url.parse(window.location.href, true).query;
 
 const defaultState = {
-  page: isNaN(page) ? 1 : page,
+  page: Number.isNaN(Number(page)) ? 1 : page,
 };
 
 export default function reducer(state = defaultState, action) {

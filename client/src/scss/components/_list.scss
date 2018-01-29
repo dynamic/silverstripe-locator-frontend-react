@@ -26,6 +26,11 @@
     }
   }
 
+  .loc-list-inner {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
   .list-label {
     background: $dark-red;
     color: $white;
@@ -62,7 +67,7 @@
     display: block;
     float: left;
     margin: 0;
-    width: 99%;
+    width: 100%;
 
     &.first {
       margin-top: 0;

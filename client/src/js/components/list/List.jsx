@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { AutoSizer, } from 'react-virtualized';
 
 import { openMarker } from 'actions/mapActions';
 import Location from 'components/list/Location';
@@ -52,7 +53,7 @@ export class List extends Component {
       unit,
       template
     } = this.props;
-    const realPage = page - 1 ? page -1 : 0;
+    const realPage = page - 1 ? page - 1 : 0;
     // in case we want to implement a flexible limit
     const lim = defaultLimit;
 
@@ -78,7 +79,13 @@ export class List extends Component {
     const { locations, current } = this.props;
     return (
       <div className="loc-list" role="list">
-        {this.renderList()}
+        <AutoSizer>
+          {({ width, height }) =>
+            <div className='loc-list-inner' style={{width, height}}>
+              {this.renderList()}
+            </div>
+          }
+        </AutoSizer>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 113:
+/***/ 130:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11,11 +11,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchLocations = fetchLocations;
 
-var _axios = __webpack_require__(114);
+var _axios = __webpack_require__(131);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _ActionTypes = __webpack_require__(16);
+var _ActionTypes = __webpack_require__(18);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -46,7 +46,7 @@ function fetchLocations(params) {
 
 /***/ }),
 
-/***/ 130:
+/***/ 147:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59,7 +59,7 @@ exports.openMarker = openMarker;
 exports.highlightLocation = highlightLocation;
 exports.closeMarker = closeMarker;
 
-var _ActionTypes = __webpack_require__(16);
+var _ActionTypes = __webpack_require__(18);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -90,7 +90,7 @@ function closeMarker(target) {
 
 /***/ }),
 
-/***/ 16:
+/***/ 18:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -130,37 +130,37 @@ exports.default = ActionTypes;
 
 /***/ }),
 
-/***/ 184:
+/***/ 217:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(64);
+var _reactDom = __webpack_require__(31);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _redux = __webpack_require__(65);
+var _redux = __webpack_require__(75);
 
-var _reactRedux = __webpack_require__(28);
+var _reactRedux = __webpack_require__(33);
 
-var _reduxThunk = __webpack_require__(221);
+var _reduxThunk = __webpack_require__(254);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reduxPromiseMiddleware = __webpack_require__(222);
+var _reduxPromiseMiddleware = __webpack_require__(255);
 
 var _reduxPromiseMiddleware2 = _interopRequireDefault(_reduxPromiseMiddleware);
 
-var _reducers = __webpack_require__(224);
+var _reducers = __webpack_require__(257);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _Locator = __webpack_require__(236);
+var _Locator = __webpack_require__(269);
 
 var _Locator2 = _interopRequireDefault(_Locator);
 
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ 224:
+/***/ 257:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -198,25 +198,25 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(65);
+var _redux = __webpack_require__(75);
 
-var _searchReducer = __webpack_require__(225);
+var _searchReducer = __webpack_require__(258);
 
 var _searchReducer2 = _interopRequireDefault(_searchReducer);
 
-var _mapReducer = __webpack_require__(231);
+var _mapReducer = __webpack_require__(264);
 
 var _mapReducer2 = _interopRequireDefault(_mapReducer);
 
-var _settingsReducer = __webpack_require__(232);
+var _settingsReducer = __webpack_require__(265);
 
 var _settingsReducer2 = _interopRequireDefault(_settingsReducer);
 
-var _locationReducer = __webpack_require__(234);
+var _locationReducer = __webpack_require__(267);
 
 var _locationReducer2 = _interopRequireDefault(_locationReducer);
 
-var _listReducer = __webpack_require__(235);
+var _listReducer = __webpack_require__(268);
 
 var _listReducer2 = _interopRequireDefault(_listReducer);
 
@@ -234,7 +234,7 @@ exports.default = reducers;
 
 /***/ }),
 
-/***/ 225:
+/***/ 258:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -248,11 +248,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = reducer;
 
-var _ActionTypes = __webpack_require__(16);
+var _ActionTypes = __webpack_require__(18);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
-var _url = __webpack_require__(112);
+var _url = __webpack_require__(129);
 
 var _url2 = _interopRequireDefault(_url);
 
@@ -285,7 +285,7 @@ function reducer() {
 
 /***/ }),
 
-/***/ 231:
+/***/ 264:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -299,7 +299,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = reducer;
 
-var _ActionTypes = __webpack_require__(16);
+var _ActionTypes = __webpack_require__(18);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -359,7 +359,7 @@ function reducer() {
 
 /***/ }),
 
-/***/ 232:
+/***/ 265:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -373,11 +373,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = reducer;
 
-var _handlebars = __webpack_require__(233);
+var _handlebars = __webpack_require__(266);
 
 var _handlebars2 = _interopRequireDefault(_handlebars);
 
-var _ActionTypes = __webpack_require__(16);
+var _ActionTypes = __webpack_require__(18);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -460,7 +460,7 @@ function reducer() {
 
 /***/ }),
 
-/***/ 234:
+/***/ 267:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -474,7 +474,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = reducer;
 
-var _ActionTypes = __webpack_require__(16);
+var _ActionTypes = __webpack_require__(18);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -501,7 +501,7 @@ function reducer() {
 
 /***/ }),
 
-/***/ 235:
+/***/ 268:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -515,11 +515,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = reducer;
 
-var _ActionTypes = __webpack_require__(16);
+var _ActionTypes = __webpack_require__(18);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
-var _url = __webpack_require__(112);
+var _url = __webpack_require__(129);
 
 var _url2 = _interopRequireDefault(_url);
 
@@ -528,7 +528,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var page = _url2.default.parse(window.location.href, true).query.page;
 
 var defaultState = {
-  page: isNaN(page) ? 1 : page
+  page: Number.isNaN(Number(page)) ? 1 : page
 };
 
 function reducer() {
@@ -548,7 +548,7 @@ function reducer() {
 
 /***/ }),
 
-/***/ 236:
+/***/ 269:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -563,33 +563,33 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.mapStateToProps = mapStateToProps;
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(1);
+var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(28);
+var _reactRedux = __webpack_require__(33);
 
-var _locationActions = __webpack_require__(113);
+var _locationActions = __webpack_require__(130);
 
-var _settingsActions = __webpack_require__(256);
+var _settingsActions = __webpack_require__(289);
 
-var _SearchBar = __webpack_require__(257);
+var _SearchBar = __webpack_require__(290);
 
 var _SearchBar2 = _interopRequireDefault(_SearchBar);
 
-var _MapContainer = __webpack_require__(269);
+var _MapContainer = __webpack_require__(302);
 
 var _MapContainer2 = _interopRequireDefault(_MapContainer);
 
-var _List = __webpack_require__(519);
+var _List = __webpack_require__(547);
 
 var _List2 = _interopRequireDefault(_List);
 
-var _Loading = __webpack_require__(521);
+var _Loading = __webpack_require__(603);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -687,7 +687,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(Locator);
 
 /***/ }),
 
-/***/ 256:
+/***/ 289:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -699,11 +699,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.fetchInfoWindow = fetchInfoWindow;
 exports.fetchList = fetchList;
 
-var _axios = __webpack_require__(114);
+var _axios = __webpack_require__(131);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _ActionTypes = __webpack_require__(16);
+var _ActionTypes = __webpack_require__(18);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -731,7 +731,7 @@ function fetchList() {
 
 /***/ }),
 
-/***/ 257:
+/***/ 290:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -748,35 +748,35 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.mapStateToProps = mapStateToProps;
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(1);
+var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(28);
+var _reactRedux = __webpack_require__(33);
 
-var _reactFontawesome = __webpack_require__(258);
+var _reactFontawesome = __webpack_require__(291);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
-var _fontawesomeFreeSolid = __webpack_require__(260);
+var _fontawesomeFreeSolid = __webpack_require__(293);
 
-var _reactPlacesAutocomplete = __webpack_require__(261);
+var _reactPlacesAutocomplete = __webpack_require__(294);
 
 var _reactPlacesAutocomplete2 = _interopRequireDefault(_reactPlacesAutocomplete);
 
-var _locationActions = __webpack_require__(113);
+var _locationActions = __webpack_require__(130);
 
-var _searchActions = __webpack_require__(266);
+var _searchActions = __webpack_require__(299);
 
-var _RadiusDropDown = __webpack_require__(267);
+var _RadiusDropDown = __webpack_require__(300);
 
 var _RadiusDropDown2 = _interopRequireDefault(_RadiusDropDown);
 
-var _CategoryDropDown = __webpack_require__(268);
+var _CategoryDropDown = __webpack_require__(301);
 
 var _CategoryDropDown2 = _interopRequireDefault(_CategoryDropDown);
 
@@ -1041,7 +1041,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(SearchBar);
 
 /***/ }),
 
-/***/ 266:
+/***/ 299:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1052,7 +1052,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.search = search;
 
-var _ActionTypes = __webpack_require__(16);
+var _ActionTypes = __webpack_require__(18);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
@@ -1069,7 +1069,7 @@ function search() {
 
 /***/ }),
 
-/***/ 267:
+/***/ 300:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1081,11 +1081,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(1);
+var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -1190,7 +1190,7 @@ exports.default = RadiusDropDown;
 
 /***/ }),
 
-/***/ 268:
+/***/ 301:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1202,11 +1202,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(1);
+var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -1305,7 +1305,7 @@ exports.default = CategoryDropDown;
 
 /***/ }),
 
-/***/ 269:
+/***/ 302:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1320,21 +1320,21 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.mapStateToProps = mapStateToProps;
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(1);
+var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(28);
+var _reactRedux = __webpack_require__(33);
 
-var _htmlToReact = __webpack_require__(120);
+var _htmlToReact = __webpack_require__(137);
 
-var _mapActions = __webpack_require__(130);
+var _mapActions = __webpack_require__(147);
 
-var _Map = __webpack_require__(319);
+var _Map = __webpack_require__(352);
 
 var _Map2 = _interopRequireDefault(_Map);
 
@@ -1476,7 +1476,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(MapContainer);
 
 /***/ }),
 
-/***/ 319:
+/***/ 352:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1491,17 +1491,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 exports.markers = markers;
 exports.Map = Map;
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(1);
+var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactGoogleMaps = __webpack_require__(320);
+var _reactGoogleMaps = __webpack_require__(353);
 
-var _MarkerClusterer = __webpack_require__(517);
+var _MarkerClusterer = __webpack_require__(545);
 
 var _MarkerClusterer2 = _interopRequireDefault(_MarkerClusterer);
 
@@ -1576,7 +1576,7 @@ exports.default = (0, _reactGoogleMaps.withGoogleMap)(Map);
 
 /***/ }),
 
-/***/ 519:
+/***/ 547:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1591,19 +1591,21 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.mapStateToProps = mapStateToProps;
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(1);
+var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(28);
+var _reactRedux = __webpack_require__(33);
 
-var _mapActions = __webpack_require__(130);
+var _reactVirtualized = __webpack_require__(548);
 
-var _Location = __webpack_require__(520);
+var _mapActions = __webpack_require__(147);
+
+var _Location = __webpack_require__(602);
 
 var _Location2 = _interopRequireDefault(_Location);
 
@@ -1683,6 +1685,8 @@ var List = exports.List = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       var _props3 = this.props,
           locations = _props3.locations,
           current = _props3.current;
@@ -1690,7 +1694,19 @@ var List = exports.List = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'loc-list', role: 'list' },
-        this.renderList()
+        _react2.default.createElement(
+          _reactVirtualized.AutoSizer,
+          null,
+          function (_ref) {
+            var width = _ref.width,
+                height = _ref.height;
+            return _react2.default.createElement(
+              'div',
+              { className: 'loc-list-inner', style: { width: width, height: height } },
+              _this3.renderList()
+            );
+          }
+        )
       );
     }
   }]);
@@ -1731,7 +1747,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(List);
 
 /***/ }),
 
-/***/ 520:
+/***/ 602:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1745,15 +1761,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(1);
+var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _htmlToReact = __webpack_require__(120);
+var _htmlToReact = __webpack_require__(137);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1913,7 +1929,7 @@ exports.default = Location;
 
 /***/ }),
 
-/***/ 521:
+/***/ 603:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1928,15 +1944,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.mapStateToProps = mapStateToProps;
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(1);
+var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(28);
+var _reactRedux = __webpack_require__(33);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1997,5 +2013,5 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(Loading);
 
 /***/ })
 
-},[184]);
+},[217]);
 //# sourceMappingURL=main.js.map

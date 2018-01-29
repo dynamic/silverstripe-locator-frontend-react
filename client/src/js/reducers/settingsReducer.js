@@ -36,7 +36,7 @@ function settings() {
       lng: dynamic_locator.defaultCenter.lng,
     },
     autocomplete: dynamic_locator.autocomplete,
-    //defaultLimit: dynamic_locator.defaultLimit,
+    // defaultLimit: dynamic_locator.defaultLimit,
   };
 }
 
