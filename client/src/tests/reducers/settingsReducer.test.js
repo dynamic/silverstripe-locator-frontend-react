@@ -28,6 +28,7 @@ test('Settings reducer has a default state', () => {
       lat: 0,
       lng: 0,
     },
+    defaultLimit: 20,
     autocomplete: false,
   });
 });
@@ -50,6 +51,7 @@ test('Settings reducer has a valid state when a fetch info window action is call
       lat: 0,
       lng: 0,
     },
+    defaultLimit: 20,
   };
 
   // so settings are loaded
@@ -76,6 +78,7 @@ test('Settings reducer has a valid state when a fetch info window action is call
       lat: 0,
       lng: 0,
     },
+    defaultLimit: 20,
   });
 });
 
@@ -97,6 +100,7 @@ test('Settings reducer has a valid state when a fetch list action is called', ()
       lat: 0,
       lng: 0,
     },
+    defaultLimit: 20,
   };
 
   // so settings are loaded
@@ -125,5 +129,6 @@ test('Settings reducer has a valid state when a fetch list action is called', ()
       lat: 0,
       lng: 0,
     },
+    defaultLimit: 20,
   });
 });

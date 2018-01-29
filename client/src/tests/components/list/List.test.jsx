@@ -66,6 +66,8 @@ test('List component should render', () => {
       dispatch={dispatch}
       template={template}
       locations={locations}
+      defaultLimit={20}
+      page={1}
     />,
   );
 
@@ -82,6 +84,7 @@ test('Map state to props', () => {
     map: {},
     settings: {},
     locations: {},
+    list: {},
   };
   // expects mapStateToProps to be an Object
   expect(mapStateToProps(state)).toEqual(expect.any(Object));

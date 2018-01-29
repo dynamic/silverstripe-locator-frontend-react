@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import { AutoSizer, } from 'react-virtualized';
 
 import { openMarker } from 'actions/mapActions';
+import { changePage } from 'actions/listActions';
 import Location from 'components/list/Location';
+import Pagination from 'components/list/Pagination';
 
 /**
  * The List component.
  * Renders the location list.
- *
- * some of the code related to virtualization came from:
- * https://github.com/bvaughn/tweets/blob/37d0139736346db16b9681d5b859a4e127964518/src/components/TweetList.js
  */
 export class List extends Component {
   /**
@@ -23,6 +22,7 @@ export class List extends Component {
     super(props);
     // bind actions/handlers
     this.handleLocationClick = this.handleLocationClick.bind(this);
+    this.handlePaginateClick = this.handlePaginateClick.bind(this);
   }
 
   scrollToCurrentIndex() {
@@ -41,6 +41,11 @@ export class List extends Component {
   handleLocationClick(target) {
     const { dispatch } = this.props;
     dispatch(openMarker(target));
+  }
+
+  handlePaginateClick(page) {
+    const { dispatch } = this.props;
+    dispatch(changePage(page));
   }
 
   renderList() {
@@ -76,7 +81,7 @@ export class List extends Component {
    * @returns {XML}
    */
   render() {
-    const { locations, current } = this.props;
+    const { locations, current, page, defaultLimit } = this.props;
     return (
       <div className="loc-list" role="list">
         <AutoSizer>
@@ -86,6 +91,12 @@ export class List extends Component {
             </div>
           }
         </AutoSizer>
+        <Pagination
+          page={page}
+          count={locations.length}
+          defaultLimit={defaultLimit}
+          goToPage={this.handlePaginateClick}
+        />
       </div>
     );
   }
