@@ -1442,8 +1442,11 @@ var MapContainer = exports.MapContainer = function (_Component) {
 
       dispatch((0, _listActions.changePage)(page));
 
-      var topPos = document.getElementById('loc-' + target.key).offsetTop;
-      document.getElementsByClassName('loc-list-inner')[0].scrollTop = topPos - 10;
+      var element = document.getElementById('loc-' + target.key);
+      if (element !== null) {
+        var topPos = element.offsetTop;
+        document.getElementsByClassName('loc-list-inner')[0].scrollTop = topPos - 10;
+      }
     }
   }, {
     key: 'handleMarkerClose',

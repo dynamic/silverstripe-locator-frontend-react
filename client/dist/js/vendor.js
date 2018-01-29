@@ -33050,30 +33050,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REJECTED", function() { return REJECTED; });
 /* harmony export (immutable) */ __webpack_exports__["default"] = promiseMiddleware;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isPromise_js__ = __webpack_require__(307);
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 
-
+// The default async action types
 var PENDING = 'PENDING';
 var FULFILLED = 'FULFILLED';
 var REJECTED = 'REJECTED';
-
 var defaultTypes = [PENDING, FULFILLED, REJECTED];
 
 /**
- * @function promiseMiddleware
- * @description
- * @returns {function} thunk
+ * Function: promiseMiddleware
+ * Description: The main promiseMiddleware accepts a configuration
+ * object and returns the middleware.
  */
 function promiseMiddleware() {
   var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-  var promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypes;
-  var promiseTypeSeparator = config.promiseTypeSeparator || '_';
+  var PROMISE_TYPE_SUFFIXES = config.promiseTypeSuffixes || defaultTypes;
+  var PROMISE_TYPE_DELIMITER = config.promiseTypeDelimiter || '_';
 
   return function (ref) {
     var dispatch = ref.dispatch;
@@ -33081,79 +33079,128 @@ function promiseMiddleware() {
 
     return function (next) {
       return function (action) {
+
+        /**
+         * Instantiate variables to hold:
+         * (1) the promise
+         * (2) the data for optimistic updates
+         */
+        var promise = void 0;
+        var data = void 0;
+
+        /**
+         * There are multiple ways to dispatch a promise. The first step is to
+         * determine if the promise is defined:
+         * (a) explicitly (action.payload.promise is the promise)
+         * (b) implicitly (action.payload is the promise)
+         * (c) as an async function (returns a promise when called)
+         *
+         * If the promise is not defined in one of these three ways, we don't do
+         * anything and move on to the next middleware in the middleware chain.
+         */
+
+        // Step 1a: Is there a payload?
         if (action.payload) {
-          if (!Object(__WEBPACK_IMPORTED_MODULE_0__isPromise_js__["a" /* default */])(action.payload) && !Object(__WEBPACK_IMPORTED_MODULE_0__isPromise_js__["a" /* default */])(action.payload.promise)) {
-            return next(action);
+          var PAYLOAD = action.payload;
+
+          // Step 1.1: Is the promise implicitly defined?
+          if (Object(__WEBPACK_IMPORTED_MODULE_0__isPromise_js__["a" /* default */])(PAYLOAD)) {
+            promise = PAYLOAD;
           }
+
+          // Step 1.2: Is the promise explicitly defined?
+          else if (Object(__WEBPACK_IMPORTED_MODULE_0__isPromise_js__["a" /* default */])(PAYLOAD.promise)) {
+              promise = PAYLOAD.promise;
+              data = PAYLOAD.data;
+            }
+
+            // Step 1.3: Is the promise returned by an async function?
+            else if (typeof PAYLOAD === 'function' || typeof PAYLOAD.promise === 'function') {
+                promise = PAYLOAD.promise ? PAYLOAD.promise() : PAYLOAD();
+                data = PAYLOAD.promise ? PAYLOAD.data : undefined;
+
+                // Step 1.3.1: Is the return of action.payload a promise?
+                if (!Object(__WEBPACK_IMPORTED_MODULE_0__isPromise_js__["a" /* default */])(promise)) {
+
+                  // If not, move on to the next middleware.
+                  return next(_extends({}, action, {
+                    payload: promise
+                  }));
+                }
+              }
+
+              // Step 1.4: If there's no promise, move on to the next middleware.
+              else {
+                  return next(action);
+                }
+
+          // Step 1b: If there's no payload, move on to the next middleware.
         } else {
           return next(action);
         }
 
-        // Deconstruct the properties of the original action object to constants
-        var type = action.type,
-            payload = action.payload,
-            meta = action.meta;
-
-        // Assign values for promise type suffixes
-
-        var _promiseTypeSuffixes = _slicedToArray(promiseTypeSuffixes, 3),
-            _PENDING = _promiseTypeSuffixes[0],
-            _FULFILLED = _promiseTypeSuffixes[1],
-            _REJECTED = _promiseTypeSuffixes[2];
+        /**
+         * Instantiate and define constants for:
+         * (1) the action type
+         * (2) the action meta
+         */
+        var TYPE = action.type;
+        var META = action.meta;
 
         /**
-         * @function getAction
-         * @description Utility function for creating a rejected or fulfilled
-         * flux standard action object.
-         * @param {boolean} Is the action rejected?
-         * @returns {object} action
+         * Instantiate and define constants for the action type suffixes.
+         * These are appended to the end of the action type.
+         */
+
+        var _PROMISE_TYPE_SUFFIXE = _slicedToArray(PROMISE_TYPE_SUFFIXES, 3),
+            _PENDING = _PROMISE_TYPE_SUFFIXE[0],
+            _FULFILLED = _PROMISE_TYPE_SUFFIXE[1],
+            _REJECTED = _PROMISE_TYPE_SUFFIXE[2];
+
+        /**
+         * Function: getAction
+         * Description: This function constructs and returns a rejected
+         * or fulfilled action object. The action object is based off the Flux
+         * Standard Action (FSA).
+         *
+         * Given an original action with the type FOO:
+         *
+         * The rejected object model will be:
+         * {
+         *   error: true,
+         *   type: 'FOO_REJECTED',
+         *   payload: ...,
+         *   meta: ... (optional)
+         * }
+         *
+         * The fulfilled object model will be:
+         * {
+         *   type: 'FOO_FULFILLED',
+         *   payload: ...,
+         *   meta: ... (optional)
+         * }
          */
 
 
         var getAction = function getAction(newPayload, isRejected) {
           return _extends({
-            type: [type, isRejected ? _REJECTED : _FULFILLED].join(promiseTypeSeparator)
+            // Concatentate the type string property.
+            type: [TYPE, isRejected ? _REJECTED : _FULFILLED].join(PROMISE_TYPE_DELIMITER)
+
           }, newPayload === null || typeof newPayload === 'undefined' ? {} : {
             payload: newPayload
-          }, meta !== undefined ? { meta: meta } : {}, isRejected ? {
+          }, META !== undefined ? { meta: META } : {}, isRejected ? {
             error: true
           } : {});
         };
 
         /**
-         * Assign values for promise and data variables. In the case the payload
-         * is an object with a `promise` and `data` property, the values of those
-         * properties will be used. In the case the payload is a promise, the
-         * value of the payload will be used and data will be null.
-         */
-        var promise = void 0;
-        var data = void 0;
-
-        if (!Object(__WEBPACK_IMPORTED_MODULE_0__isPromise_js__["a" /* default */])(action.payload) && _typeof(action.payload) === 'object') {
-          promise = payload.promise;
-          data = payload.data;
-        } else {
-          promise = payload;
-          data = undefined;
-        }
-
-        /**
-         * First, dispatch the pending action. This flux standard action object
-         * describes the pending state of a promise and will include any data
-         * (for optimistic updates) and/or meta from the original action.
-         */
-        next(_extends({
-          type: [type, _PENDING].join(promiseTypeSeparator)
-        }, data !== undefined ? { payload: data } : {}, meta !== undefined ? { meta: meta } : {}));
-
-        /*
-         * @function handleReject
-         * @description Dispatch the rejected action and return
-         * an error object. The error object is the original error
-         * that was thrown. The user of the library is responsible for
-         * best practices in ensure that they are throwing an Error object.
-         * @params reason The reason the promise was rejected
-         * @returns {object}
+         * Function: handleReject
+         * Calls: getAction to construct the rejected action
+         * Description: This function dispatches the rejected action and returns
+         * the original Error object. Please note the developer is responsible
+         * for constructing and throwing an Error object. The middleware does not
+         * construct any Errors.
          */
         var handleReject = function handleReject(reason) {
           var rejectedAction = getAction(reason, true);
@@ -33162,13 +33209,12 @@ function promiseMiddleware() {
           throw reason;
         };
 
-        /*
-         * @function handleFulfill
-         * @description Dispatch the fulfilled action and
-         * return the success object. The success object should
+        /**
+         * Function: handleFulfill
+         * Calls: getAction to construct the fullfilled action
+         * Description: This function dispatches the fulfilled action and
+         * returns the success object. The success object should
          * contain the value and the dispatched action.
-         * @param value The value the promise was resloved with
-         * @returns {object}
          */
         var handleFulfill = function handleFulfill() {
           var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
@@ -33180,33 +33226,19 @@ function promiseMiddleware() {
         };
 
         /**
-         * Second, dispatch a rejected or fulfilled action. This flux standard
-         * action object will describe the resolved state of the promise. In
-         * the case of a rejected promise, it will include an `error` property.
-         *
-         * In order to allow proper chaining of actions using `then`, a new
-         * promise is constructed and returned. This promise will resolve
-         * with two properties: (1) the value (if fulfilled) or reason
-         * (if rejected) and (2) the flux standard action.
-         *
-         * Rejected object:
-         * {
-         *   reason: ...
-         *   action: {
-         *     error: true,
-         *     type: 'ACTION_REJECTED',
-         *     payload: ...
-         *   }
-         * }
-         *
-         * Fulfilled object:
-         * {
-         *   value: ...
-         *   action: {
-         *     type: 'ACTION_FULFILLED',
-         *     payload: ...
-         *   }
-         * }
+         * First, dispatch the pending action:
+         * This object describes the pending state of a promise and will include
+         * any data (for optimistic updates) and/or meta from the original action.
+         */
+        next(_extends({
+          // Concatentate the type string.
+          type: [TYPE, _PENDING].join(PROMISE_TYPE_DELIMITER)
+
+        }, data !== undefined ? { payload: data } : {}, META !== undefined ? { meta: META } : {}));
+
+        /**
+         * Second, dispatch a rejected or fulfilled action and move on to the
+         * next middleware.
          */
         return promise.then(handleFulfill, handleReject);
       };
