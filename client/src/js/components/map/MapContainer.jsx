@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Parser as HtmlToReactParser } from 'html-to-react';
 
 import { highlightLocation, closeMarker } from 'actions/mapActions';
+import { changePage } from 'actions/listActions';
 import Map from 'components/map/Map';
 
 /**
@@ -58,8 +59,21 @@ export class MapContainer extends Component {
    * @param target The marker that was clicked
    */
   handleMarkerClick(target) {
-    const { dispatch } = this.props;
+    const { dispatch, locations, defaultLimit } = this.props;
     dispatch(highlightLocation(target));
+
+    // change the page
+    const index = locations.findIndex(l => l.ID === target.key) + 1;
+    const page = Math.ceil(index / defaultLimit);
+
+    dispatch(changePage(page));
+
+    // scroll to location in list
+    const element = document.getElementById(`loc-${target.key}`);
+    if (element !== null) {
+      const topPos = element.offsetTop;
+      document.getElementsByClassName('loc-list-inner')[0].scrollTop = topPos - 10;
+    }
   }
 
   /**
@@ -140,6 +154,8 @@ export function mapStateToProps(state) {
     locations: state.locations.locations,
     center: state.map.center,
     defaultCenter: state.settings.defaultCenter,
+
+    defaultLimit: state.settings.defaultLimit,
   };
 }
 
