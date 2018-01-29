@@ -1741,24 +1741,32 @@ var List = exports.List = function (_Component) {
         'div',
         { className: 'loc-list', role: 'list' },
         _react2.default.createElement(
-          _reactVirtualized.AutoSizer,
-          null,
-          function (_ref) {
-            var width = _ref.width,
-                height = _ref.height;
-            return _react2.default.createElement(
-              'div',
-              { className: 'loc-list-inner', style: { width: width, height: height } },
-              _this3.renderList()
-            );
-          }
+          'div',
+          { className: 'loc-list-container' },
+          _react2.default.createElement(
+            _reactVirtualized.AutoSizer,
+            null,
+            function (_ref) {
+              var width = _ref.width,
+                  height = _ref.height;
+              return _react2.default.createElement(
+                'div',
+                { className: 'loc-list-inner', style: { width: width, height: height } },
+                _this3.renderList()
+              );
+            }
+          )
         ),
-        _react2.default.createElement(_Pagination2.default, {
-          page: page,
-          count: locations.length,
-          defaultLimit: defaultLimit,
-          goToPage: this.handlePaginateClick
-        })
+        _react2.default.createElement(
+          'div',
+          { className: 'list-pagination' },
+          _react2.default.createElement(_Pagination2.default, {
+            page: page,
+            count: locations.length,
+            defaultLimit: defaultLimit,
+            goToPage: this.handlePaginateClick
+          })
+        )
       );
     }
   }]);
@@ -2103,8 +2111,16 @@ var Pagination = function (_Component) {
           page = _props3.page,
           goToPage = _props3.goToPage;
 
-      var previousClasses = page === 1 ? "page-item disabled" : "page-item";
-      var nextClasses = page === this.getLastPage() ? "page-item disabled" : "page-item";
+      var previousClasses = page <= 1 ? "page-item disabled" : "page-item";
+      var previousAction = page <= 1 ? function () {} : function () {
+        return goToPage(page - 1);
+      };
+
+      var nextClasses = page >= this.getLastPage() ? "page-item disabled" : "page-item";
+      var nextAction = page >= this.getLastPage() ? function () {} : function () {
+        return goToPage(page + 1);
+      };
+
       if (this.getPageNumbers().length > 1) {
         return _react2.default.createElement(
           'ul',
@@ -2114,9 +2130,7 @@ var Pagination = function (_Component) {
             { className: previousClasses },
             _react2.default.createElement(
               'a',
-              { className: 'page-link', 'aria-label': 'Previous', onClick: function onClick() {
-                  return goToPage(page - 1);
-                } },
+              { className: 'page-link', 'aria-label': 'Previous', onClick: previousAction },
               _react2.default.createElement(
                 'span',
                 { 'aria-hidden': 'true' },
@@ -2132,12 +2146,10 @@ var Pagination = function (_Component) {
           this.renderPageLinks(),
           _react2.default.createElement(
             'li',
-            { className: 'page-item' },
+            { className: nextClasses },
             _react2.default.createElement(
               'a',
-              { className: nextClasses, 'aria-label': 'Next', onClick: function onClick() {
-                  return goToPage(page + 1);
-                } },
+              { className: 'page-link', 'aria-label': 'Next', onClick: nextAction },
               _react2.default.createElement(
                 'span',
                 { 'aria-hidden': 'true' },

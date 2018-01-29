@@ -62,21 +62,25 @@ class Pagination extends Component {
 
   render() {
     const { count, page, goToPage } = this.props;
-    const previousClasses = page === 1 ? "page-item disabled" : "page-item";
-    const nextClasses = page === this.getLastPage() ? "page-item disabled" : "page-item";
+    const previousClasses = page <= 1 ? "page-item disabled" : "page-item";
+    const previousAction = page <= 1 ? () => {} : () => goToPage(page - 1);
+
+    const nextClasses = page >= this.getLastPage() ? "page-item disabled" : "page-item";
+    const nextAction = page >= this.getLastPage() ? () => {} : () => goToPage(page + 1);
+
 
     if (this.getPageNumbers().length > 1) {
       return (
         <ul className="pagination">
           <li className={previousClasses}>
-            <a className="page-link" aria-label="Previous" onClick={() => goToPage(page - 1)}>
+            <a className="page-link" aria-label="Previous" onClick={previousAction}>
               <span aria-hidden="true">&laquo;</span>
               <span className="sr-only">Previous</span>
             </a>
           </li>
           {this.renderPageLinks()}
-          <li className="page-item">
-            <a className={nextClasses} aria-label="Next" onClick={() => goToPage(page + 1)}>
+          <li className={nextClasses}>
+            <a className="page-link" aria-label="Next" onClick={nextAction}>
               <span aria-hidden="true">&raquo;</span>
               <span className="sr-only">Next</span>
             </a>

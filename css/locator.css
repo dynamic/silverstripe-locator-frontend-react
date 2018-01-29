@@ -925,6 +925,11 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 .loc-list {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
   height: 530px;
 }
 
@@ -950,9 +955,23 @@ select.form-control-lg:not([size]):not([multiple]),
   }
 }
 
+.loc-list .loc-list-container {
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+}
+
 .loc-list .loc-list-inner {
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+.loc-list .list-pagination {
+  text-align: center;
+}
+
+.loc-list .list-pagination .pagination {
+  margin-bottom: 0;
+  margin-top: 10px;
 }
 
 .loc-list .list-label {

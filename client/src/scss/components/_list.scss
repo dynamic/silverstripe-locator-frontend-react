@@ -5,6 +5,8 @@
 // loc-name is in general
 
 .loc-list {
+  display: flex;
+  flex-direction: column;
   height: $list-height;
 
   @include media-breakpoint-up(sm) {
@@ -26,9 +28,22 @@
     }
   }
 
+  .loc-list-container {
+    flex-grow: 1;
+  }
+
   .loc-list-inner {
     overflow-x: hidden;
     overflow-y: scroll;
+  }
+
+  .list-pagination {
+    text-align: center;
+
+    .pagination {
+      margin-bottom: 0;
+      margin-top: 10px;
+    }
   }
 
   .list-label {

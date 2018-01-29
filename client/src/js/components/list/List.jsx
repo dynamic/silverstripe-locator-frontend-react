@@ -84,19 +84,23 @@ export class List extends Component {
     const { locations, current, page, defaultLimit } = this.props;
     return (
       <div className="loc-list" role="list">
-        <AutoSizer>
-          {({ width, height }) =>
-            <div className='loc-list-inner' style={{width, height}}>
-              {this.renderList()}
-            </div>
-          }
-        </AutoSizer>
-        <Pagination
-          page={page}
-          count={locations.length}
-          defaultLimit={defaultLimit}
-          goToPage={this.handlePaginateClick}
-        />
+        <div className="loc-list-container">
+          <AutoSizer>
+            {({ width, height }) =>
+              <div className='loc-list-inner' style={{width, height}}>
+                {this.renderList()}
+              </div>
+            }
+          </AutoSizer>
+        </div>
+        <div className="list-pagination">
+          <Pagination
+            page={page}
+            count={locations.length}
+            defaultLimit={defaultLimit}
+            goToPage={this.handlePaginateClick}
+          />
+        </div>
       </div>
     );
   }
