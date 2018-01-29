@@ -25,15 +25,6 @@ export class List extends Component {
     this.handlePaginateClick = this.handlePaginateClick.bind(this);
   }
 
-  scrollToCurrentIndex() {
-    const { locations, current } = this.props;
-    let index = locations.findIndex(l => l.ID === current);
-    if (index === -1) {
-      index = 0;
-    }
-    this.list.scrollToRow(index);
-  }
-
   /**
    * Handles a list item click
    * @param target
@@ -43,11 +34,18 @@ export class List extends Component {
     dispatch(openMarker(target));
   }
 
+  /**
+   * Handles a pagination item click
+   * @param page
+   */
   handlePaginateClick(page) {
     const { dispatch } = this.props;
     dispatch(changePage(page));
   }
 
+  /**
+   * Renders the list
+   */
   renderList() {
     const {
       page,

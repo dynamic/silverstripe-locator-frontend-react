@@ -75,7 +75,93 @@ test('List component should render', () => {
 });
 
 /**
- * tests the map state to props method.
+ * Tests List.handleLocationClick()
+ */
+test('List component location click', () => {
+  const list = shallow(
+    <List
+      unit="m"
+      dispatch={dispatch}
+      template={template}
+      locations={locations}
+      defaultLimit={20}
+      page={1}
+    />,
+  );
+
+  dispatch.mockClear();
+  expect(dispatch.mock.calls.length).toEqual(0);
+  list.instance().handleLocationClick(1);
+  expect(dispatch.mock.calls.length).toEqual(1);
+  dispatch.mockClear();
+});
+
+/**
+ * Tests List.handlePaginateClick()
+ */
+test('List component pagination click', () => {
+  const list = shallow(
+    <List
+      unit="m"
+      dispatch={dispatch}
+      template={template}
+      locations={locations}
+      defaultLimit={20}
+      page={1}
+    />,
+  );
+
+  dispatch.mockClear();
+  expect(dispatch.mock.calls.length).toEqual(0);
+  list.instance().handlePaginateClick(1);
+  expect(dispatch.mock.calls.length).toEqual(1);
+  dispatch.mockClear();
+});
+
+/**
+ * Tests List.renderList()
+ */
+test('List component renderList', () => {
+  let list = shallow(
+    <List
+      unit="m"
+      dispatch={dispatch}
+      template={template}
+      locations={locations}
+      defaultLimit={20}
+      page={1}
+    />,
+  );
+  expect(list.instance().renderList().length).toEqual(3);
+
+  list = shallow(
+    <List
+      unit="m"
+      dispatch={dispatch}
+      template={template}
+      locations={locations}
+      defaultLimit={2}
+      page={1}
+    />,
+  );
+  expect(list.instance().renderList().length).toEqual(2);
+
+  list = shallow(
+    <List
+      unit="m"
+      dispatch={dispatch}
+      template={template}
+      locations={locations}
+      defaultLimit={2}
+      page={2}
+    />,
+  );
+
+  expect(list.instance().renderList().length).toEqual(1);
+});
+
+/**
+ * Tests the map state to props method.
  * Only requires that an object is returned, doesn't matter what is in it.
  */
 test('Map state to props', () => {
