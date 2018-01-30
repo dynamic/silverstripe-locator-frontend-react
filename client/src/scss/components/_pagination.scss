@@ -1,0 +1,20 @@
+// =====================
+// == List Pagination ==
+// =====================
+
+.list-pagination .pagination {
+  @include list-unstyled();
+  @include border-radius();
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+  margin-top: 10px;
+
+  .page-link {
+    display: block;
+    line-height: $pagination-line-height;
+    margin-left: -$pagination-border-width;
+    padding: $pagination-padding-y $pagination-padding-x;
+    position: relative;
+  }
+}

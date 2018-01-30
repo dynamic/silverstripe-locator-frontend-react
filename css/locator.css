@@ -799,6 +799,7 @@ select.form-control-lg:not([size]):not([multiple]),
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
+  box-sizing: border-box;
 }
 
 .locator-search .fieldset .address-input {
@@ -1010,15 +1011,6 @@ select.form-control-lg:not([size]):not([multiple]),
   overflow-y: scroll;
 }
 
-.loc-list .list-pagination {
-  text-align: center;
-}
-
-.loc-list .list-pagination .pagination {
-  margin-bottom: 0;
-  margin-top: 10px;
-}
-
 .loc-list .list-label {
   background: #451400;
   color: #fff;
@@ -1074,6 +1066,26 @@ select.form-control-lg:not([size]):not([multiple]),
   box-shadow: 0 0 8px rgba(82, 168, 236, 0.7);
   transition: border .2s linear 0s, box-shadow .2s linear 0s;
   z-index: 1;
+}
+
+.list-pagination .pagination {
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+.list-pagination .pagination .page-link {
+  display: block;
+  line-height: 1.25;
+  margin-left: -1px;
+  padding: 0.5rem 0.75rem;
+  position: relative;
 }
 
 .loading {

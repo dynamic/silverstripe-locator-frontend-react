@@ -16,6 +16,7 @@
   .fieldset {
     @include make-row-no-gutter;
     @include make-col-ready;
+    box-sizing: border-box;
 
     .address-input {
       @include make-col(12);
