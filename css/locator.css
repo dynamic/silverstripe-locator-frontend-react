@@ -865,6 +865,7 @@ select.form-control-lg:not([size]):not([multiple]),
 
 .locator-search .address-input button {
   font-size: 14px;
+  height: 100%;
   line-height: 1.428;
   max-width: 100%;
   padding: 0 10px;

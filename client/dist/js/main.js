@@ -1687,21 +1687,6 @@ var List = exports.List = function (_Component) {
   }
 
   _createClass(List, [{
-    key: 'scrollToCurrentIndex',
-    value: function scrollToCurrentIndex() {
-      var _props = this.props,
-          locations = _props.locations,
-          current = _props.current;
-
-      var index = locations.findIndex(function (l) {
-        return l.ID === current;
-      });
-      if (index === -1) {
-        index = 0;
-      }
-      this.list.scrollToRow(index);
-    }
-  }, {
     key: 'handleLocationClick',
     value: function handleLocationClick(target) {
       var dispatch = this.props.dispatch;
@@ -1720,14 +1705,14 @@ var List = exports.List = function (_Component) {
     value: function renderList() {
       var _this2 = this;
 
-      var _props2 = this.props,
-          page = _props2.page,
-          defaultLimit = _props2.defaultLimit,
-          locations = _props2.locations,
-          current = _props2.current,
-          search = _props2.search,
-          unit = _props2.unit,
-          template = _props2.template;
+      var _props = this.props,
+          page = _props.page,
+          defaultLimit = _props.defaultLimit,
+          locations = _props.locations,
+          current = _props.current,
+          search = _props.search,
+          unit = _props.unit,
+          template = _props.template;
 
       var realPage = page - 1 ? page - 1 : 0;
 
@@ -1751,11 +1736,11 @@ var List = exports.List = function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      var _props3 = this.props,
-          locations = _props3.locations,
-          current = _props3.current,
-          page = _props3.page,
-          defaultLimit = _props3.defaultLimit;
+      var _props2 = this.props,
+          locations = _props2.locations,
+          current = _props2.current,
+          page = _props2.page,
+          defaultLimit = _props2.defaultLimit;
 
       return _react2.default.createElement(
         'div',
