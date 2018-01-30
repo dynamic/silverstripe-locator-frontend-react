@@ -6,6 +6,10 @@ import PropTypes from 'prop-types';
  * Renders the pagination for the location list.
  */
 class Pagination extends Component {
+  /**
+   * Gets the last possible page. If there are 13 items with a page limit of 5 there will be 3 pages.
+   * @return {number}
+   */
   getLastPage() {
     const { count, defaultLimit } = this.props;
     const lim = defaultLimit;
@@ -13,6 +17,10 @@ class Pagination extends Component {
     return Math.ceil(count / defaultLimit);
   }
 
+  /**
+   * Gets all the page numbers that should be shown
+   * @return {number[]}
+   */
   getPageNumbers() {
     const { page } = this.props;
     const lastPage = this.getLastPage();
@@ -36,6 +44,9 @@ class Pagination extends Component {
     return Array(rangeEnd - rangeStart + 1).fill().map((_, index) => rangeStart + index);
   }
 
+  /**
+   * Renders the page links
+   */
   renderPageLinks() {
     const { page, goToPage } = this.props;
     const numbers = this.getPageNumbers();
@@ -60,6 +71,10 @@ class Pagination extends Component {
     });
   }
 
+  /**
+   * Renders the Pagination component
+   * @return {*}
+   */
   render() {
     const { count, page, goToPage } = this.props;
     const previousClasses = page <= 1 ? "page-item disabled" : "page-item";
