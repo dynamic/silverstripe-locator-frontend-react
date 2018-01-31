@@ -615,7 +615,7 @@ var _List = __webpack_require__(603);
 
 var _List2 = _interopRequireDefault(_List);
 
-var _Loading = __webpack_require__(698);
+var _Loading = __webpack_require__(699);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -2014,6 +2014,10 @@ var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _PaginationEnd = __webpack_require__(698);
+
+var _PaginationEnd2 = _interopRequireDefault(_PaginationEnd);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2130,43 +2134,19 @@ var Pagination = function (_Component) {
         return _react2.default.createElement(
           'ul',
           { className: 'pagination' },
-          _react2.default.createElement(
-            'li',
-            { className: previousClasses },
-            _react2.default.createElement(
-              'a',
-              { className: 'page-link', 'aria-label': 'Previous', onClick: previousAction },
-              _react2.default.createElement(
-                'span',
-                { 'aria-hidden': 'true' },
-                '\xAB'
-              ),
-              _react2.default.createElement(
-                'span',
-                { className: 'sr-only' },
-                'Previous'
-              )
-            )
-          ),
+          _react2.default.createElement(_PaginationEnd2.default, {
+            text: String.fromCharCode(171),
+            label: 'Previous',
+            classes: previousClasses,
+            action: previousAction
+          }),
           this.renderPageLinks(),
-          _react2.default.createElement(
-            'li',
-            { className: nextClasses },
-            _react2.default.createElement(
-              'a',
-              { className: 'page-link', 'aria-label': 'Next', onClick: nextAction },
-              _react2.default.createElement(
-                'span',
-                { 'aria-hidden': 'true' },
-                '\xBB'
-              ),
-              _react2.default.createElement(
-                'span',
-                { className: 'sr-only' },
-                'Next'
-              )
-            )
-          )
+          _react2.default.createElement(_PaginationEnd2.default, {
+            text: String.fromCharCode(187),
+            label: 'Next',
+            classes: nextClasses,
+            action: nextAction
+          })
         );
       }
       return null;
@@ -2188,6 +2168,87 @@ exports.default = Pagination;
 /***/ }),
 
 /***/ 698:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(0);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PaginationEnd = function (_Component) {
+  _inherits(PaginationEnd, _Component);
+
+  function PaginationEnd() {
+    _classCallCheck(this, PaginationEnd);
+
+    return _possibleConstructorReturn(this, (PaginationEnd.__proto__ || Object.getPrototypeOf(PaginationEnd)).apply(this, arguments));
+  }
+
+  _createClass(PaginationEnd, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          text = _props.text,
+          label = _props.label,
+          classes = _props.classes,
+          action = _props.action;
+
+      return _react2.default.createElement(
+        'li',
+        { className: classes },
+        _react2.default.createElement(
+          'a',
+          { className: 'page-link', 'aria-label': label, onClick: action },
+          _react2.default.createElement(
+            'span',
+            { 'aria-hidden': 'true' },
+            text
+          ),
+          _react2.default.createElement(
+            'span',
+            { className: 'sr-only' },
+            label
+          )
+        )
+      );
+    }
+  }]);
+
+  return PaginationEnd;
+}(_react.Component);
+
+PaginationEnd.propTypes = {
+  text: _propTypes2.default.string.isRequired,
+  label: _propTypes2.default.string.isRequired,
+  classes: _propTypes2.default.string.isRequired,
+  action: _propTypes2.default.func.isRequired
+};
+
+exports.default = PaginationEnd;
+
+/***/ }),
+
+/***/ 699:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

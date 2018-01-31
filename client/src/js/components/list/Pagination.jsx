@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import PaginationEnd from 'components/list/PaginationEnd';
+
 /**
  * The Pagination component.
  * Renders the pagination for the location list.
@@ -87,19 +89,19 @@ class Pagination extends Component {
     if (this.getPageNumbers().length > 1) {
       return (
         <ul className="pagination">
-          <li className={previousClasses}>
-            <a className="page-link" aria-label="Previous" onClick={previousAction}>
-              <span aria-hidden="true">&laquo;</span>
-              <span className="sr-only">Previous</span>
-            </a>
-          </li>
+          <PaginationEnd
+            text={String.fromCharCode(171)}
+            label="Previous"
+            classes={previousClasses}
+            action={previousAction}
+          />
           {this.renderPageLinks()}
-          <li className={nextClasses}>
-            <a className="page-link" aria-label="Next" onClick={nextAction}>
-              <span aria-hidden="true">&raquo;</span>
-              <span className="sr-only">Next</span>
-            </a>
-          </li>
+          <PaginationEnd
+            text={String.fromCharCode(187)}
+            label="Next"
+            classes={nextClasses}
+            action={nextAction}
+          />
         </ul>
       );
     }
