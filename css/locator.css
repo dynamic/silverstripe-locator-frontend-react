@@ -1081,11 +1081,16 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 .list-pagination .pagination .page-link {
+  cursor: pointer;
   display: block;
   line-height: 1.25;
   margin-left: -1px;
   padding: 0.5rem 0.75rem;
   position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .loading {

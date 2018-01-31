@@ -11,10 +11,12 @@
   margin-top: 10px;
 
   .page-link {
+    cursor: pointer;
     display: block;
     line-height: $pagination-line-height;
     margin-left: -$pagination-border-width;
     padding: $pagination-padding-y $pagination-padding-x;
     position: relative;
+    user-select: none;
   }
 }
