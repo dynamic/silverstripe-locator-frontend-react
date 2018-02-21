@@ -106,7 +106,8 @@ test('Map container component should handle marker clicks', () => {
   dispatch.mockClear();
   expect(dispatch.mock.calls.length).toEqual(0);
   container.instance().handleMarkerClick(1);
-  expect(dispatch.mock.calls.length).toEqual(1);
+  // because dispatch is called twice
+  expect(dispatch.mock.calls.length).toEqual(2);
   dispatch.mockClear();
 });
 

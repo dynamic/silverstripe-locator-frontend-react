@@ -99,7 +99,7 @@ class Location extends Component {
    */
   render() {
     const {
-      location, index, search, template, unit, onClick, style,
+      location, index, search, template, unit, onClick,
     } = this.props;
     const htmlToReactParser = new HtmlToReactParser();
 
@@ -121,7 +121,6 @@ class Location extends Component {
         data-markerid={index}
         className={className}
         onClick={() => onClick(location.ID)}
-        style={style}
         role="listitem"
       >
         {htmlToReactParser.parse(template(loc))}
@@ -153,8 +152,6 @@ Location.propTypes = {
   unit: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   template: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.object.isRequired,
 };
 
 /**

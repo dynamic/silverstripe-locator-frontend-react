@@ -16,6 +16,8 @@ const ActionTypes = {
   // Marker actions
   MARKER_CLICK: 'MARKER_CLICK',
   MARKER_CLOSE: 'MARKER_CLOSE',
+
+  PAGE_CHANGE: 'PAGE_CHANGE',
 };
 
 // uses the base FETCH_LOCATIONS to construct resulting actions (can't do this in the actual const)

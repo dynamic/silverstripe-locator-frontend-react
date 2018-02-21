@@ -8,6 +8,7 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 
 import { fetchLocations } from 'actions/locationActions';
 import { search } from 'actions/searchActions';
+import { changePage } from 'actions/listActions';
 import RadiusDropDown from 'components/search/RadiusDropDown';
 import CategoryDropDown from 'components/search/CategoryDropDown';
 
@@ -99,6 +100,8 @@ export class SearchBar extends Component {
       ...params,
       unit,
     }));
+
+    dispatch(changePage(1));
 
     // changes the url for the window and adds it to the browser history(no redirect)
     const loc = window.location;

@@ -6,6 +6,7 @@ import search from 'reducers/searchReducer';
 import map from 'reducers/mapReducer';
 import settings from 'reducers/settingsReducer';
 import locations from 'reducers/locationReducer';
+import list from 'reducers/listReducer';
 
 /**
  * Combines the reducers.
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   map,
   settings,
   locations,
+  list,
 });
 
 export default reducers;

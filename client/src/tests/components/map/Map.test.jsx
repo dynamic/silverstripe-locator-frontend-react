@@ -34,8 +34,8 @@ test('Map should render without clusters', () => {
       clusters={false}
       markers={[]}
       defaultCenter={{
-        Lat: 0,
-        Lng: 0,
+        lat: 0,
+        lng: 0,
       }}
       center={{
         Lat: 90,
@@ -55,8 +55,8 @@ test('Map should render with clusters', () => {
       clusters={true}
       markers={[]}
       defaultCenter={{
-        Lat: 0,
-        Lng: 0,
+        lat: 0,
+        lng: 0,
       }}
       center={{
         Lat: 91,

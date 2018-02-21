@@ -5,6 +5,8 @@
 // loc-name is in general
 
 .loc-list {
+  display: flex;
+  flex-direction: column;
   height: $list-height;
 
   @include media-breakpoint-up(sm) {
@@ -24,6 +26,15 @@
     .list-details {
       width: 140px;
     }
+  }
+
+  .loc-list-container {
+    flex-grow: 1;
+  }
+
+  .loc-list-inner {
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .list-label {
@@ -62,7 +73,7 @@
     display: block;
     float: left;
     margin: 0;
-    width: 99%;
+    width: 100%;
 
     &.first {
       margin-top: 0;
@@ -84,14 +95,4 @@
       z-index: 1;
     }
   }
-}
-
-// react-virtulized stuff
-.ReactVirtualized__List:focus {
-  border: 0;
-  outline: none;
-}
-
-.ReactVirtualized__Grid__innerScrollContainer {
-  padding-bottom: 10px;
 }

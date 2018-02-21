@@ -67,8 +67,8 @@ Map.propTypes = {
     Lng: PropTypes.number.isRequired,
   }).isRequired,
   defaultCenter: PropTypes.shape({
-    Lat: PropTypes.number.isRequired,
-    Lng: PropTypes.number.isRequired,
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
   }).isRequired,
 };
 

@@ -1,23 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-import {
-  CellMeasurer,
-  CellMeasurerCache,
-  AutoSizer,
-  List as VirtualList,
-} from 'react-virtualized';
+import { AutoSizer, } from 'react-virtualized';
 
 import { openMarker } from 'actions/mapActions';
+import { changePage } from 'actions/listActions';
 import Location from 'components/list/Location';
+import Pagination from 'components/list/Pagination';
 
 /**
  * The List component.
  * Renders the location list.
- *
- * some of the code related to virtualization came from:
- * https://github.com/bvaughn/tweets/blob/37d0139736346db16b9681d5b859a4e127964518/src/components/TweetList.js
  */
 export class List extends Component {
   /**
@@ -29,61 +22,7 @@ export class List extends Component {
     super(props);
     // bind actions/handlers
     this.handleLocationClick = this.handleLocationClick.bind(this);
-    this.renderRow = this.renderRow.bind(this);
-    this.resizeAll = this.resizeAll.bind(this);
-
-    // create variables
-    this.cache = new CellMeasurerCache({ defaultHeight: 85, fixedWidth: true });
-    this.mostRecentWidth = 0;
-    this.lastDistance = -1;
-    this.resizeAllFlag = false;
-  }
-
-  /**
-   * Called after the component updates
-   * @param prevProps
-   */
-  componentDidUpdate(prevProps) {
-    const { locations } = this.props;
-    if (this.resizeAllFlag) {
-      this.resizeAllFlag = false;
-      this.cache.clearAll();
-      if (this.list) {
-        this.list.recomputeRowHeights();
-      }
-    } else if (locations !== prevProps.locations) {
-      const index = prevProps.locations.length;
-      this.cache.clear(index, 0);
-      if (this.list) {
-        this.list.recomputeRowHeights(index);
-      }
-    }
-    this.scrollToCurrentIndex();
-  }
-
-  /**
-   * Re-calculates heights for rows
-   */
-  resizeAll() {
-    this.resizeAllFlag = false;
-    this.cache.clearAll();
-    if (this.list) {
-      this.list.recomputeRowHeights();
-    }
-
-    const { locations } = this.props;
-    if (locations.length > 0) {
-      this.lastDistance = locations[0].Distance;
-    }
-  }
-
-  scrollToCurrentIndex() {
-    const { locations, current } = this.props;
-    let index = locations.findIndex(l => l.ID === current);
-    if (index === -1) {
-      index = 0;
-    }
-    this.list.scrollToRow(index);
+    this.handlePaginateClick = this.handlePaginateClick.bind(this);
   }
 
   /**
@@ -96,38 +35,43 @@ export class List extends Component {
   }
 
   /**
-   * Renders the row
-   *
-   * @param index
-   * @param key
-   * @param style
-   * @param parent
-   * @return {XML}
+   * Handles a pagination item click
+   * @param page
    */
-  renderRow({ index, key, style, parent }) {
-    const { current, search, unit, template, locations } = this.props;
-    const location = locations[index];
-    return (
-      <CellMeasurer
-        cache={this.cache}
-        columnIndex={0}
-        key={key}
-        parent={parent}
-        rowIndex={index}
-      >
-        <Location
-          key={key}
-          style={style}
-          location={location}
-          index={index}
-          current={current === location.ID}
-          search={search.length > 0}
-          unit={unit}
-          onClick={this.handleLocationClick}
-          template={template}
-        />
-      </CellMeasurer>
-    );
+  handlePaginateClick(page) {
+    const { dispatch } = this.props;
+    dispatch(changePage(page));
+  }
+
+  /**
+   * Renders the list
+   */
+  renderList() {
+    const {
+      page,
+      defaultLimit,
+      locations,
+      current,
+      search,
+      unit,
+      template
+    } = this.props;
+    const realPage = page - 1 ? page - 1 : 0;
+    // in case we want to implement a flexible limit
+    const lim = defaultLimit;
+
+    return locations.slice(realPage * lim, page * lim).map((location, index) => {
+      return <Location
+        key={location.ID}
+        location={location}
+        index={(realPage * lim) + index}
+        current={current === location.ID}
+        search={search.length > 0}
+        unit={unit}
+        onClick={this.handleLocationClick}
+        template={template}
+      />
+    });
   }
 
   /**
@@ -135,36 +79,26 @@ export class List extends Component {
    * @returns {XML}
    */
   render() {
-    const { locations, current } = this.props;
+    const { locations, current, page, defaultLimit } = this.props;
     return (
       <div className="loc-list" role="list">
-        <AutoSizer>
-          {({ width, height }) => {
-            if ((this.mostRecentWidth && this.mostRecentWidth !== width) ||
-              (locations.length > 0 && this.lastDistance !== locations[0].Distance)) {
-              this.resizeAllFlag = true;
-              setTimeout(this.resizeAll, 0);
+        <div className="loc-list-container">
+          <AutoSizer>
+            {({ width, height }) =>
+              <div className='loc-list-inner' style={{width, height}}>
+                {this.renderList()}
+              </div>
             }
-
-            this.mostRecentWidth = width;
-
-            return (
-              <VirtualList
-                ref={(list) => {
-                  this.list = list;
-                }}
-                current={current}
-                deferredMeasurementCache={this.cache}
-                width={width}
-                height={height}
-                rowCount={locations.length}
-                rowHeight={this.cache.rowHeight}
-                rowRenderer={this.renderRow}
-                scrollToAlignment="start"
-              />
-            );
-          }}
-        </AutoSizer>
+          </AutoSizer>
+        </div>
+        <div className="list-pagination">
+          <Pagination
+            page={page}
+            count={locations.length}
+            defaultLimit={defaultLimit}
+            goToPage={this.handlePaginateClick}
+          />
+        </div>
       </div>
     );
   }
@@ -182,6 +116,8 @@ List.propTypes = {
   unit: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
   template: PropTypes.func.isRequired,
+  defaultLimit: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
 };
 
 /**
@@ -206,6 +142,8 @@ export function mapStateToProps(state) {
     unit: state.settings.unit,
     template: state.settings.listTemplate,
     locations: state.locations.locations,
+    defaultLimit: state.settings.defaultLimit,
+    page: state.list.page,
   };
 }
 
