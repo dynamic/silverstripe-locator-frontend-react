@@ -27,7 +27,7 @@ export class MapContainer extends Component {
    * Generates an array of marker objects to use on the map
    */
   getMarkers() {
-    const { locations, template } = this.props;
+    const { locations, template, emailText, websiteText } = this.props;
     const markers = [];
 
     const htmlToReactParser = new HtmlToReactParser();
@@ -35,14 +35,19 @@ export class MapContainer extends Component {
     let i;
     // eslint-disable-next-line no-plusplus
     for (i = 0; i < locations.length; i++) {
-      const loc = locations[i];
-      const { Lat, Lng } = loc;
+      const location = locations[i];
+      const { Lat, Lng } = location;
+      const loc = {
+        ...location,
+        EmailText: emailText,
+        WebsiteText: websiteText,
+      }
       markers[markers.length] = {
         position: {
           lat: Number(Lat),
           lng: Number(Lng),
         },
-        key: loc.ID,
+        key: location.ID,
         defaultAnimation: 2,
         infoContent: (
           <div>
@@ -156,6 +161,8 @@ export function mapStateToProps(state) {
     defaultCenter: state.settings.defaultCenter,
 
     defaultLimit: state.settings.defaultLimit,
+    emailText: state.settings.emailText,
+    websiteText: state.settings.websiteText,
   };
 }
 

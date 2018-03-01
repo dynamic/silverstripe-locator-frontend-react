@@ -43,13 +43,13 @@ class RadiusDropDown extends React.Component {
     if (radii !== undefined && Object.keys(radii).length !== 0) {
       return (
         <div className="radius-dropdown form-group">
-          <label htmlFor="radius" className="sr-only">Radius</label>
+          <label htmlFor="radius" className="sr-only">{ss.i18n._t('Locator.RADIUS_FIELD', 'Radius')}</label>
           <select
             name="radius"
             className="form-control"
             defaultValue={this.defaultValue()}
           >
-            <option value="">radius</option>
+            <option value="">{ss.i18n._t('Locator.RADIUS_FIELD', 'Radius')}</option>
             {this.mappedRadii()}
           </select>
         </div>

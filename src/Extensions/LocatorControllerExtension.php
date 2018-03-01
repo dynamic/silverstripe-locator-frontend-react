@@ -22,6 +22,10 @@ class LocatorControllerExtension extends Extension
         // stops script from loading
         Requirements::block('jquery-locator');
 
+        // require i18n translation stuff
+        Requirements::javascript('silverstripe/admin: client/dist/js/i18n.js');
+        Requirements::add_i18n_javascript('dynamic/silverstripe-locator-react: client/lang');
+
         // because we need another library when using autocomplete
         if ($this->owner->Autocomplete) {
             // google maps api key

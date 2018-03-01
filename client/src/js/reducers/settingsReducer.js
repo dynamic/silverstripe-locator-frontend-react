@@ -18,7 +18,13 @@ const defaultState = {
   },
   autocomplete: false,
   defaultLimit: 20,
+
+  emailText: ss.i18n._t('Locator.EMAIL_TEXT', 'Email'),
+  websiteText: ss.i18n._t('Locator.WEBSITE_TEXT', 'Website'),
+  directionsText: ss.i18n._t('Locator.DIRECTIONS_TEXT', 'Directions'),
 };
+
+defaultState.unitText = ss.i18n._t(`Locator.UNIT.${defaultState.unit}`, 'mi');
 
 /**
  * Sets up settings

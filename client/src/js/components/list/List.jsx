@@ -54,6 +54,10 @@ export class List extends Component {
       current,
       search,
       unit,
+      unitText,
+      emailText,
+      websiteText,
+      directionsText,
       template
     } = this.props;
     const realPage = page - 1 ? page - 1 : 0;
@@ -67,7 +71,10 @@ export class List extends Component {
         index={(realPage * lim) + index}
         current={current === location.ID}
         search={search.length > 0}
-        unit={unit}
+        unit={unitText}
+        websiteText={websiteText}
+        directionsText={directionsText}
+        emailText={emailText}
         onClick={this.handleLocationClick}
         template={template}
       />
@@ -140,6 +147,10 @@ export function mapStateToProps(state) {
     current: state.map.current,
     search: state.search.address,
     unit: state.settings.unit,
+    unitText: state.settings.unitText,
+    directionsText: state.settings.directionsText,
+    emailText: state.settings.emailText,
+    websiteText: state.settings.websiteText,
     template: state.settings.listTemplate,
     locations: state.locations.locations,
     defaultLimit: state.settings.defaultLimit,

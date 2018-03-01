@@ -131,7 +131,7 @@ export class SearchBar extends Component {
       const inputProps = {
         value: this.searchAddress,
         onChange: this.handleAddressChange,
-        placeholder: 'address or zip code',
+        placeholder: ss.i18n._t('Locator.ADDRESS_FIELD', 'Address or zip code'),
         name: 'address',
       };
       const cssClasses = {
@@ -154,7 +154,7 @@ export class SearchBar extends Component {
       type="text"
       name="address"
       className="form-control"
-      placeholder="address or zip code"
+      placeholder={ss.i18n._t('Locator.ADDRESS_FIELD', 'Address or zip code')}
       defaultValue={address}
     />);
   }
@@ -183,17 +183,20 @@ export class SearchBar extends Component {
         <div className="fieldset">
           <div className="always-shown">
             <div className="address-input input-group">
-              <label htmlFor="address" className="sr-only">Address or zip code</label>
+              <label htmlFor="address" className="sr-only">{ss.i18n._t('Locator.ADDRESS_FIELD', 'Address or zip code')}</label>
               {this.getAddressInput()}
               <span className="input-group-btn">
                 <button
                   className="btn btn-secondary"
                   type="button"
-                  type="submit"><FontAwesomeIcon icon={faSearch} /></button>
+                  type="submit">
+                  <FontAwesomeIcon icon={faSearch} />
+                  <span className="sr-only sr-only-focusable">{ss.i18n._t('Locator.SEARCH_BUTTON', 'Search')}</span>
+                </button>
               </span>
             </div>
             <div className="filter-button">
-              <button type="button" className="btn btn-link" onClick={this.handleFilter}>Filter
+              <button type="button" className="btn btn-link" onClick={this.handleFilter}>{ss.i18n._t('Locator.FILTER_BUTTON', 'Filter')}
                 <FontAwesomeIcon icon={faCheckCircle} className={filterIndicatorClass}/>
               </button>
             </div>

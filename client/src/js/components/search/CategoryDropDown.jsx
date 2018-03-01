@@ -43,13 +43,13 @@ class CategoryDropDown extends Component {
     if (categories !== undefined && Object.keys(categories).length !== 0) {
       return (
         <div className="category-dropdown form-group">
-          <label htmlFor="category" className="sr-only">Category</label>
+          <label htmlFor="category" className="sr-only">{ss.i18n._t('Locator.CATEGORY_FIELD', 'Category')}</label>
           <select
             name="category"
             className="form-control"
             defaultValue={this.defaultValue()}
           >
-            <option value="">category</option>
+            <option value="">{ss.i18n._t('Locator.CATEGORY_FIELD', 'Category')}</option>
             {this.mappedCategories()}
           </select>
         </div>

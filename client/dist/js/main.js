@@ -424,8 +424,14 @@ var defaultState = {
     lng: 0
   },
   autocomplete: false,
-  defaultLimit: 20
+  defaultLimit: 20,
+
+  emailText: ss.i18n._t('Locator.EMAIL_TEXT', 'Email'),
+  websiteText: ss.i18n._t('Locator.WEBSITE_TEXT', 'Website'),
+  directionsText: ss.i18n._t('Locator.DIRECTIONS_TEXT', 'Directions')
 };
+
+defaultState.unitText = ss.i18n._t('Locator.UNIT.' + defaultState.unit, 'mi');
 
 function settings() {
   return {
@@ -931,7 +937,7 @@ var SearchBar = exports.SearchBar = function (_Component) {
         var inputProps = {
           value: this.searchAddress,
           onChange: this.handleAddressChange,
-          placeholder: 'address or zip code',
+          placeholder: ss.i18n._t('Locator.ADDRESS_FIELD', 'Address or zip code'),
           name: 'address'
         };
         var cssClasses = {
@@ -954,7 +960,7 @@ var SearchBar = exports.SearchBar = function (_Component) {
         type: 'text',
         name: 'address',
         className: 'form-control',
-        placeholder: 'address or zip code',
+        placeholder: ss.i18n._t('Locator.ADDRESS_FIELD', 'Address or zip code'),
         defaultValue: address
       });
     }
@@ -994,7 +1000,7 @@ var SearchBar = exports.SearchBar = function (_Component) {
               _react2.default.createElement(
                 'label',
                 { htmlFor: 'address', className: 'sr-only' },
-                'Address or zip code'
+                ss.i18n._t('Locator.ADDRESS_FIELD', 'Address or zip code')
               ),
               this.getAddressInput(),
               _react2.default.createElement(
@@ -1006,7 +1012,12 @@ var SearchBar = exports.SearchBar = function (_Component) {
                     className: 'btn btn-secondary',
                     type: 'button'
                   }, 'type', 'submit'),
-                  _react2.default.createElement(_reactFontawesome2.default, { icon: _fontawesomeFreeSolid.faSearch })
+                  _react2.default.createElement(_reactFontawesome2.default, { icon: _fontawesomeFreeSolid.faSearch }),
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'sr-only sr-only-focusable' },
+                    ss.i18n._t('Locator.SEARCH_BUTTON', 'Search')
+                  )
                 )
               )
             ),
@@ -1016,7 +1027,7 @@ var SearchBar = exports.SearchBar = function (_Component) {
               _react2.default.createElement(
                 'button',
                 { type: 'button', className: 'btn btn-link', onClick: this.handleFilter },
-                'Filter',
+                ss.i18n._t('Locator.FILTER_BUTTON', 'Filter'),
                 _react2.default.createElement(_reactFontawesome2.default, { icon: _fontawesomeFreeSolid.faCheckCircle, className: filterIndicatorClass })
               )
             )
@@ -1184,7 +1195,7 @@ var RadiusDropDown = function (_React$Component) {
           _react2.default.createElement(
             'label',
             { htmlFor: 'radius', className: 'sr-only' },
-            'Radius'
+            ss.i18n._t('Locator.RADIUS_FIELD', 'Radius')
           ),
           _react2.default.createElement(
             'select',
@@ -1196,7 +1207,7 @@ var RadiusDropDown = function (_React$Component) {
             _react2.default.createElement(
               'option',
               { value: '' },
-              'radius'
+              ss.i18n._t('Locator.RADIUS_FIELD', 'Radius')
             ),
             this.mappedRadii()
           )
@@ -1300,7 +1311,7 @@ var CategoryDropDown = function (_Component) {
           _react2.default.createElement(
             'label',
             { htmlFor: 'category', className: 'sr-only' },
-            'Category'
+            ss.i18n._t('Locator.CATEGORY_FIELD', 'Category')
           ),
           _react2.default.createElement(
             'select',
@@ -1312,7 +1323,7 @@ var CategoryDropDown = function (_Component) {
             _react2.default.createElement(
               'option',
               { value: '' },
-              'category'
+              ss.i18n._t('Locator.CATEGORY_FIELD', 'Category')
             ),
             this.mappedCategories()
           )
@@ -1345,6 +1356,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.MapContainer = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1396,7 +1409,9 @@ var MapContainer = exports.MapContainer = function (_Component) {
     value: function getMarkers() {
       var _props = this.props,
           locations = _props.locations,
-          template = _props.template;
+          template = _props.template,
+          emailText = _props.emailText,
+          websiteText = _props.websiteText;
 
       var markers = [];
 
@@ -1405,16 +1420,20 @@ var MapContainer = exports.MapContainer = function (_Component) {
       var i = void 0;
 
       for (i = 0; i < locations.length; i++) {
-        var loc = locations[i];
-        var Lat = loc.Lat,
-            Lng = loc.Lng;
+        var location = locations[i];
+        var Lat = location.Lat,
+            Lng = location.Lng;
 
+        var loc = _extends({}, location, {
+          EmailText: emailText,
+          WebsiteText: websiteText
+        });
         markers[markers.length] = {
           position: {
             lat: Number(Lat),
             lng: Number(Lng)
           },
-          key: loc.ID,
+          key: location.ID,
           defaultAnimation: 2,
           infoContent: _react2.default.createElement(
             'div',
@@ -1518,7 +1537,9 @@ function mapStateToProps(state) {
     center: state.map.center,
     defaultCenter: state.settings.defaultCenter,
 
-    defaultLimit: state.settings.defaultLimit
+    defaultLimit: state.settings.defaultLimit,
+    emailText: state.settings.emailText,
+    websiteText: state.settings.websiteText
   };
 }
 
@@ -1712,6 +1733,10 @@ var List = exports.List = function (_Component) {
           current = _props.current,
           search = _props.search,
           unit = _props.unit,
+          unitText = _props.unitText,
+          emailText = _props.emailText,
+          websiteText = _props.websiteText,
+          directionsText = _props.directionsText,
           template = _props.template;
 
       var realPage = page - 1 ? page - 1 : 0;
@@ -1725,7 +1750,10 @@ var List = exports.List = function (_Component) {
           index: realPage * lim + index,
           current: current === location.ID,
           search: search.length > 0,
-          unit: unit,
+          unit: unitText,
+          websiteText: websiteText,
+          directionsText: directionsText,
+          emailText: emailText,
           onClick: _this2.handleLocationClick,
           template: template
         });
@@ -1801,6 +1829,10 @@ function mapStateToProps(state) {
     current: state.map.current,
     search: state.search.address,
     unit: state.settings.unit,
+    unitText: state.settings.unitText,
+    directionsText: state.settings.directionsText,
+    emailText: state.settings.emailText,
+    websiteText: state.settings.websiteText,
     template: state.settings.listTemplate,
     locations: state.locations.locations,
     defaultLimit: state.settings.defaultLimit,
@@ -1926,6 +1958,9 @@ var Location = function (_Component) {
           search = _props2.search,
           template = _props2.template,
           unit = _props2.unit,
+          directionsText = _props2.directionsText,
+          emailText = _props2.emailText,
+          websiteText = _props2.websiteText,
           _onClick = _props2.onClick;
 
       var htmlToReactParser = new _htmlToReact.Parser();
@@ -1933,6 +1968,9 @@ var Location = function (_Component) {
       var loc = _extends({}, location, {
         Distance: this.getDistance(),
         DirectionsLink: 'http://maps.google.com/maps?saddr=' + Location.cleanAddress(search) + '&daddr=' + this.getDaddr(),
+        DirectionsText: directionsText,
+        EmailText: emailText,
+        WebsiteText: websiteText,
         Unit: unit,
         Number: index + 1
       });
@@ -2093,7 +2131,9 @@ var Pagination = function (_Component) {
               _react2.default.createElement(
                 'span',
                 { className: 'sr-only' },
-                '(current)'
+                '(',
+                ss.i18n._t('Locator.CURRENT', 'Current'),
+                ')'
               )
             )
           );
@@ -2136,14 +2176,14 @@ var Pagination = function (_Component) {
           { className: 'pagination' },
           _react2.default.createElement(_PaginationEnd2.default, {
             text: String.fromCharCode(171),
-            label: 'Previous',
+            label: ss.i18n._t('Locator.PREVIOUS_PAGE', 'Previous'),
             classes: previousClasses,
             action: previousAction
           }),
           this.renderPageLinks(),
           _react2.default.createElement(_PaginationEnd2.default, {
             text: String.fromCharCode(187),
-            label: 'Next',
+            label: ss.i18n._t('Locator.NEXT_PAGE', 'Next'),
             classes: nextClasses,
             action: nextAction
           })
