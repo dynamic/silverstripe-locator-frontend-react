@@ -17,14 +17,19 @@ export default function reducer(state = defaultState, action) {
     case ActionType.MARKER_CLICK:
       return {
         ...state,
-        current: action.payload.key,
+        current: action.payload.ID,
         showCurrent: true,
+        center: {
+          Lat: action.payload.Lat,
+          Lng: action.payload.Lng,
+        },
       };
 
     case ActionType.MARKER_CLOSE:
       return {
         ...state,
         showCurrent: false,
+        center: defaultState.center,
       };
 
     case ActionType.SEARCH:

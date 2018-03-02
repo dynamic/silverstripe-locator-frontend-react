@@ -7,9 +7,7 @@ import * as actions from '../../js/actions/mapActions';
 test('Open marker action is valid', () => {
   expect(actions.openMarker(1)).toEqual({
     type: ActionType.MARKER_CLICK,
-    payload: {
-      key: 1,
-    },
+    payload: 1,
   });
 });
 
@@ -17,18 +15,7 @@ test('Open marker action is valid', () => {
  * Tests to see if what the close marker action returns is valid
  */
 test('Close marker action is valid', () => {
-  expect(actions.closeMarker(10)).toEqual({
+  expect(actions.closeMarker()).toEqual({
     type: ActionType.MARKER_CLOSE,
-    payload: 10,
-  });
-});
-
-/**
- * Tests to see if what the highlight location action returns is valid
- */
-test('Highlight location action is valid', () => {
-  expect(actions.highlightLocation(11)).toEqual({
-    type: ActionType.MARKER_CLICK,
-    payload: 11,
   });
 });

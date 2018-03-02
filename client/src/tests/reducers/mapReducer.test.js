@@ -1,6 +1,24 @@
 import ActionType from '../../../src/js/actions/ActionTypes';
 import reducer from '../../../src/js/reducers/mapReducer';
 
+const location = {
+  ID: 1,
+  Title: 'Location',
+  Address: 'Address 1',
+  Address2: 'Address 2',
+  City: 'City',
+  State: 'State',
+  PostalCode: 'Zip',
+  Website: 'http://example.com',
+  Phone: '123-456-7777',
+  Email: 'd@a.g',
+  Distance: -1,
+  search: false,
+  current: true,
+  Lat: 50,
+  Lng: 60,
+};
+
 /**
  * Tests the default state
  */
@@ -24,22 +42,20 @@ test('Map reducer has a default state', () => {
 test('Map reducer has a valid clicked state', () => {
   expect(reducer(undefined, {
     type: ActionType.MARKER_CLICK,
-    payload: {
-      key: 1,
-    },
+    payload: location,
   })).toEqual({
     current: 1,
     isLoading: true,
     showCurrent: true,
     center: {
-      Lat: 91,
-      Lng: 181,
+      Lat: 50,
+      Lng: 60,
     },
   });
 });
 
 /**
- * Tests the MARKER_CLICK state
+ * Tests the MARKER_CLOSE state
  */
 test('Map reducer has a valid closed state', () => {
   expect(reducer({
@@ -49,6 +65,10 @@ test('Map reducer has a valid closed state', () => {
   })).toEqual({
     current: 1,
     showCurrent: false,
+    center: {
+      Lat: 91,
+      Lng: 181,
+    },
   });
 });
 

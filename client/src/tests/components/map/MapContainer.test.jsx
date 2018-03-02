@@ -135,7 +135,7 @@ test('Map container component should handle marker closings', () => {
 
   dispatch.mockClear();
   expect(dispatch.mock.calls.length).toEqual(0);
-  container.instance().handleMarkerClose(1);
+  container.instance().handleMarkerClose();
   expect(dispatch.mock.calls.length).toEqual(1);
   dispatch.mockClear();
 });

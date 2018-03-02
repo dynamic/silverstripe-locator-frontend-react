@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Parser as HtmlToReactParser } from 'html-to-react';
+import scrollToElement from 'animated-scroll-to';
 
-import { highlightLocation, closeMarker } from 'actions/mapActions';
+import { openMarker, closeMarker } from 'actions/mapActions';
 import { changePage } from 'actions/listActions';
 import Map from 'components/map/Map';
 
@@ -65,7 +66,8 @@ export class MapContainer extends Component {
    */
   handleMarkerClick(target) {
     const { dispatch, locations, defaultLimit } = this.props;
-    dispatch(highlightLocation(target));
+    const location = locations.find(loc => loc.ID === target.key);
+    dispatch(openMarker(location));
 
     // change the page
     const index = locations.findIndex(l => l.ID === target.key) + 1;
@@ -76,8 +78,13 @@ export class MapContainer extends Component {
     // scroll to location in list
     const element = document.getElementById(`loc-${target.key}`);
     if (element !== null) {
-      const topPos = element.offsetTop;
-      document.getElementsByClassName('loc-list-inner')[0].scrollTop = topPos - 10;
+      const scrollContainer = document.getElementsByClassName('loc-list-inner')[0];
+      scrollToElement(element, {
+        element: scrollContainer,
+        minDuration: 500,
+        maxDuration: 750,
+        cancelOnUserAction: false,
+      });
     }
   }
 
@@ -85,9 +92,9 @@ export class MapContainer extends Component {
    * Fires event for closing a marker info box
    * @param target The marker that had its info box closed
    */
-  handleMarkerClose(target) {
+  handleMarkerClose() {
     const { dispatch } = this.props;
-    dispatch(closeMarker(target));
+    dispatch(closeMarker());
   }
 
   render() {
