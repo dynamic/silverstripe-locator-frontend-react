@@ -1,6 +1,4 @@
-import {
-  combineReducers,
-} from 'redux';
+import { combineReducers } from 'redux';
 
 import search from 'reducers/searchReducer';
 import map from 'reducers/mapReducer';
