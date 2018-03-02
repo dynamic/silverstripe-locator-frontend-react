@@ -30,6 +30,10 @@ test('Settings reducer has a default state', () => {
     },
     defaultLimit: 20,
     autocomplete: false,
+    directionsText: 'Directions',
+    emailText: 'Email',
+    unitText: 'mi',
+    websiteText: 'Website',
   });
 });
 
@@ -79,6 +83,10 @@ test('Settings reducer has a valid state when a fetch info window action is call
       lng: 0,
     },
     defaultLimit: 20,
+    directionsText: 'Directions',
+    emailText: 'Email',
+    unitText: 'mi',
+    websiteText: 'Website',
   });
 });
 
@@ -130,5 +138,9 @@ test('Settings reducer has a valid state when a fetch list action is called', ()
       lng: 0,
     },
     defaultLimit: 20,
+    directionsText: 'Directions',
+    emailText: 'Email',
+    unitText: 'mi',
+    websiteText: 'Website',
   });
 });

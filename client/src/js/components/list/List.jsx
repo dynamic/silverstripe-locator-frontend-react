@@ -125,6 +125,10 @@ List.propTypes = {
   template: PropTypes.func.isRequired,
   defaultLimit: PropTypes.number.isRequired,
   page: PropTypes.number.isRequired,
+  unitText: PropTypes.string.isRequired,
+  directionsText: PropTypes.string.isRequired,
+  emailText: PropTypes.string.isRequired,
+  websiteText: PropTypes.string.isRequired,
 };
 
 /**
