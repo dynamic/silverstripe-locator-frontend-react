@@ -59,7 +59,7 @@ class Pagination extends Component {
           <li className="page-item active" key={num}>
             <span className="page-link">
               {num}
-              <span className="sr-only">(current)</span>
+              <span className="sr-only">({ss.i18n._t('Locator.CURRENT', 'Current')})</span>
             </span>
           </li>
         );
@@ -91,14 +91,14 @@ class Pagination extends Component {
         <ul className="pagination">
           <PaginationEnd
             text={String.fromCharCode(171)}
-            label="Previous"
+            label={ss.i18n._t('Locator.PREVIOUS_PAGE', 'Previous')}
             classes={previousClasses}
             action={previousAction}
           />
           {this.renderPageLinks()}
           <PaginationEnd
             text={String.fromCharCode(187)}
-            label="Next"
+            label={ss.i18n._t('Locator.NEXT_PAGE', 'Next')}
             classes={nextClasses}
             action={nextAction}
           />

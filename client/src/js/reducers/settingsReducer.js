@@ -1,4 +1,4 @@
-/* global dynamic_locator */
+/* global dynamic_locator, ss */
 import handlebars from 'handlebars';
 import ActionType from 'actions/ActionTypes';
 
@@ -18,7 +18,17 @@ const defaultState = {
   },
   autocomplete: false,
   defaultLimit: 20,
+
+  // eslint-disable-next-line no-underscore-dangle
+  emailText: ss.i18n._t('Locator.EMAIL_TEXT', 'Email'),
+  // eslint-disable-next-line no-underscore-dangle
+  websiteText: ss.i18n._t('Locator.WEBSITE_TEXT', 'Website'),
+  // eslint-disable-next-line no-underscore-dangle
+  directionsText: ss.i18n._t('Locator.DIRECTIONS_TEXT', 'Directions'),
 };
+
+// eslint-disable-next-line no-underscore-dangle
+defaultState.unitText = ss.i18n._t(`Locator.UNIT.${defaultState.unit}`, 'mi');
 
 /**
  * Sets up settings

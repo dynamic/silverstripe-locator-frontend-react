@@ -99,7 +99,7 @@ class Location extends Component {
    */
   render() {
     const {
-      location, index, search, template, unit, onClick,
+      location, index, search, template, unit, directionsText, emailText, websiteText, onClick,
     } = this.props;
     const htmlToReactParser = new HtmlToReactParser();
 
@@ -107,6 +107,9 @@ class Location extends Component {
       ...location,
       Distance: this.getDistance(),
       DirectionsLink: `http://maps.google.com/maps?saddr=${Location.cleanAddress(search)}&daddr=${this.getDaddr()}`,
+      DirectionsText: directionsText,
+      EmailText: emailText,
+      WebsiteText: websiteText,
       Unit: unit,
       Number: index + 1,
     };

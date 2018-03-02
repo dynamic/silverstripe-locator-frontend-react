@@ -68,6 +68,10 @@ test('List component should render', () => {
       locations={locations}
       defaultLimit={20}
       page={1}
+      directionsText="Directions"
+      emailText="Email"
+      unitText="mi"
+      websiteText="Website"
     />,
   );
 
@@ -86,6 +90,10 @@ test('List component location click', () => {
       locations={locations}
       defaultLimit={20}
       page={1}
+      directionsText="Directions"
+      emailText="Email"
+      unitText="mi"
+      websiteText="Website"
     />,
   );
 
@@ -108,6 +116,10 @@ test('List component pagination click', () => {
       locations={locations}
       defaultLimit={20}
       page={1}
+      directionsText="Directions"
+      emailText="Email"
+      unitText="mi"
+      websiteText="Website"
     />,
   );
 
@@ -130,6 +142,10 @@ test('List component renderList', () => {
       locations={locations}
       defaultLimit={20}
       page={1}
+      directionsText="Directions"
+      emailText="Email"
+      unitText="mi"
+      websiteText="Website"
     />,
   );
   expect(list.instance().renderList().length).toEqual(3);
@@ -142,6 +158,10 @@ test('List component renderList', () => {
       locations={locations}
       defaultLimit={2}
       page={1}
+      directionsText="Directions"
+      emailText="Email"
+      unitText="mi"
+      websiteText="Website"
     />,
   );
   expect(list.instance().renderList().length).toEqual(2);
@@ -154,6 +174,10 @@ test('List component renderList', () => {
       locations={locations}
       defaultLimit={2}
       page={2}
+      directionsText="Directions"
+      emailText="Email"
+      unitText="mi"
+      websiteText="Website"
     />,
   );
 
