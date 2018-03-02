@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AutoSizer, } from 'react-virtualized';
+import { AutoSizer } from 'react-virtualized';
+import scrollToElement from 'animated-scroll-to';
 
 import { openMarker } from 'actions/mapActions';
 import { changePage } from 'actions/listActions';
@@ -30,8 +31,21 @@ export class List extends Component {
    * @param target
    */
   handleLocationClick(target) {
-    const { dispatch } = this.props;
-    dispatch(openMarker(target));
+    const { dispatch, locations } = this.props;
+    const location = locations.find(loc => loc.ID === target);
+    dispatch(openMarker(location));
+
+    // scroll to location in list
+    const element = document.getElementById(`loc-${target}`);
+    if (element !== null) {
+      const scrollContainer = document.getElementsByClassName('loc-list-inner')[0];
+      scrollToElement(element, {
+        element: scrollContainer,
+        minDuration: 500,
+        maxDuration: 750,
+        cancelOnUserAction: false,
+      });
+    }
   }
 
   /**
