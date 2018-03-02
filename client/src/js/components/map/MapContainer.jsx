@@ -92,9 +92,9 @@ export class MapContainer extends Component {
    * Fires event for closing a marker info box
    * @param target The marker that had its info box closed
    */
-  handleMarkerClose(target) {
+  handleMarkerClose() {
     const { dispatch } = this.props;
-    dispatch(closeMarker(target));
+    dispatch(closeMarker());
   }
 
   render() {

@@ -18,7 +18,7 @@ export function markers(props) {
       onClick={() => props.onMarkerClick(marker)}
     >
       {props.current === marker.key && props.showCurrent && (
-        <InfoWindow onCloseClick={() => props.onMarkerClose(marker)}>
+        <InfoWindow onCloseClick={() => props.onMarkerClose()}>
           <div className="marker-content">{marker.infoContent}</div>
         </InfoWindow>
       )}

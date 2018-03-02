@@ -136,6 +136,12 @@ test('Marker close', () => {
   );
 
   expect(markerMap.find(Marker).length).toEqual(2);
+
+  // expect(onMarkerClose).toBeCalledWith();
+
+  onMarkerClose.mockClear();
+  expect(onMarkerClose.mock.calls.length).toEqual(0);
   markerMap.find(InfoWindow).first().simulate('closeClick');
-  expect(onMarkerClose).toBeCalledWith(markerList[1]);
+  expect(onMarkerClose.mock.calls.length).toEqual(1);
+  onMarkerClose.mockClear();
 });

@@ -7,9 +7,8 @@ export function openMarker(target) {
   };
 }
 
-export function closeMarker(target) {
+export function closeMarker() {
   return {
     type: ActionType.MARKER_CLOSE,
-    payload: target,
   };
 }

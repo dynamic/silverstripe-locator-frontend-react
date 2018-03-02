@@ -15,8 +15,7 @@ test('Open marker action is valid', () => {
  * Tests to see if what the close marker action returns is valid
  */
 test('Close marker action is valid', () => {
-  expect(actions.closeMarker(10)).toEqual({
+  expect(actions.closeMarker()).toEqual({
     type: ActionType.MARKER_CLOSE,
-    payload: 10,
   });
 });
