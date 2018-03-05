@@ -34,13 +34,13 @@ class LocatorControllerExtension extends Extension
             Requirements::javascript("https://maps.google.com/maps/api/js?key={$key}&libraries=places");
         }
 
-        $this->customScript();
+        $this->owner->customScript();
     }
 
     /**
      * Generates the custom script for settings
      */
-    private function customScript()
+    public function customScript()
     {
         $radii = $this->owner->getShowRadius() ? $this->owner->getRadii() : [];
         $radiiString = json_encode($radii);
