@@ -5,8 +5,11 @@ namespace Dynamic\Locator\React\Tests\Extensions;
 use Dynamic\Locator\Location;
 use Dynamic\Locator\Locator;
 use Dynamic\Locator\LocatorController;
+use Dynamic\SilverStripeGeocoder\GoogleGeocoder;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\SapphireTest;
+use SilverStripe\View\Requirements;
 
 /**
  * Class LocatorControllerExtensionTest
@@ -15,6 +18,38 @@ class LocatorControllerExtensionTest extends SapphireTest
 {
 
     protected static $fixture_file = '../fixtures.yml';
+
+    /**
+     *
+     */
+    public function testInit()
+    {
+        Config::modify()->set(GoogleGeocoder::class, 'geocoder_api_key', 'YYYY');
+
+        $locator = Locator::create();
+        $locator->Autocomplete = true;
+        $controller = LocatorController::create($locator);
+        $controller->doInit();
+
+        $requirements = Requirements::backend()->getJavascript();
+        $blocked = Requirements::backend()->getBlocked();
+        $this->assertArrayHasKey('https://maps.google.com/maps/api/js?key=YYYY', $blocked);
+        $this->assertArrayHasKey('https://maps.google.com/maps/api/js?key=YYYY&libraries=places', $requirements);
+    }
+
+    /**
+     *
+     */
+    public function testCustomScript()
+    {
+        $requirements = Requirements::get_custom_scripts();
+        $this->assertArrayNotHasKey('react-locator', $requirements);
+
+        $controller = LocatorController::create(Locator::create());
+        $controller->customScript();
+        $requirements = Requirements::get_custom_scripts();
+        $this->assertArrayHasKey('react-locator', $requirements);
+    }
 
     /**
      * Tests categoriesString()
