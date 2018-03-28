@@ -15,9 +15,9 @@ import Loading from 'components/Loading';
  */
 export class Locator extends Component {
   /**
-   * Called before the component mounts
+   * Called after the component mounts
    */
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchInfoWindow());
     dispatch(fetchList());
@@ -34,10 +34,10 @@ export class Locator extends Component {
   }
 
   /**
-   * Called before the component updates
+   * Called after the component updates
    * @param nextProps
    */
-  componentWillUpdate(nextProps) {
+  componentDidUpdate(nextProps) {
     const { dispatch, unit, address, radius, category } = nextProps;
     dispatch(fetchLocations({
       unit,

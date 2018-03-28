@@ -97,7 +97,7 @@ test('Locator component should update', () => {
   expect(shouldUpdate).toEqual(true);
 });
 
-test('Locator component will update', () => {
+test('Locator component did update', () => {
   const props = {
     loadedSettings: false,
     unit: 'm',
