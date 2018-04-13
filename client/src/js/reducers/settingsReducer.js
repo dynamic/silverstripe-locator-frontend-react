@@ -65,7 +65,6 @@ function didSettingsLoad(state = defaultState) {
  * The reducer for creating a part in the store for things like radius and categories
  */
 export default function reducer(state = defaultState, action) {
-  console.log(action);
   switch (action.type) {
     case ActionType.FETCH_INFO_WINDOW_SUCCESS: {
       const { data } = action.payload;

@@ -1,5 +1,7 @@
 /**
  * Exports a list of modules provided by SilverStripe
+ *
+ * Some are comented out because they fucked with redux-promise-middleware
  */
 module.exports = () => ({
   'apollo-client': 'ApolloClient',
@@ -19,7 +21,7 @@ module.exports = () => ({
   poppers: 'Poppers',
   reactstrap: 'Reactstrap',
   'react-apollo': 'ReactApollo',
-  'react-redux': 'ReactRedux',
+  // 'react-redux': 'ReactRedux',
   'react-router-redux': 'ReactRouterRedux',
   'react-router': 'ReactRouter',
   'react-select': 'ReactSelect',
@@ -27,7 +29,7 @@ module.exports = () => ({
   react: 'React',
   'redux-form': 'ReduxForm',
   'redux-thunk': 'ReduxThunk',
-  redux: 'Redux',
+  // redux: 'Redux',
   config: 'Config',
   qs: 'qs',
   moment: 'moment',
