@@ -1,4 +1,5 @@
 /* global process */
+/*
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
@@ -84,6 +85,7 @@ module.exports = {
       },
       {
         test: /\.(png|gif|jpe?g|svg)$/,
+        exclude: /fonts\/([\w_-]+)\.svg$/,
         loader: 'file-loader',
         options: {
           name: Path.join('client', 'dist', 'images', '[name].[ext]'),
@@ -105,3 +107,9 @@ module.exports = {
     new ExtractTextPlugin({ filename: Path.join('css', 'locator.css'), allChunks: true }),
   ],
 };
+*/
+
+const build = require('./client/build');
+
+const ENV = 'development';
+module.exports = build(ENV);

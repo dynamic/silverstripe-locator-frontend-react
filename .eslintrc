@@ -10,6 +10,7 @@
         "moduleDirectory": [
           "client/src/js",
           "client/src/sass",
+          "client/build",
           "node_modules"
         ]
       }
