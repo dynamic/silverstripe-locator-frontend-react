@@ -128,6 +128,7 @@ export default function reducer(state = defaultState, action) {
           loadedMapStyle: true,
         };
       }
+      return state;
     }
 
     default:

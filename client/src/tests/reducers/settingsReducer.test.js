@@ -23,6 +23,9 @@ test('Settings reducer has a default state', () => {
     loadedListTemplate: false,
     loadedSettings: false,
     loadedWindowTemplate: false,
+    loadedMapStyle: false,
+    mapStyle: null,
+    markerImagePath: false,
     unit: 'm',
     defaultCenter: {
       lat: 0,
@@ -56,12 +59,19 @@ test('Settings reducer has a valid state when a fetch info window action is call
       lng: 0,
     },
     defaultLimit: 20,
+    autocomplete: false,
+    markerImagePath: false,
   };
 
   // so settings are loaded
-  const state = reducer(undefined, {
+  let state = reducer(undefined, {
     type: ActionType.FETCH_LIST_SUCCESS,
     payload: '',
+  });
+
+  state = reducer(state, {
+    type: ActionType.FETCH_MAP_STYLE_ERROR,
+    payload: ActionType.FETCH_MAP_STYLE_ERROR,
   });
 
   expect(reducer(state, {
@@ -76,6 +86,9 @@ test('Settings reducer has a valid state when a fetch info window action is call
     loadedSettings: true,
     loadedListTemplate: true,
     loadedWindowTemplate: true,
+    loadedMapStyle: true,
+    mapStyle: null,
+    markerImagePath: false,
     radii: [],
     unit: 'm',
     defaultCenter: {
@@ -83,6 +96,7 @@ test('Settings reducer has a valid state when a fetch info window action is call
       lng: 0,
     },
     defaultLimit: 20,
+    autocomplete: false,
     directionsText: 'Directions',
     emailText: 'Email',
     unitText: 'mi',
@@ -109,12 +123,19 @@ test('Settings reducer has a valid state when a fetch list action is called', ()
       lng: 0,
     },
     defaultLimit: 20,
+    autocomplete: false,
+    markerImagePath: false,
   };
 
   // so settings are loaded
-  const state = reducer(undefined, {
+  let state = reducer(undefined, {
     type: ActionType.FETCH_INFO_WINDOW_SUCCESS,
     payload: '',
+  });
+
+  state = reducer(state, {
+    type: ActionType.FETCH_MAP_STYLE_ERROR,
+    payload: ActionType.FETCH_MAP_STYLE_ERROR,
   });
 
   expect(reducer(state, {
@@ -131,6 +152,9 @@ test('Settings reducer has a valid state when a fetch list action is called', ()
     loadedSettings: true,
     loadedListTemplate: true,
     loadedWindowTemplate: true,
+    loadedMapStyle: true,
+    mapStyle: null,
+    markerImagePath: false,
     radii: [],
     unit: 'm',
     defaultCenter: {
@@ -142,5 +166,7 @@ test('Settings reducer has a valid state when a fetch list action is called', ()
     emailText: 'Email',
     unitText: 'mi',
     websiteText: 'Website',
+    autocomplete: false,
+    markerImagePath: false,
   });
 });

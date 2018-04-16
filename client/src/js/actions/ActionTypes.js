@@ -37,7 +37,7 @@ ActionTypes.FETCH_LIST_SUCCESS = `${ActionTypes.FETCH_LIST}_SUCCESS`;
 ActionTypes.FETCH_LIST_ERROR = `${ActionTypes.FETCH_LIST}_ERROR`;
 
 // uses the base FETCH_MAP_STYLE to construct resulting actions (can't do this in the actual const)
-ActionTypes.FETCH_MAP_STYLE_LOADING = `${ActionTypes.FETCH_MAP_STYLE_}_LOADING`;
+ActionTypes.FETCH_MAP_STYLE_LOADING = `${ActionTypes.FETCH_MAP_STYLE}_LOADING`;
 ActionTypes.FETCH_MAP_STYLE_SUCCESS = `${ActionTypes.FETCH_MAP_STYLE}_SUCCESS`;
 ActionTypes.FETCH_MAP_STYLE_ERROR = `${ActionTypes.FETCH_MAP_STYLE}_ERROR`;
 
