@@ -167,6 +167,5 @@ test('Settings reducer has a valid state when a fetch list action is called', ()
     unitText: 'mi',
     websiteText: 'Website',
     autocomplete: false,
-    markerImagePath: false,
   });
 });
