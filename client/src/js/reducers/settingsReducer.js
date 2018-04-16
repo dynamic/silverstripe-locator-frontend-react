@@ -6,9 +6,12 @@ const defaultState = {
   loadedSettings: false,
   loadedWindowTemplate: false,
   loadedListTemplate: false,
+  loadedMapStyle: false,
 
   infoWindowTemplate: null,
   listTemplate: null,
+  mapStyle: null,
+  markerImagePath: false,
 
   unit: 'm',
 
@@ -46,8 +49,16 @@ function settings() {
       lng: dynamic_locator.defaultCenter.lng,
     },
     autocomplete: dynamic_locator.autocomplete,
+    markerImagePath: dynamic_locator.markerImagePath,
     // defaultLimit: dynamic_locator.defaultLimit,
   };
+}
+
+function didSettingsLoad(state = defaultState) {
+  const { loadedListTemplate, loadedWindowTemplate, loadedMapStyle } = state;
+  return loadedListTemplate === true &&
+    loadedWindowTemplate === true &&
+    loadedMapStyle === true;
 }
 
 /**
@@ -57,10 +68,10 @@ export default function reducer(state = defaultState, action) {
   switch (action.type) {
     case ActionType.FETCH_INFO_WINDOW_SUCCESS: {
       const { data } = action.payload;
-      let loaded = state.loadedSettings;
-      if (state.loadedListTemplate === true) {
-        loaded = true;
-      }
+      const loaded = didSettingsLoad({
+        ...state,
+        loadedWindowTemplate: true,
+      });
 
       return {
         ...state,
@@ -73,10 +84,10 @@ export default function reducer(state = defaultState, action) {
 
     case ActionType.FETCH_LIST_SUCCESS: {
       const { data } = action.payload;
-      let loaded = state.loadedSettings;
-      if (state.loadedWindowTemplate === true) {
-        loaded = true;
-      }
+      const loaded = didSettingsLoad({
+        ...state,
+        loadedListTemplate: true,
+      });
 
       return {
         ...state,
@@ -85,6 +96,38 @@ export default function reducer(state = defaultState, action) {
         loadedListTemplate: true,
         listTemplate: handlebars.compile(data),
       };
+    }
+
+    case ActionType.FETCH_MAP_STYLE_SUCCESS: {
+      const { data } = action.payload;
+      const loaded = didSettingsLoad({
+        ...state,
+        loadedMapStyle: true,
+      });
+
+      return {
+        ...state,
+        ...settings(),
+        loadedSettings: loaded,
+        loadedMapStyle: true,
+        mapStyle: data,
+      };
+    }
+
+    case ActionType.FETCH_MAP_STYLE_ERROR: {
+      if (action.payload === ActionType.FETCH_MAP_STYLE_ERROR) {
+        const loaded = didSettingsLoad({
+          ...state,
+          loadedMapStyle: true,
+        });
+
+        return {
+          ...state,
+          ...settings(),
+          loadedSettings: loaded,
+          loadedMapStyle: true,
+        };
+      }
     }
 
     default:

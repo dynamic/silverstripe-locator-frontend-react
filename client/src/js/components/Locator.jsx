@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { fetchLocations } from 'actions/locationActions';
-import { fetchInfoWindow, fetchList } from 'actions/settingsActions';
+import { fetchInfoWindow, fetchList, fetchMapStyle } from 'actions/settingsActions';
 
 import Search from 'components/search/SearchBar';
 import MapContainer from 'components/map/MapContainer';
@@ -21,6 +21,7 @@ export class Locator extends Component {
     const { dispatch } = this.props;
     dispatch(fetchInfoWindow());
     dispatch(fetchList());
+    dispatch(fetchMapStyle());
   }
 
   /**

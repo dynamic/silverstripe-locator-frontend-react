@@ -15,6 +15,7 @@ export function markers(props) {
       key={marker.key}
       position={marker.position}
       defaultAnimation={marker.defaultAnimation}
+      defaultIcon={marker.defaultIcon}
       onClick={() => props.onMarkerClick(marker)}
     >
       {props.current === marker.key && props.showCurrent && (
@@ -42,10 +43,17 @@ export function Map(props) {
       lng: props.center.Lng,
     }
   }
+
+  const defaultOptions = {};
+  if (props.mapStyle !== null) {
+    defaultOptions.styles = props.mapStyle;
+  }
+
   return (
     <GoogleMap
       defaultZoom={9}
       defaultCenter={{ lat: props.defaultCenter.lat, lng: props.defaultCenter.lng }}
+      defaultOptions={defaultOptions}
       {...opts}
     >
       {props.clusters === true ? <MarkerClusterer
@@ -60,8 +68,16 @@ export function Map(props) {
   );
 }
 
+/**
+ *
+ * @type {{clusters: *, mapStyle: shim, center: (shim|*), defaultCenter: (shim|*)}}
+ */
 Map.propTypes = {
   clusters: PropTypes.bool.isRequired,
+  mapStyle: PropTypes.oneOfType([
+    () => {return null;},
+    PropTypes.object
+  ]),
   center: PropTypes.shape({
     Lat: PropTypes.number.isRequired,
     Lng: PropTypes.number.isRequired,
@@ -70,6 +86,14 @@ Map.propTypes = {
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
   }).isRequired,
+};
+
+/**
+ * Defines the default values of the props
+ * @type {{mapStyle: null}}
+ */
+Map.defaultProps = {
+  mapStyle: null,
 };
 
 export default withGoogleMap(Map);
