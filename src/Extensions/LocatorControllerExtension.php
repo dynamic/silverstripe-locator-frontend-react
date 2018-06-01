@@ -48,28 +48,25 @@ class LocatorControllerExtension extends Extension
         $categories = $this->owner->getCategories();
         $categoriesString = $this->owner->categoriesString($categories);
 
-        $unit = $this->owner->Unit ?: 'm';
-        $limit = $this->owner->getLimit();
-        $defaultLat = $this->owner->DefaultLat;
-        $defaultLng = $this->owner->DefaultLng;
+        $unit = $this->owner->Unit ? $this->owner->Unit : 'm';
         // otherwise this is 0 or 1
         $clusters = $this->owner->Clusters ? 'true' : 'false';
         $autocomplete = $this->owner->Autocomplete ? 'true' : 'false';
-        $infoWindowTemplate = $this->owner->getInfoWindowTemplate();
-        $listTemplate = $this->owner->getListTemplate();
 
         Requirements::customScript("
             window.dynamic_locator = {
                 'radii': {$radiiString},
                 'categories': {$categoriesString},
                 'unit': '{$unit}',
-                'limit': {$limit},
+                'limit': {$this->owner->getLimit()},
                 'clusters': {$clusters},
-                'infoWindowTemplatePath': '{$infoWindowTemplate}',
-                'listTemplatePath': '{$listTemplate}',
+                'infoWindowTemplatePath': '{$this->owner->getInfoWindowTemplate()}',
+                'listTemplatePath': '{$this->owner->getListTemplate()}',
+                'mapStylePath': '{$this->owner->getMapStyle()}',
+                'markerImagePath': '{$this->owner->getMarkerIcon()}',
                 'defaultCenter': {
-                    'lat': {$defaultLat},
-                    'lng': {$defaultLng}
+                    'lat': {$this->owner->DefaultLat},
+                    'lng': {$this->owner->DefaultLng}
                 },
                 'autocomplete': {$autocomplete}
             };

@@ -18,6 +18,7 @@ jest.setMock('../../js/actions/locationActions', locationActions);
 // mock the actions (because of axios)
 settingsActions.fetchInfoWindow = jest.fn();
 settingsActions.fetchList = jest.fn();
+settingsActions.fetchMapStyle = jest.fn();
 jest.setMock('../../js/actions/settingsActions', settingsActions);
 
 const dispatch = jest.fn();

@@ -34,3 +34,30 @@ test('fetch window action is valid', () => {
     payload: new Promise(() => {}),
   });
 });
+
+/**
+ * Tests to see if what the fetch map style action returns is valid when no path is set
+ */
+test('fetch map style action is valid without path', () => {
+  window.dynamic_locator = {
+    mapStylePath: '',
+  };
+  expect(actions.fetchMapStyle()).toEqual({
+    type: ActionType.FETCH_MAP_STYLE_ERROR,
+    payload: ActionType.FETCH_MAP_STYLE_ERROR,
+  });
+});
+
+/**
+ * Tests to see if what the fetch map style action returns is valid when a path is set
+ */
+test('fetch map style action is valid with path', () => {
+  window.dynamic_locator = {
+    mapStylePath: 'test/style/path/mapStyle.json',
+  };
+  expect(actions.fetchMapStyle()).toEqual({
+    type: ActionType.FETCH_MAP_STYLE,
+    payload: new Promise(() => {}),
+  });
+});
+

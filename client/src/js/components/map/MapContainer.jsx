@@ -28,7 +28,7 @@ export class MapContainer extends Component {
    * Generates an array of marker objects to use on the map
    */
   getMarkers() {
-    const { locations, template, emailText, websiteText } = this.props;
+    const { locations, template, emailText, websiteText, markerImagePath } = this.props;
     const markers = [];
 
     const htmlToReactParser = new HtmlToReactParser();
@@ -50,6 +50,7 @@ export class MapContainer extends Component {
         },
         key: location.ID,
         defaultAnimation: 2,
+        defaultIcon: markerImagePath,
         infoContent: (
           <div>
             {htmlToReactParser.parse(template(loc))}
@@ -98,7 +99,7 @@ export class MapContainer extends Component {
   }
 
   render() {
-    const { current, showCurrent, clusters, center, defaultCenter } = this.props;
+    const { current, showCurrent, clusters, center, defaultCenter, mapStyle } = this.props;
     return (
       <div className="map-container">
         <Map
@@ -108,6 +109,7 @@ export class MapContainer extends Component {
           mapElement={
             <div style={{ height: '100%' }} />
           }
+          mapStyle={mapStyle}
           markers={this.getMarkers()}
           onMarkerClick={this.handleMarkerClick}
           onMarkerClose={this.handleMarkerClose}
@@ -124,7 +126,7 @@ export class MapContainer extends Component {
 
 /**
  * Defines the prop types
- * @type {{locations: *}}
+ * @type {{locations: shim, dispatch: *, current: *, showCurrent: *, clusters: *, template: *, mapStyle: shim, center: (shim|*), defaultCenter: (shim|*)}}
  */
 MapContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
@@ -134,6 +136,14 @@ MapContainer.propTypes = {
   showCurrent: PropTypes.bool.isRequired,
   clusters: PropTypes.bool.isRequired,
   template: PropTypes.func.isRequired,
+  mapStyle: PropTypes.oneOfType([
+    () => {return null;},
+    PropTypes.object,
+  ]),
+  markerImagePath: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]).isRequired,
   center: PropTypes.shape({
     Lat: PropTypes.number.isRequired,
     Lng: PropTypes.number.isRequired,
@@ -146,10 +156,11 @@ MapContainer.propTypes = {
 
 /**
  * Defines the default values of the props
- * @type {{locations: {edges: Array}}}
+ * @type {{locations: Array, mapStyle: null}}
  */
 MapContainer.defaultProps = {
   locations: [],
+  mapStyle: null,
 };
 
 /**
@@ -163,6 +174,8 @@ export function mapStateToProps(state) {
     showCurrent: state.map.showCurrent,
     clusters: state.settings.clusters,
     template: state.settings.infoWindowTemplate,
+    mapStyle: state.settings.mapStyle,
+    markerImagePath: state.settings.markerImagePath,
     locations: state.locations.locations,
     center: state.map.center,
     defaultCenter: state.settings.defaultCenter,
