@@ -3,6 +3,7 @@
 	<% if $Content %><div class="typography">$Content</div><% end_if %>
 
     <%-- This is where react hooks into the page --%>
+    <div class="locator-loading"></div>
     <div class="locator">
     </div>
 

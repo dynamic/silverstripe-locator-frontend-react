@@ -14,9 +14,7 @@ import promise from 'redux-promise-middleware';
 
 import reducers from 'reducers';
 import Locator from 'components/Locator';
-
-// only the first container is used, can change to querySelectorAll() for multiple instances
-const container = document.querySelector('.locator');
+import Loading from 'components/Loading';
 
 /**
  * Writes deeply nested function transformations without the rightward drift of the code.
@@ -37,12 +35,20 @@ function composedMiddleware() {
 // creates the redux store with reducers and middleware
 const store = createStore(reducers, composedMiddleware());
 
+// renders a component to a selector
+function renderComponent(component, selector) {
+  ReactDom.render(
+    <Provider store={store}>
+      {component}
+    </Provider>
+    // only the first container is used, can change to querySelectorAll() for multiple instances
+    , document.querySelector(selector)
+  );
+}
+
 // defers rendering until after content is loaded (only needed for settings)
 document.addEventListener('DOMContentLoaded', () => {
   // renders the locator
-  ReactDom.render(
-    <Provider store={store}>
-      <Locator />
-    </Provider>
-    , container);
+  renderComponent(<Locator />, '.locator');
+  renderComponent(<Loading />, '.locator-loading');
 });

@@ -15,40 +15,6 @@ import Loading from 'components/Loading';
  */
 export class Locator extends Component {
   /**
-   * Called after the component mounts
-   */
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchInfoWindow());
-    dispatch(fetchList());
-    dispatch(fetchMapStyle());
-  }
-
-  /**
-   * Should this component update
-   * @param nextProps
-   * @return {boolean}
-   */
-  shouldComponentUpdate(nextProps) {
-    const { loadedSettings } = this.props;
-    return (loadedSettings !== nextProps.loadedSettings);
-  }
-
-  /**
-   * Called after the component updates
-   * @param nextProps
-   */
-  componentDidUpdate(nextProps) {
-    const { dispatch, unit, address, radius, category } = nextProps;
-    dispatch(fetchLocations({
-      unit,
-      address,
-      radius,
-      category,
-    }));
-  }
-
-  /**
    * Renders the component
    * @returns {XML}
    */
@@ -62,7 +28,6 @@ export class Locator extends Component {
         <Search />
         <List />
         <MapContainer />
-        <Loading />
       </div>
     );
   }
