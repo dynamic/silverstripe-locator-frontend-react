@@ -684,7 +684,7 @@ select.form-control-lg:not([size]):not([multiple]),
   white-space: normal;
 }
 
-.locator-area {
+.locator {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -693,61 +693,61 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 @media (min-width: 576px) {
-  .locator-area {
+  .locator {
     height: 530px;
   }
 }
 
-.locator-area .locator-search,
-.locator-area .loc-list,
-.locator-area .map-container {
+.locator .search,
+.locator .list,
+.locator > .map {
   position: relative;
   width: 100%;
   min-height: 1px;
   box-sizing: border-box;
 }
 
-.locator-area .locator-search {
+.locator .search {
   order: 1;
 }
 
-.locator-area .loc-list {
+.locator .list {
   order: 3;
 }
 
 @media (min-width: 576px) {
-  .locator-area .loc-list {
+  .locator .list {
     order: 2;
   }
 }
 
 @media (min-width: 576px) {
-  .locator-area .locator-search,
-  .locator-area .loc-list {
+  .locator .search,
+  .locator .list {
     max-width: 50%;
   }
 }
 
 @media (min-width: 992px) {
-  .locator-area .locator-search,
-  .locator-area .loc-list {
+  .locator .search,
+  .locator .list {
     max-width: 41.66667%;
   }
 }
 
-.locator-area .map-container {
+.locator > .map {
   order: 2;
 }
 
 @media (min-width: 576px) {
-  .locator-area .map-container {
+  .locator > .map {
     max-width: 50%;
     order: 3;
   }
 }
 
 @media (min-width: 992px) {
-  .locator-area .map-container {
+  .locator > .map {
     max-width: 58.33333%;
   }
 }

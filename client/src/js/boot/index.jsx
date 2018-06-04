@@ -13,7 +13,8 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 
 import reducers from 'reducers';
-import Locator from 'components/Locator';
+import renderComponent from 'renderComponent';
+
 import Loading from 'components/Loading';
 
 /**
@@ -35,20 +36,8 @@ function composedMiddleware() {
 // creates the redux store with reducers and middleware
 const store = createStore(reducers, composedMiddleware());
 
-// renders a component to a selector
-function renderComponent(component, selector) {
-  ReactDom.render(
-    <Provider store={store}>
-      {component}
-    </Provider>
-    // only the first container is used, can change to querySelectorAll() for multiple instances
-    , document.querySelector(selector)
-  );
-}
-
 // defers rendering until after content is loaded (only needed for settings)
 document.addEventListener('DOMContentLoaded', () => {
   // renders the locator
-  renderComponent(<Locator />, '.locator');
-  renderComponent(<Loading />, '.locator-loading');
+  renderComponent(<Loading store={store}/>, store, '.locator .loading');
 });

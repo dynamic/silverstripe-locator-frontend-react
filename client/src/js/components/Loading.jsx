@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import renderComponent from 'renderComponent';
 import { fetchLocations } from 'actions/locationActions';
 import { fetchInfoWindow, fetchList, fetchMapStyle } from 'actions/settingsActions';
+
+import Search from 'components/search/SearchBar';
+import MapContainer from 'components/map/MapContainer';
+import List from 'components/list/List';
 
 // exported for tests
 export class Loading extends Component {
@@ -24,7 +29,7 @@ export class Loading extends Component {
    */
   shouldComponentUpdate(nextProps) {
     const { loadedSettings, isLoading } = this.props;
-    return (loadedSettings !== nextProps.loadedSettings);
+    return (loadedSettings !== nextProps.loadedSettings || isLoading !== nextProps.isLoading);
   }
 
   /**
@@ -32,7 +37,7 @@ export class Loading extends Component {
    * @param nextProps
    */
   componentDidUpdate(nextProps) {
-    const { loadedSettings } = this.props;
+    const { loadedSettings, store } = this.props;
     if (loadedSettings !== nextProps.loadedSettings) {
       const {dispatch, unit, address, radius, category} = nextProps;
       dispatch(fetchLocations({
@@ -42,11 +47,15 @@ export class Loading extends Component {
         category,
       }));
     }
+
+    renderComponent(<Search />, store, '.locator .search');
+    renderComponent(<List />, store, '.locator .list');
+    renderComponent(<MapContainer />, store, '.locator .map');
   }
 
   render() {
     const { isLoading, loadedSettings } = this.props;
-    if (isLoading || loadedSettings) {
+    if (isLoading || !loadedSettings) {
       return (
         <div className="loading show">
           <div className="loading-content">
