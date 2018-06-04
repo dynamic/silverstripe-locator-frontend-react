@@ -1585,8 +1585,8 @@ var MapContainer = exports.MapContainer = function (_Component) {
           mapStyle = _props3.mapStyle;
 
       return _react2.default.createElement(
-        'div',
-        { className: 'map-container' },
+        _react2.default.Fragment,
+        null,
         _react2.default.createElement(_Map2.default, {
           containerElement: _react2.default.createElement('div', { className: 'map' }),
           mapElement: _react2.default.createElement('div', { style: { height: '100%' } }),
@@ -1914,11 +1914,11 @@ var List = exports.List = function (_Component) {
           defaultLimit = _props3.defaultLimit;
 
       return _react2.default.createElement(
-        'div',
-        { className: 'loc-list', role: 'list' },
+        _react2.default.Fragment,
+        null,
         _react2.default.createElement(
           'div',
-          { className: 'loc-list-container' },
+          { className: 'loc-list-container', role: 'list' },
           _react2.default.createElement(
             _reactVirtualized.AutoSizer,
             null,
@@ -1934,8 +1934,8 @@ var List = exports.List = function (_Component) {
           )
         ),
         _react2.default.createElement(
-          'div',
-          { className: 'list-pagination' },
+          'ul',
+          { className: 'pagination' },
           _react2.default.createElement(_Pagination2.default, {
             page: page,
             count: locations.length,
@@ -2319,8 +2319,8 @@ var Pagination = function (_Component) {
 
       if (this.getPageNumbers().length > 1) {
         return _react2.default.createElement(
-          'ul',
-          { className: 'pagination' },
+          _react2.default.Fragment,
+          null,
           _react2.default.createElement(_PaginationEnd2.default, {
             text: String.fromCharCode(171),
             label: ss.i18n._t('Locator.PREVIOUS_PAGE', 'Previous'),

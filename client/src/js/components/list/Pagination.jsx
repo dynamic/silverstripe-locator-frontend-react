@@ -88,7 +88,7 @@ class Pagination extends Component {
 
     if (this.getPageNumbers().length > 1) {
       return (
-        <ul className="pagination">
+        <React.Fragment>
           <PaginationEnd
             text={String.fromCharCode(171)}
             label={ss.i18n._t('Locator.PREVIOUS_PAGE', 'Previous')}
@@ -102,7 +102,7 @@ class Pagination extends Component {
             classes={nextClasses}
             action={nextAction}
           />
-        </ul>
+        </React.Fragment>
       );
     }
     return null;

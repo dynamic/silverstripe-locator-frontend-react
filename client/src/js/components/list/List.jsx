@@ -102,8 +102,8 @@ export class List extends Component {
   render() {
     const { locations, current, page, defaultLimit } = this.props;
     return (
-      <div className="loc-list" role="list">
-        <div className="loc-list-container">
+      <React.Fragment>
+        <div className="loc-list-container" role="list">
           <AutoSizer>
             {({ width, height }) =>
               <div className='loc-list-inner' style={{width, height}}>
@@ -112,15 +112,15 @@ export class List extends Component {
             }
           </AutoSizer>
         </div>
-        <div className="list-pagination">
+        <ul className="pagination">
           <Pagination
             page={page}
             count={locations.length}
             defaultLimit={defaultLimit}
             goToPage={this.handlePaginateClick}
           />
-        </div>
-      </div>
+        </ul>
+      </React.Fragment>
     );
   }
 }

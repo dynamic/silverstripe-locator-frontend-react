@@ -101,7 +101,7 @@ export class MapContainer extends Component {
   render() {
     const { current, showCurrent, clusters, center, defaultCenter, mapStyle } = this.props;
     return (
-      <div className="map-container">
+      <React.Fragment>
         <Map
           containerElement={
             <div className="map" />
@@ -119,7 +119,7 @@ export class MapContainer extends Component {
           center={center}
           defaultCenter={defaultCenter}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }
