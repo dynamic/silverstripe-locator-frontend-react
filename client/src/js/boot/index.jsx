@@ -39,5 +39,5 @@ const store = createStore(reducers, composedMiddleware());
 // defers rendering until after content is loaded (only needed for settings)
 document.addEventListener('DOMContentLoaded', () => {
   // renders the locator
-  renderComponent(<Loading store={store}/>, store, '.locator .loading');
+  renderComponent(<Loading store={store}/>, store, '.locator-loading');
 });

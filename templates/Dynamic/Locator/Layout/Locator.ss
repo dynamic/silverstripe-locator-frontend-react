@@ -4,10 +4,10 @@
 
     <%-- This is where react hooks into the page --%>
     <div class="locator">
-      <div class="search"></div>
-      <div class="list"></div>
-      <div class="map"></div>
-      <div class="loading"></div>
+      <div class="locator-search"></div>
+      <div class="locator-list"></div>
+      <div class="locator-map"></div>
+      <div class="locator-loading"></div>
     </div>
 
 </div>

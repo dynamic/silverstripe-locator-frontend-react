@@ -698,56 +698,56 @@ select.form-control-lg:not([size]):not([multiple]),
   }
 }
 
-.locator .search,
-.locator .list,
-.locator > .map {
+.locator .locator-search,
+.locator .locator-list,
+.locator .locator-map {
   position: relative;
   width: 100%;
   min-height: 1px;
   box-sizing: border-box;
 }
 
-.locator .search {
+.locator .locator-search {
   order: 1;
 }
 
-.locator .list {
+.locator .locator-list {
   order: 3;
 }
 
 @media (min-width: 576px) {
-  .locator .list {
+  .locator .locator-list {
     order: 2;
   }
 }
 
 @media (min-width: 576px) {
-  .locator .search,
-  .locator .list {
+  .locator .locator-search,
+  .locator .locator-list {
     max-width: 50%;
   }
 }
 
 @media (min-width: 992px) {
-  .locator .search,
-  .locator .list {
+  .locator .locator-search,
+  .locator .locator-list {
     max-width: 41.66667%;
   }
 }
 
-.locator > .map {
+.locator .locator-map {
   order: 2;
 }
 
 @media (min-width: 576px) {
-  .locator > .map {
+  .locator .locator-map {
     max-width: 50%;
     order: 3;
   }
 }
 
 @media (min-width: 992px) {
-  .locator > .map {
+  .locator .locator-map {
     max-width: 58.33333%;
   }
 }
@@ -761,22 +761,22 @@ select.form-control-lg:not([size]):not([multiple]),
   font-weight: bold;
 }
 
-.locator-search {
+.locator-search .search {
   margin-top: 5px;
 }
 
 @media (min-width: 576px) {
-  .locator-search {
+  .locator-search .search {
     margin: 0;
   }
 }
 
-.locator-search .form-group,
-.locator-search .form-control {
+.locator-search .search .form-group,
+.locator-search .search .form-control {
   box-sizing: border-box;
 }
 
-.locator-search .fieldset {
+.locator-search .search .fieldset {
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -787,20 +787,20 @@ select.form-control-lg:not([size]):not([multiple]),
   box-sizing: border-box;
 }
 
-.locator-search .fieldset .address-input {
+.locator-search .search .fieldset .address-input {
   flex: 0 0 100%;
   max-width: 100%;
 }
 
 @media (min-width: 768px) {
-  .locator-search .fieldset .address-input {
+  .locator-search .search .fieldset .address-input {
     flex: initial;
     flex-grow: 1;
   }
 }
 
-.locator-search .fieldset .radius-dropdown,
-.locator-search .fieldset .category-dropdown {
+.locator-search .search .fieldset .radius-dropdown,
+.locator-search .search .fieldset .category-dropdown {
   position: relative;
   width: 100%;
   min-height: 1px;
@@ -809,41 +809,41 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 @media (min-width: 768px) {
-  .locator-search .fieldset .category-dropdown + .radius-dropdown,
-  .locator-search .fieldset .category-dropdown {
+  .locator-search .search .fieldset .category-dropdown + .radius-dropdown,
+  .locator-search .search .fieldset .category-dropdown {
     flex: 0 0 50%;
     max-width: 50%;
   }
 }
 
 @media (min-width: 768px) {
-  .locator-search .fieldset .category-dropdown + .radius-dropdown {
+  .locator-search .search .fieldset .category-dropdown + .radius-dropdown {
     padding-left: 3px;
   }
 }
 
 @media (min-width: 768px) {
-  .locator-search .fieldset .category-dropdown {
+  .locator-search .search .fieldset .category-dropdown {
     padding-right: 3px;
   }
 }
 
-.locator-search .fieldset select {
+.locator-search .search .fieldset select {
   max-width: 100%;
 }
 
-.locator-search .always-shown {
+.locator-search .search .always-shown {
   display: block;
   width: 100%;
 }
 
 @media (min-width: 768px) {
-  .locator-search .always-shown {
+  .locator-search .search .always-shown {
     display: flex;
   }
 }
 
-.locator-search .address-input button {
+.locator-search .search .address-input button {
   font-size: 14px;
   height: 100%;
   line-height: 1.428;
@@ -852,45 +852,45 @@ select.form-control-lg:not([size]):not([multiple]),
   width: auto;
 }
 
-.locator-search .address-input .autocomplete-root {
+.locator-search .search .address-input .autocomplete-root {
   border: 0;
   padding: 0;
 }
 
-.locator-search .filter-button {
+.locator-search .search .filter-button {
   flex: 0 0 100%;
   max-width: 100%;
 }
 
 @media (min-width: 768px) {
-  .locator-search .filter-button {
+  .locator-search .search .filter-button {
     flex: initial;
     width: auto;
   }
 }
 
-.locator-search .filter-button button {
+.locator-search .search .filter-button button {
   height: 100%;
   outline: none;
   width: 100%;
 }
 
 @media (min-width: 768px) {
-  .locator-search .filter-button button {
+  .locator-search .search .filter-button button {
     padding: 0 0 0 12px;
   }
 }
 
-.locator-search .filter-icon {
+.locator-search .search .filter-icon {
   vertical-align: super;
   width: .75em;
 }
 
-.locator-search .filter-icon.no-show {
+.locator-search .search .filter-icon.no-show {
   visibility: hidden;
 }
 
-.locator-search .filter {
+.locator-search .search .filter {
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -903,11 +903,11 @@ select.form-control-lg:not([size]):not([multiple]),
   transition: max-height .25s ease-in-out;
 }
 
-.locator-search .filter.closed {
+.locator-search .search .filter.closed {
   max-height: 0;
 }
 
-.locator-search .filter.open {
+.locator-search .search .filter.open {
   max-height: 100px;
 }
 
@@ -945,43 +945,43 @@ select.form-control-lg:not([size]):not([multiple]),
   padding: 0;
 }
 
-.loc-list {
+.locator-list {
   display: flex;
   flex-direction: column;
   height: 530px;
 }
 
 @media (min-width: 576px) {
-  .loc-list {
+  .locator-list {
     flex-grow: 1;
     height: auto;
   }
 }
 
 @media (min-width: 576px) and (max-width: 991.98px) {
-  .loc-list .list-label {
+  .locator-list .list-label {
     margin-left: 0;
   }
 
-  .loc-list .list-content {
+  .locator-list .list-content {
     padding: 10px 0;
   }
 
-  .loc-list .list-details {
+  .locator-list .list-details {
     width: 140px;
   }
 }
 
-.loc-list .loc-list-container {
+.locator-list .loc-list-container {
   flex-grow: 1;
 }
 
-.loc-list .loc-list-inner {
+.locator-list .loc-list-inner {
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
-.loc-list .list-label {
+.locator-list .list-label {
   background: #451400;
   color: #fff;
   float: left;
@@ -992,23 +992,23 @@ select.form-control-lg:not([size]):not([multiple]),
   width: 27px;
 }
 
-.loc-list .list-details {
+.locator-list .list-details {
   float: left;
   margin-left: 6px;
   width: 165px;
 }
 
-.loc-list .list-content {
+.locator-list .list-content {
   padding: 10px;
 }
 
-.loc-list .loc-dist {
+.locator-list .loc-dist {
   color: #8e8e8e;
   font-style: italic;
   font-weight: bold;
 }
 
-.loc-list .list-location {
+.locator-list .list-location {
   border: 1px solid transparent;
   box-sizing: border-box;
   clear: left;
@@ -1019,19 +1019,19 @@ select.form-control-lg:not([size]):not([multiple]),
   width: 100%;
 }
 
-.loc-list .list-location.first {
+.locator-list .list-location.first {
   margin-top: 0;
 }
 
-.loc-list .list-location.last {
+.locator-list .list-location.last {
   margin-bottom: 0;
 }
 
-.loc-list .list-location.even {
+.locator-list .list-location.even {
   background-color: #eeeeee;
 }
 
-.loc-list .list-location.focus {
+.locator-list .list-location.focus {
   border: 1px solid rgba(82, 168, 236, 0.9);
   box-shadow: 0 0 8px rgba(82, 168, 236, 0.7);
   transition: border .2s linear 0s, box-shadow .2s linear 0s;
@@ -1061,7 +1061,7 @@ select.form-control-lg:not([size]):not([multiple]),
           user-select: none;
 }
 
-.loading {
+.locator-loading .loading {
   background: rgba(255, 255, 255, 0.75);
   bottom: 0;
   display: block;
@@ -1074,12 +1074,12 @@ select.form-control-lg:not([size]):not([multiple]),
   visibility: hidden;
 }
 
-.loading.show {
+.locator-loading .loading.show {
   opacity: 1;
   visibility: visible;
 }
 
-.loading .loading-content {
+.locator-loading .loading .loading-content {
   padding-top: 30px;
   position: absolute;
   text-align: center;
@@ -1087,7 +1087,7 @@ select.form-control-lg:not([size]):not([multiple]),
   width: 100%;
 }
 
-.loading .loading-content .spinner {
+.locator-loading .loading .loading-content .spinner {
   background: url(../client/dist/images/ajax-loader.gif) no-repeat scroll center/25px 25px;
   height: 25px;
   margin: auto;
@@ -1095,7 +1095,7 @@ select.form-control-lg:not([size]):not([multiple]),
   width: 25px;
 }
 
-.loading .loading-content span {
+.locator-loading .loading .loading-content span {
   font-size: large;
   font-weight: bold;
 }

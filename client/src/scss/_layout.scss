@@ -12,18 +12,18 @@
     height: $map-height;
   }
 
-  .search,
-  .list,
-  & > .map {
+  .locator-search,
+  .locator-list,
+  .locator-map {
     @include make-col-ready-no-gutter;
     box-sizing: border-box;
   }
 
-  .search {
+  .locator-search {
     order: 1;
   }
 
-  .list {
+  .locator-list {
     order: 3;
 
     @include media-breakpoint-up(sm) {
@@ -31,8 +31,8 @@
     }
   }
 
-  .search,
-  .list {
+  .locator-search,
+  .locator-list {
     @include media-breakpoint-up(sm) {
       max-width: 50%;
     }
@@ -42,7 +42,7 @@
     }
   }
 
-  & > .map {
+  .locator-map {
     order: 2;
 
     @include media-breakpoint-up(sm) {

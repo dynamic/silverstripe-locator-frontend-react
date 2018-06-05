@@ -106,7 +106,7 @@ export class List extends Component {
         <div className="loc-list-container" role="list">
           <AutoSizer>
             {({ width, height }) =>
-              <div className='loc-list-inner' style={{width, height}}>
+              <div className='list-inner' style={{width, height}}>
                 {this.renderList()}
               </div>
             }

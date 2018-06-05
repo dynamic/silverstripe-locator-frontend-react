@@ -178,7 +178,7 @@ export class SearchBar extends Component {
     const filterClasses = this.state.showFilter ? 'filter open' : 'filter closed';
 
     return (
-      <form onSubmit={this.handleSubmit} className="locator-search">
+      <form onSubmit={this.handleSubmit} className="search">
         {/* not a fieldset because no flexbox */}
         <div className="fieldset">
           <div className="always-shown">
