@@ -771,12 +771,12 @@ select.form-control-lg:not([size]):not([multiple]),
   }
 }
 
-.locator-search .search .form-group,
-.locator-search .search .form-control {
+.locator-search .form-group,
+.locator-search .form-control {
   box-sizing: border-box;
 }
 
-.locator-search .search .fieldset {
+.locator-search .fieldset {
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -787,20 +787,20 @@ select.form-control-lg:not([size]):not([multiple]),
   box-sizing: border-box;
 }
 
-.locator-search .search .fieldset .address-input {
+.locator-search .fieldset .address-input {
   flex: 0 0 100%;
   max-width: 100%;
 }
 
 @media (min-width: 768px) {
-  .locator-search .search .fieldset .address-input {
+  .locator-search .fieldset .address-input {
     flex: initial;
     flex-grow: 1;
   }
 }
 
-.locator-search .search .fieldset .radius-dropdown,
-.locator-search .search .fieldset .category-dropdown {
+.locator-search .fieldset .radius-dropdown,
+.locator-search .fieldset .category-dropdown {
   position: relative;
   width: 100%;
   min-height: 1px;
@@ -809,41 +809,41 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 @media (min-width: 768px) {
-  .locator-search .search .fieldset .category-dropdown + .radius-dropdown,
-  .locator-search .search .fieldset .category-dropdown {
+  .locator-search .fieldset .category-dropdown + .radius-dropdown,
+  .locator-search .fieldset .category-dropdown {
     flex: 0 0 50%;
     max-width: 50%;
   }
 }
 
 @media (min-width: 768px) {
-  .locator-search .search .fieldset .category-dropdown + .radius-dropdown {
+  .locator-search .fieldset .category-dropdown + .radius-dropdown {
     padding-left: 3px;
   }
 }
 
 @media (min-width: 768px) {
-  .locator-search .search .fieldset .category-dropdown {
+  .locator-search .fieldset .category-dropdown {
     padding-right: 3px;
   }
 }
 
-.locator-search .search .fieldset select {
+.locator-search .fieldset select {
   max-width: 100%;
 }
 
-.locator-search .search .always-shown {
+.locator-search .always-shown {
   display: block;
   width: 100%;
 }
 
 @media (min-width: 768px) {
-  .locator-search .search .always-shown {
+  .locator-search .always-shown {
     display: flex;
   }
 }
 
-.locator-search .search .address-input button {
+.locator-search .address-input button {
   font-size: 14px;
   height: 100%;
   line-height: 1.428;
@@ -852,45 +852,45 @@ select.form-control-lg:not([size]):not([multiple]),
   width: auto;
 }
 
-.locator-search .search .address-input .autocomplete-root {
+.locator-search .address-input .autocomplete-root {
   border: 0;
   padding: 0;
 }
 
-.locator-search .search .filter-button {
+.locator-search .filter-button {
   flex: 0 0 100%;
   max-width: 100%;
 }
 
 @media (min-width: 768px) {
-  .locator-search .search .filter-button {
+  .locator-search .filter-button {
     flex: initial;
     width: auto;
   }
 }
 
-.locator-search .search .filter-button button {
+.locator-search .filter-button button {
   height: 100%;
   outline: none;
   width: 100%;
 }
 
 @media (min-width: 768px) {
-  .locator-search .search .filter-button button {
+  .locator-search .filter-button button {
     padding: 0 0 0 12px;
   }
 }
 
-.locator-search .search .filter-icon {
+.locator-search .filter-icon {
   vertical-align: super;
   width: .75em;
 }
 
-.locator-search .search .filter-icon.no-show {
+.locator-search .filter-icon.no-show {
   visibility: hidden;
 }
 
-.locator-search .search .filter {
+.locator-search .filter {
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -903,11 +903,11 @@ select.form-control-lg:not([size]):not([multiple]),
   transition: max-height .25s ease-in-out;
 }
 
-.locator-search .search .filter.closed {
+.locator-search .filter.closed {
   max-height: 0;
 }
 
-.locator-search .search .filter.open {
+.locator-search .filter.open {
   max-height: 100px;
 }
 
@@ -1079,7 +1079,7 @@ select.form-control-lg:not([size]):not([multiple]),
   visibility: visible;
 }
 
-.locator-loading .loading .loading-content {
+.locator-loading .loading-content {
   padding-top: 30px;
   position: absolute;
   text-align: center;
@@ -1087,7 +1087,7 @@ select.form-control-lg:not([size]):not([multiple]),
   width: 100%;
 }
 
-.locator-loading .loading .loading-content .spinner {
+.locator-loading .loading-content .spinner {
   background: url(../client/dist/images/ajax-loader.gif) no-repeat scroll center/25px 25px;
   height: 25px;
   margin: auto;
@@ -1095,7 +1095,7 @@ select.form-control-lg:not([size]):not([multiple]),
   width: 25px;
 }
 
-.locator-loading .loading .loading-content span {
+.locator-loading .loading-content span {
   font-size: large;
   font-weight: bold;
 }

@@ -1,11 +1,13 @@
 // =================
 // == Search Form ==
 // =================
-.locator-search .search {
-  margin-top: 5px;
+.locator-search {
+  .search {
+    margin-top: 5px;
 
-  @include media-breakpoint-up(sm) {
-    margin: 0;
+    @include media-breakpoint-up(sm) {
+      margin: 0;
+    }
   }
 
   .form-group,
