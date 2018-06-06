@@ -79,7 +79,7 @@ export class MapContainer extends Component {
     // scroll to location in list
     const element = document.getElementById(`loc-${target.key}`);
     if (element !== null) {
-      const scrollContainer = document.getElementsByClassName('loc-list-inner')[0];
+      const scrollContainer = document.getElementsByClassName('list-inner')[0];
       scrollToElement(element, {
         element: scrollContainer,
         minDuration: 500,
