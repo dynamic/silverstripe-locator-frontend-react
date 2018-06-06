@@ -1,18 +1,21 @@
-.loading {
-  background: $transparent-white;
-  bottom: 0;
-  display: block;
-  left: 0;
-  opacity: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: visibility 0s, opacity .5s linear;
-  visibility: hidden;
+.locator-loading {
 
-  &.show {
-    opacity: 1;
-    visibility: visible;
+  .loading {
+    background: $transparent-white;
+    bottom: 0;
+    display: block;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: visibility 0s, opacity .5s linear;
+    visibility: hidden;
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 
   .loading-content {

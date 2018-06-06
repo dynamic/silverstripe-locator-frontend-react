@@ -5,6 +5,7 @@ namespace Dynamic\Locator\React\Extensions;
 use Dynamic\SilverStripeGeocoder\GoogleGeocoder;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Extension;
+use SilverStripe\Core\Manifest\ModuleResourceLoader;
 use SilverStripe\View\Requirements;
 
 /**
@@ -53,6 +54,9 @@ class LocatorControllerExtension extends Extension
         $clusters = $this->owner->Clusters ? 'true' : 'false';
         $autocomplete = $this->owner->Autocomplete ? 'true' : 'false';
 
+        $stylePath = ModuleResourceLoader::singleton()->resolveURL($this->owner->getMapStyle());
+        $markerIconPath = ModuleResourceLoader::singleton()->resolveURL($this->owner->getMarkerIcon());
+
         Requirements::customScript("
             window.dynamic_locator = {
                 'radii': {$radiiString},
@@ -62,8 +66,8 @@ class LocatorControllerExtension extends Extension
                 'clusters': {$clusters},
                 'infoWindowTemplatePath': '{$this->owner->getInfoWindowTemplate()}',
                 'listTemplatePath': '{$this->owner->getListTemplate()}',
-                'mapStylePath': '{$this->owner->getMapStyle()}',
-                'markerImagePath': '{$this->owner->getMarkerIcon()}',
+                'mapStylePath': '{$stylePath}',
+                'markerImagePath': '{$markerIconPath}',
                 'defaultCenter': {
                     'lat': {$this->owner->DefaultLat},
                     'lng': {$this->owner->DefaultLng}

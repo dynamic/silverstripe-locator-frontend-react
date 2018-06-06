@@ -13,10 +13,9 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 
 import reducers from 'reducers';
-import Locator from 'components/Locator';
+import renderComponent from 'renderComponent';
 
-// only the first container is used, can change to querySelectorAll() for multiple instances
-const container = document.querySelector('.locator');
+import Loading from 'components/Loading';
 
 /**
  * Writes deeply nested function transformations without the rightward drift of the code.
@@ -40,9 +39,5 @@ const store = createStore(reducers, composedMiddleware());
 // defers rendering until after content is loaded (only needed for settings)
 document.addEventListener('DOMContentLoaded', () => {
   // renders the locator
-  ReactDom.render(
-    <Provider store={store}>
-      <Locator />
-    </Provider>
-    , container);
+  renderComponent(<Loading store={store}/>, store, '.locator-loading');
 });

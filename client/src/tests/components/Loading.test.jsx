@@ -3,9 +3,35 @@ import { shallow } from 'enzyme';
 
 import { Loading, mapStateToProps } from '../../js/components/Loading';
 
+import Search from '../../js/components/search/SearchBar';
+import MapContainer from '../../js/components/map/MapContainer';
+import List from '../../js/components/list/List';
+
+import * as locationActions from '../../js/actions/locationActions';
+import * as settingsActions from '../../js/actions/settingsActions';
+
+// mock the fetchLocations action (because of axios)
+locationActions.fetchLocations = jest.fn();
+jest.setMock('../../js/actions/locationActions', locationActions);
+
+// mock the actions (because of axios)
+settingsActions.fetchInfoWindow = jest.fn();
+settingsActions.fetchList = jest.fn();
+settingsActions.fetchMapStyle = jest.fn();
+jest.setMock('../../js/actions/settingsActions', settingsActions);
+
+const dispatch = jest.fn();
+
+
 test('Loading component should render', () => {
   const props = {
     isLoading: true,
+    loadedSettings: true,
+    unit: 'm',
+    address: '',
+    radius: '',
+    category: '',
+    dispatch,
   };
   const loading = shallow(
     <Loading {...props} />,
@@ -17,6 +43,12 @@ test('Loading component should render', () => {
 test('Loading component should be showing', () => {
   const props = {
     isLoading: true,
+    loadedSettings: true,
+    unit: 'm',
+    address: '',
+    radius: '',
+    category: '',
+    dispatch,
   };
   const loading = shallow(
     <Loading {...props} />,
@@ -28,6 +60,12 @@ test('Loading component should be showing', () => {
 test('Loading component should be hiding', () => {
   const props = {
     isLoading: false,
+    loadedSettings: true,
+    unit: 'm',
+    address: '',
+    radius: '',
+    category: '',
+    dispatch,
   };
   const loading = shallow(
     <Loading {...props} />,
@@ -35,6 +73,67 @@ test('Loading component should be hiding', () => {
 
   expect(loading.children().length).toEqual(0);
   expect(loading.hasClass('show')).toEqual(false);
+});
+
+test('Loading component should update', () => {
+  const props = {
+    isLoading: true,
+    loadedSettings: false,
+    unit: 'm',
+    address: '',
+    radius: '',
+    category: '',
+    dispatch,
+  };
+  const loading = shallow(
+    <Loading {...props} />,
+  );
+
+  let nextProps = {
+    isLoading: true,
+    loadedSettings: false,
+    unit: 'm',
+    address: '',
+    radius: '',
+    category: '',
+    dispatch,
+  };
+  let shouldUpdate = loading.instance().shouldComponentUpdate(nextProps);
+  expect(shouldUpdate).toEqual(false);
+
+
+  nextProps = {
+    isLoading: true,
+    loadedSettings: true,
+    unit: 'm',
+    address: '',
+    radius: '',
+    category: '',
+    dispatch,
+  };
+  shouldUpdate = loading.instance().shouldComponentUpdate(nextProps);
+  expect(shouldUpdate).toEqual(true);
+});
+
+test('Loading component did update', () => {
+  const props = {
+    isLoading: true,
+    loadedSettings: false,
+    unit: 'm',
+    address: '',
+    radius: '',
+    category: '',
+    dispatch,
+  };
+  const loading = shallow(
+    <Loading {...props} />,
+  );
+
+  loading.setProps({
+    loadedSettings: true,
+  });
+
+  expect(dispatch).toBeCalled();
 });
 
 /**
