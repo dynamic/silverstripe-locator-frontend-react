@@ -41,7 +41,7 @@ The search container is optional. It must always have a class of `locator-search
 ```
 
 #### List Container
-The search container is optional. It must always have a class of `locator-search`.
+The search container is optional. It must always have a class of `locator-list`.
 ```html
 <div class="locator-list"></div>
 ```
