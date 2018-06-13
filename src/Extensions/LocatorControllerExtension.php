@@ -46,7 +46,7 @@ class LocatorControllerExtension extends Extension
         $radii = $this->owner->getShowRadius() ? $this->owner->getRadii() : [];
         $radiiString = json_encode($radii);
 
-        $categories = $this->owner->getCategories();
+        $categories = $this->owner->getUsedCategories();
         $categoriesString = $this->owner->categoriesString($categories);
 
         $unit = $this->owner->Unit ? $this->owner->Unit : 'm';
