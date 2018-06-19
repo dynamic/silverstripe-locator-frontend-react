@@ -1,7 +1,8 @@
 /**
  * Exports a list of modules provided by SilverStripe
  *
- * Some are comented out because they fucked with redux-promise-middleware
+ * Redux and related are comented out because they fucked with redux-promise-middleware
+ * React is commented out because it requires fragments
  */
 module.exports = () => ({
   'apollo-client': 'ApolloClient',
@@ -17,7 +18,7 @@ module.exports = () => ({
   merge: 'merge',
   'page.js': 'Page',
   'react-addons-test-utils': 'ReactAddonsTestUtils',
-  'react-dom': 'ReactDom',
+  // 'react-dom': 'ReactDom',
   poppers: 'Poppers',
   reactstrap: 'Reactstrap',
   'react-apollo': 'ReactApollo',
@@ -26,7 +27,7 @@ module.exports = () => ({
   'react-router': 'ReactRouter',
   'react-select': 'ReactSelect',
   'react-addons-css-transition-group': 'ReactAddonsCssTransitionGroup',
-  react: 'React',
+  // react: 'React',
   'redux-form': 'ReduxForm',
   'redux-thunk': 'ReduxThunk',
   // redux: 'Redux',
