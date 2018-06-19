@@ -3,9 +3,12 @@
 namespace Dynamic\Locator\React\Extensions;
 
 use Dynamic\SilverStripeGeocoder\GoogleGeocoder;
+use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Core\Convert;
 use SilverStripe\Core\Extension;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
+use SilverStripe\Security\SecurityToken;
 use SilverStripe\View\Requirements;
 
 /**
@@ -34,6 +37,11 @@ class LocatorControllerExtension extends Extension
             Requirements::block("https://maps.google.com/maps/api/js?key={$key}");
             Requirements::javascript("https://maps.google.com/maps/api/js?key={$key}&libraries=places");
         }
+
+        Requirements::customScript("
+            window.ss = window.ss || {};
+            window.ss.config = " . $this->owner->getClientConfig() . ";
+        ");
 
         $this->owner->customScript();
     }
@@ -105,5 +113,25 @@ class LocatorControllerExtension extends Extension
         $string .= ']';
 
         return $string;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClientConfig()
+    {
+        $token = SecurityToken::inst();
+
+        $clientConfig = [
+            'name' => static::class,
+            'url' => trim($this->owner->Link(), '/'),
+            'baseUrl' => Director::baseURL(),
+            'absoluteBaseUrl' => Director::absoluteBaseURL(),
+            $token->getName() => $token->getValue(),
+        ];
+
+        $this->owner->extend('updateClientConfig', $clientConfig);
+
+        return Convert::raw2json($clientConfig);
     }
 }
