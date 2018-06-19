@@ -13,5 +13,6 @@
 </div>
 
 <% require javascript('silverstripe/admin: client/dist/js/vendor.js') %>
+<% require javascript('silverstripe/admin: client/dist/js/bundle.js') %>
 <% require javascript('dynamic/silverstripe-locator-react: client/dist/js/main.js') %>
 <% require themedCSS('locator') %>

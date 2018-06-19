@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import PaginationEnd from 'components/list/PaginationEnd';
+import { inject } from 'lib/Injector';
 
 /**
  * The Pagination component.
  * Renders the pagination for the location list.
  */
-class Pagination extends Component {
+export class Pagination extends Component {
   /**
    * Gets the last possible page. If there are 13 items with a page limit of 5 there will be 3 pages.
    * @return {number}
@@ -78,7 +77,7 @@ class Pagination extends Component {
    * @return {*}
    */
   render() {
-    const { count, page, goToPage } = this.props;
+    const { count, page, goToPage, PaginationEnd } = this.props;
     const previousClasses = page <= 1 ? "page-item disabled" : "page-item";
     const previousAction = page <= 1 ? () => {} : () => goToPage(page - 1);
 
@@ -114,6 +113,16 @@ Pagination.propTypes = {
   count: PropTypes.number.isRequired,
   defaultLimit: PropTypes.number.isRequired,
   goToPage: PropTypes.func.isRequired,
+
+  PaginationEnd: PropTypes.func.isRequired,
 };
 
-export default Pagination;
+const injector = inject(
+  ['PaginationEnd'],
+  (PaginationEnd) => ({
+    PaginationEnd,
+  }),
+  () => 'Locator.Pagination',
+);
+
+export default injector(Pagination);

@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 
+import registerComponents from 'boot/registerComponents';
 import reducers from 'reducers';
 import renderComponent from 'renderComponent';
 
@@ -36,8 +37,10 @@ function composedMiddleware() {
 // creates the redux store with reducers and middleware
 const store = createStore(reducers, composedMiddleware());
 
-// defers rendering until after content is loaded (only needed for settings)
+// defers rendering until after content is loaded
 document.addEventListener('DOMContentLoaded', () => {
+  registerComponents();
+
   // renders the locator
   renderComponent(<Loading store={store}/>, store, '.locator-loading');
 });
