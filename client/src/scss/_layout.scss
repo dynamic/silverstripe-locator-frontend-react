@@ -22,11 +22,6 @@
 
     @include media-breakpoint-up(sm) {
       order: 2;
-    }
-  }
-
-  .locator-list {
-    @include media-breakpoint-up(sm) {
       max-width: 50%;
     }
 
