@@ -7,7 +7,6 @@
 .locator-list {
   display: flex;
   flex-direction: column;
-  height: $list-height;
 
   @include media-breakpoint-up(sm) {
     flex-grow: 1;
@@ -30,9 +29,6 @@
 
   .loc-list-container {
     flex-grow: 1;
-  }
-
-  .list-inner {
     overflow-x: hidden;
     overflow-y: scroll;
   }

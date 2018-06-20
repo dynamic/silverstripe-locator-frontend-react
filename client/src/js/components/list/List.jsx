@@ -38,7 +38,7 @@ export class List extends Component {
     // scroll to location in list
     const element = document.getElementById(`loc-${target}`);
     if (element !== null) {
-      const scrollContainer = document.getElementsByClassName('list-inner')[0];
+      const scrollContainer = document.getElementsByClassName('loc-list-container')[0];
       scrollToElement(element, {
         element: scrollContainer,
         minDuration: 500,
@@ -104,13 +104,7 @@ export class List extends Component {
     return (
       <React.Fragment>
         <div className="loc-list-container" role="list">
-          <AutoSizer>
-            {({ width, height }) =>
-              <div className='list-inner' style={{width, height}}>
-                {this.renderList()}
-              </div>
-            }
-          </AutoSizer>
+          {this.renderList()}
         </div>
         <ul className="pagination">
           <Pagination

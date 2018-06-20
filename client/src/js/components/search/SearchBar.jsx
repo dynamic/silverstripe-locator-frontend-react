@@ -51,13 +51,9 @@ export class SearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      showFilter: false,
-    };
     this.searchAddress = props.address;
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleFilter = this.handleFilter.bind(this);
     this.handleAddressChange = this.handleAddressChange.bind(this);
   }
 
@@ -109,12 +105,6 @@ export class SearchBar extends Component {
     window.history.pushState({
       path: newurl,
     }, '', newurl);
-  }
-
-  handleFilter(event) {
-    this.setState({
-      showFilter: !this.state.showFilter,
-    });
   }
 
   handleAddressChange(searchAddress) {
@@ -172,39 +162,25 @@ export class SearchBar extends Component {
       radius = Number(radius);
     }
 
-    const hasFilter = category !== '' || !(radius === '' || radius < 1);
-
-    const filterIndicatorClass = hasFilter ? 'filter-icon' : 'filter-icon no-show';
-    const filterClasses = this.state.showFilter ? 'filter open' : 'filter closed';
-
     return (
       <form onSubmit={this.handleSubmit} className="search">
         {/* not a fieldset because no flexbox */}
         <div className="fieldset">
-          <div className="always-shown">
-            <div className="address-input input-group">
+            <div className="address-input form-group">
               <label htmlFor="address" className="sr-only">{ss.i18n._t('Locator.ADDRESS_FIELD', 'Address or zip code')}</label>
               {this.getAddressInput()}
-              <span className="input-group-btn">
-                <button
-                  className="btn btn-secondary"
-                  type="button"
-                  type="submit">
-                  <FontAwesomeIcon icon={faSearch} />
-                  <span className="sr-only sr-only-focusable">{ss.i18n._t('Locator.SEARCH_BUTTON', 'Search')}</span>
-                </button>
-              </span>
             </div>
-            <div className="filter-button">
-              <button type="button" className="btn btn-link" onClick={this.handleFilter}>{ss.i18n._t('Locator.FILTER_BUTTON', 'Filter')}
-                <FontAwesomeIcon icon={faCheckCircle} className={filterIndicatorClass}/>
-              </button>
-            </div>
-          </div>
-          <div className={filterClasses}>
             <CategoryDropDown categories={categories} category={category} />
             <RadiusDropDown radii={radii} radius={radius} unit={unit} />
-          </div>
+            <div className="form-group input-group-btn">
+              <button
+                className="btn btn-secondary"
+                type="button"
+                type="submit">
+                <FontAwesomeIcon icon={faSearch} />
+                <span className="sr-only sr-only-focusable">{ss.i18n._t('Locator.SEARCH_BUTTON', 'Search')}</span>
+              </button>
+            </div>
         </div>
       </form>
     );

@@ -3,14 +3,8 @@
 // ====================
 .locator {
   @include make-row-no-gutter;
-  flex-direction: column;
   margin: 0;
   position: relative;
-
-  @include media-breakpoint-up(sm) {
-    // needed so columns wrap the right way
-    height: $map-height;
-  }
 
   .locator-search,
   .locator-list,
@@ -31,7 +25,6 @@
     }
   }
 
-  .locator-search,
   .locator-list {
     @include media-breakpoint-up(sm) {
       max-width: 50%;

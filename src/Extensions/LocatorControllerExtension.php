@@ -57,6 +57,10 @@ class LocatorControllerExtension extends Extension
         $stylePath = ModuleResourceLoader::singleton()->resolveURL($this->owner->getMapStyle());
         $markerIconPath = ModuleResourceLoader::singleton()->resolveURL($this->owner->getMarkerIcon());
 
+        // force to int
+        $defaultLat = (int) $this->owner->DefaultLat;
+        $defaultLng = (int) $this->owner->DefaultLng;
+
         Requirements::customScript("
             window.dynamic_locator = {
                 'radii': {$radiiString},
@@ -69,8 +73,8 @@ class LocatorControllerExtension extends Extension
                 'mapStylePath': '{$stylePath}',
                 'markerImagePath': '{$markerIconPath}',
                 'defaultCenter': {
-                    'lat': {$this->owner->DefaultLat},
-                    'lng': {$this->owner->DefaultLng}
+                    'lat': {$defaultLat},
+                    'lng': {$defaultLng}
                 },
                 'autocomplete': {$autocomplete}
             };
