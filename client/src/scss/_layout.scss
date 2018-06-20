@@ -21,8 +21,8 @@
     order: 3;
 
     @include media-breakpoint-up(sm) {
-      order: 2;
       max-width: 50%;
+      order: 2;
     }
 
     @include media-breakpoint-up(lg) {
