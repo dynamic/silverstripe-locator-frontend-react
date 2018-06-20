@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { inject } from 'lib/Injector';
+import { loadComponent } from 'lib/Injector';
 
 /**
  * The Pagination component.
@@ -86,6 +86,7 @@ export class Pagination extends Component {
 
 
     if (this.getPageNumbers().length > 1) {
+      const PaginationEnd = loadComponent('PaginationEnd');
       return (
         <React.Fragment>
           <PaginationEnd
@@ -113,16 +114,6 @@ Pagination.propTypes = {
   count: PropTypes.number.isRequired,
   defaultLimit: PropTypes.number.isRequired,
   goToPage: PropTypes.func.isRequired,
-
-  PaginationEnd: PropTypes.func.isRequired,
 };
 
-const injector = inject(
-  ['PaginationEnd'],
-  (PaginationEnd) => ({
-    PaginationEnd,
-  }),
-  () => 'Locator.Pagination',
-);
-
-export default injector(Pagination);
+export default Pagination;

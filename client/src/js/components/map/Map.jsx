@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
+import { loadComponent } from 'lib/Injector';
 
 /**
  * Renders every marker
@@ -11,6 +12,7 @@ import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
  * @return {Array}
  */
 export function markers(props) {
+  const MarkerContent = loadComponent('MarkerContent');
   return props.markers.map(marker => (
     <Marker
       key={marker.key}
@@ -21,7 +23,9 @@ export function markers(props) {
     >
       {props.current === marker.key && props.showCurrent && (
         <InfoBox onCloseClick={() => props.onMarkerClose()}>
-          <div className="marker-content">{marker.infoContent}</div>
+          <div className="marker-content">
+            <MarkerContent info={marker.info}/>
+          </div>
         </InfoBox>
       )}
     </Marker>

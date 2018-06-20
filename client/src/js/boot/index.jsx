@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 
 import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
+import Injector from 'lib/Injector';
 
 import registerComponents from 'boot/registerComponents';
 import reducers from 'reducers';
