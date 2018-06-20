@@ -38,7 +38,7 @@
     .category-dropdown + .radius-dropdown,
     .category-dropdown {
       @include media-breakpoint-up(md) {
-        @include make-col(6);
+        @include make-col(5);
       }
     }
 
@@ -59,15 +59,6 @@
     }
   }
 
-  .always-shown {
-    display: block;
-    width: 100%;
-
-    @include media-breakpoint-up(md) {
-      display: flex;
-    }
-  }
-
   .address-input button {
     font-size: 14px;
     height: 100%;
@@ -80,49 +71,5 @@
   .address-input .autocomplete-root {
     border: 0;
     padding: 0;
-  }
-
-  .filter-button {
-    @include make-col(12);
-    @include media-breakpoint-up(md) {
-      flex: initial;
-      width: auto;
-    }
-
-    button {
-      height: 100%;
-      outline: none;
-      width: 100%;
-
-      @include media-breakpoint-up(md) {
-        padding: 0 0 0 12px;
-      }
-    }
-  }
-
-  .filter-icon {
-    vertical-align: super;
-    width: .75em;
-
-    &.no-show {
-      visibility: hidden;
-    }
-  }
-
-  .filter {
-    @include make-row-no-gutter;
-    @include make-col-ready-no-gutter;
-    @include make-col(12);
-    overflow: hidden;
-    padding-top: 5px;
-    transition: max-height .25s ease-in-out;
-
-    &.closed {
-      max-height: 0;
-    }
-
-    &.open {
-      max-height: 100px;
-    }
   }
 }

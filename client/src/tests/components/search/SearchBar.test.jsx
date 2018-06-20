@@ -161,30 +161,6 @@ test('handleSubmit test', () => {
   document.body.removeChild(div);
 });
 
-test('handleFilter test', () => {
-  const search = shallow(
-    <SearchBar
-      address=""
-      radius={-1}
-      radii={[]}
-      category=""
-      categories={[]}
-      unit="m"
-      autocomplete={false}
-      center={{
-        lat: 0,
-        lng: 0,
-      }}
-      dispatch={dispatch}
-    />,
-  );
-
-  expect(search.instance().state.showFilter).toBe(false);
-
-  search.instance().handleFilter();
-  expect(search.instance().state.showFilter).toBe(true);
-});
-
 test('handleAddressChange test', () => {
   const search = shallow(
     <SearchBar
