@@ -51,11 +51,7 @@ export class MapContainer extends Component {
         key: location.ID,
         defaultAnimation: 2,
         defaultIcon: markerImagePath,
-        infoContent: (
-          <div>
-            {htmlToReactParser.parse(template(loc))}
-          </div>
-        ),
+        info: loc,
       };
     }
     return markers;
