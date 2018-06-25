@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
+import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
 
 /**
  * Renders every marker
@@ -19,9 +20,9 @@ export function markers(props) {
       onClick={() => props.onMarkerClick(marker)}
     >
       {props.current === marker.key && props.showCurrent && (
-        <InfoWindow onCloseClick={() => props.onMarkerClose()}>
+        <InfoBox onCloseClick={() => props.onMarkerClose()}>
           <div className="marker-content">{marker.infoContent}</div>
-        </InfoWindow>
+        </InfoBox>
       )}
     </Marker>
   ));

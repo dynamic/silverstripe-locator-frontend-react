@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { Marker, InfoWindow } from 'react-google-maps';
+import { Marker } from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
+import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
 
 import { Map, markers } from '../../../js/components/map/Map';
 
@@ -97,7 +98,7 @@ test('Marker should have info window', () => {
   );
 
   expect(markerMap.find(Marker).length).toEqual(2);
-  expect(markerMap.find(InfoWindow).length).toEqual(1);
+  expect(markerMap.find(InfoBox).length).toEqual(1);
 });
 
 test('Marker click', () => {
@@ -141,7 +142,7 @@ test('Marker close', () => {
 
   onMarkerClose.mockClear();
   expect(onMarkerClose.mock.calls.length).toEqual(0);
-  markerMap.find(InfoWindow).first().simulate('closeClick');
+  markerMap.find(InfoBox).first().simulate('closeClick');
   expect(onMarkerClose.mock.calls.length).toEqual(1);
   onMarkerClose.mockClear();
 });
