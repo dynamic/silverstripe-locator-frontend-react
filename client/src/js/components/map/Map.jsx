@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
-import  InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
+import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
 
 /**
  * Renders every marker
