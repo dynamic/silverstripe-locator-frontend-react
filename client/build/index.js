@@ -1,15 +1,29 @@
 const Path = require('path');
 
-
+const webpackConfig = require('@silverstripe/webpack-config');
+const {
+// resolveJS
+  externalJS,
+//  moduleJS,
+  pluginJS,
+  moduleCSS,
+  pluginCSS,
+} = webpackConfig;
+/*
 const moduleCSS = require('./css/modules');
 const pluginCSS = require('./css/plugins');
 const externalJS = require('./js/externals');
-const moduleJS = require('./js/modules');
 const pluginJS = require('./js/plugins');
+*/
+const moduleJS = require('./js/modules');
 const resolveJS = require('./js/resolve');
 
 
 const PATHS = {
+  ROOT: Path.resolve(),
+  SRC: Path.resolve('client', 'src'),
+  DIST: Path.resolve('client', 'dist'),
+
   SRC_CSS: Path.resolve('client', 'src', 'scss'),
   DIST_CSS: Path.resolve('css'),
   SRC_JS: Path.resolve('client', 'src', 'js'),
@@ -28,10 +42,10 @@ module.exports = (ENV) => ([
       filename: '[name].js',
     },
     devtool: (ENV !== 'production') ? 'source-map' : '',
-    resolve: resolveJS(PATHS),
-    externals: externalJS(),
-    module: moduleJS(ENV),
-    plugins: pluginJS(ENV),
+    resolve: resolveJS(ENV, PATHS),
+    externals: externalJS(ENV, PATHS),
+    module: moduleJS(ENV, PATHS),
+    plugins: pluginJS(ENV, PATHS),
   },
   {
     name: 'css',
@@ -44,6 +58,6 @@ module.exports = (ENV) => ([
     },
     devtool: (ENV !== 'production') ? 'source-map' : '',
     module: moduleCSS(ENV, PATHS),
-    plugins: pluginCSS(PATHS),
+    plugins: pluginCSS(ENV, PATHS),
   },
 ]);

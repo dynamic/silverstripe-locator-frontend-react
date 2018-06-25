@@ -3,7 +3,7 @@
  *
  * @param {string} ENV Environment to build for, expects 'production' for production and
  */
-module.exports = (ENV) => {
+module.exports = (ENV, PATHS) => {
   return {
     rules: [
       {

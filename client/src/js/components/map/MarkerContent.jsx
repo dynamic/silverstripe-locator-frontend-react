@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import Fragment from 'render-fragment';
 
 class MarkerContent extends Component {
   render() {

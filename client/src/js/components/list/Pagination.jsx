@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { loadComponent } from 'lib/Injector';
+import Fragment from 'render-fragment';
 
 /**
  * The Pagination component.
@@ -88,7 +89,7 @@ export class Pagination extends Component {
     if (this.getPageNumbers().length > 1) {
       const PaginationEnd = loadComponent('PaginationEnd');
       return (
-        <React.Fragment>
+        <Fragment>
           <PaginationEnd
             text={String.fromCharCode(171)}
             label={ss.i18n._t('Locator.PREVIOUS_PAGE', 'Previous')}
@@ -102,7 +103,7 @@ export class Pagination extends Component {
             classes={nextClasses}
             action={nextAction}
           />
-        </React.Fragment>
+        </Fragment>
       );
     }
     return null;

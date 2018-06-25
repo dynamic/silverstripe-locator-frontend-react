@@ -1,7 +1,7 @@
 /**
  * @param {stirng} SRC_JS Path to javascript source
  */
-module.exports = ({ SRC_JS }) => {
+module.exports = ( ENV, { SRC_JS }) => {
   return {
     modules: [
       SRC_JS,

@@ -24,12 +24,14 @@ import Loading from 'components/Loading';
  * [redux compose]{@link http://redux.js.org/docs/api/compose.html}
  * @returns {Function}
  */
+/*
+// TODO: uncomment when redux gets updated
 function composedMiddleware() {
   return compose(
-    applyMiddleware(promise({
+    applyMiddleware(thunk, promise({
       // new suffixes
       promiseTypeSuffixes: ['LOADING', 'SUCCESS', 'ERROR'],
-    }), thunk),
+    })),
     // eslint-disable-next-line no-underscore-dangle
     (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
   );
@@ -37,6 +39,16 @@ function composedMiddleware() {
 
 // creates the redux store with reducers and middleware
 const store = createStore(reducers, composedMiddleware());
+*/
+
+const finalCreateStore = compose(
+  applyMiddleware(thunk, promise({
+    // new suffixes
+    promiseTypeSuffixes: ['LOADING', 'SUCCESS', 'ERROR'],
+  })),
+  (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
+)(createStore)
+const store = finalCreateStore(reducers);
 
 // defers rendering until after content is loaded
 document.addEventListener('DOMContentLoaded', () => {
