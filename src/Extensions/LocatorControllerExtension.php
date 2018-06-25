@@ -57,9 +57,9 @@ class LocatorControllerExtension extends Extension
         $stylePath = ModuleResourceLoader::singleton()->resolveURL($this->owner->getMapStyle());
         $markerIconPath = ModuleResourceLoader::singleton()->resolveURL($this->owner->getMarkerIcon());
 
-        // force to int
-        $defaultLat = (int) $this->owner->DefaultLat;
-        $defaultLng = (int) $this->owner->DefaultLng;
+        // force to float
+        $defaultLat = (float) $this->owner->DefaultLat;
+        $defaultLng = (float) $this->owner->DefaultLng;
 
         Requirements::customScript("
             window.dynamic_locator = {
