@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Parser as HtmlToReactParser } from 'html-to-react';
 import scrollToElement from 'animated-scroll-to';
+import Fragment from 'render-fragment';
 
 import { openMarker, closeMarker } from 'actions/mapActions';
 import { changePage } from 'actions/listActions';
@@ -97,7 +98,7 @@ export class MapContainer extends Component {
   render() {
     const { current, showCurrent, clusters, center, defaultCenter, mapStyle } = this.props;
     return (
-      <React.Fragment>
+      <Fragment>
         <Map
           containerElement={
             <div className="map" />
@@ -115,7 +116,7 @@ export class MapContainer extends Component {
           center={center}
           defaultCenter={defaultCenter}
         />
-      </React.Fragment>
+      </Fragment>
     );
   }
 }

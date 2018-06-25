@@ -128,6 +128,12 @@ class LocatorControllerExtension extends Extension
             'baseUrl' => Director::baseURL(),
             'absoluteBaseUrl' => Director::absoluteBaseURL(),
             $token->getName() => $token->getValue(),
+            'sections' => [
+                [
+                    'name'=> '',
+                    'url' => '',
+                ],
+            ],
         ];
 
         $this->owner->extend('updateClientConfig', $clientConfig);

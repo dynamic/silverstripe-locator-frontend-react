@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AutoSizer } from 'react-virtualized';
 import scrollToElement from 'animated-scroll-to';
+import Fragment from 'render-fragment';
 
 import { openMarker } from 'actions/mapActions';
 import { changePage } from 'actions/listActions';
@@ -102,7 +102,7 @@ export class List extends Component {
   render() {
     const { locations, current, page, defaultLimit } = this.props;
     return (
-      <React.Fragment>
+      <Fragment>
         <div className="loc-list-container" role="list">
           {this.renderList()}
         </div>
@@ -114,7 +114,7 @@ export class List extends Component {
             goToPage={this.handlePaginateClick}
           />
         </ul>
-      </React.Fragment>
+      </Fragment>
     );
   }
 }

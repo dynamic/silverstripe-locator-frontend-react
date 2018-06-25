@@ -1,15 +1,17 @@
 /* global window, document */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faSearch, faCheckCircle } from '@fortawesome/fontawesome-free-solid';
+import {faSearch} from '@fortawesome/fontawesome-free-solid';
 import PlacesAutocomplete from 'react-places-autocomplete';
+import {loadComponent} from 'lib/Injector';
+import { reduxForm } from 'redux-form'
 
-import { fetchLocations } from 'actions/locationActions';
-import { search } from 'actions/searchActions';
-import { changePage } from 'actions/listActions';
-import RadiusDropDown from 'components/search/RadiusDropDown';
+
+import {fetchLocations} from 'actions/locationActions';
+import {search} from 'actions/searchActions';
+import {changePage} from 'actions/listActions';
 import CategoryDropDown from 'components/search/CategoryDropDown';
 
 export class SearchBar extends Component {
@@ -71,8 +73,8 @@ export class SearchBar extends Component {
     }
 
     const address = document.getElementsByName('address')[0].value;
-    const radius = SearchBar.getDropdownValue('radius');
-    const category = SearchBar.getDropdownValue('category');
+    const radius = SearchBar.getDropdownValue('Radius');
+    const category = SearchBar.getDropdownValue('Category');
 
     const params = {
       address,
@@ -82,7 +84,7 @@ export class SearchBar extends Component {
 
     // selects dispatch and unit from this.props.
     // const dispatch = this.props.dispatch; const unit = this.props.unit;
-    const { dispatch, unit } = this.props;
+    const {dispatch, unit} = this.props;
 
     // dispatches search (updates search values)
     dispatch(search({
@@ -109,6 +111,22 @@ export class SearchBar extends Component {
 
   handleAddressChange(searchAddress) {
     this.searchAddress = searchAddress;
+  }
+
+  getRadiiSource() {
+    const {radii, unit} = this.props;
+    return radii.map(radius => ({
+      value: radius,
+      title: `${radius} ${unit}`,
+    }));
+  }
+
+  getCategorySource() {
+    const {categories} = this.props;
+    return categories.map(category => ({
+      value: category.ID,
+      title: category.Name,
+    }));
   }
 
   /**
@@ -155,32 +173,60 @@ export class SearchBar extends Component {
    */
   render() {
     const {
-      address, category, radii, categories, unit, autocomplete
+      address, category, autocomplete
     } = this.props;
-    let { radius } = this.props;
+
+    const categories = this.getCategorySource();
+    const showCategories = categories.length !== 0;
+
+    const radii = this.getRadiiSource();
+    let {radius} = this.props;
     if (typeof radius === 'string') {
       radius = Number(radius);
     }
+
+    const SingleSelectField = loadComponent('SingleSelectField');
 
     return (
       <form onSubmit={this.handleSubmit} className="search">
         {/* not a fieldset because no flexbox */}
         <div className="fieldset">
-            <div className="address-input form-group">
-              <label htmlFor="address" className="sr-only">{ss.i18n._t('Locator.ADDRESS_FIELD', 'Address or zip code')}</label>
-              {this.getAddressInput()}
-            </div>
-            <CategoryDropDown categories={categories} category={category} />
-            <RadiusDropDown radii={radii} radius={radius} unit={unit} />
-            <div className="form-group input-group-btn">
-              <button
-                className="btn btn-secondary"
-                type="button"
-                type="submit">
-                <FontAwesomeIcon icon={faSearch} />
-                <span className="sr-only sr-only-focusable">{ss.i18n._t('Locator.SEARCH_BUTTON', 'Search')}</span>
-              </button>
-            </div>
+          <div className="address-input form-group">
+            <label htmlFor="address"
+                   className="sr-only">{ss.i18n._t('Locator.ADDRESS_FIELD', 'Address or zip code')}</label>
+            {this.getAddressInput()}
+          </div>
+          <SingleSelectField
+            name={ss.i18n._t('Locator.RADIUS_FIELD', 'Radius')}
+            extraClass="radius-dropdown"
+            value={radius}
+            source={radii}
+            data={{
+              hasEmptyDefault: true,
+              emptyString: ss.i18n._t('Locator.RADIUS_FIELD', 'Radius'),
+            }}
+          />
+          {showCategories &&
+            <SingleSelectField
+              name={ss.i18n._t('Locator.CATEGORY_FIELD', 'Category')}
+              extraClass="category-dropdown"
+              defaultValue={category}
+              source={categories}
+              data={{
+                hasEmptyDefault: true,
+                emptyString: ss.i18n._t('Locator.CATEGORY_FIELD', 'Category'),
+              }}
+            />
+          }
+          <div className="form-group input-group-btn">
+            <button
+              className="btn btn-secondary"
+              type="button"
+              type="submit">
+              <FontAwesomeIcon icon={faSearch}/>
+              <span className="sr-only sr-only-focusable">{ss.i18n._t('Locator.SEARCH_BUTTON', 'Search')}</span>
+            </button>
+          </div>
         </div>
       </form>
     );
