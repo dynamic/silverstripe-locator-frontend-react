@@ -20,7 +20,7 @@
     }
   ],
   "require": {
-    "silverstripe/recipe-cms": "^1.0",
+    "silverstripe/recipe-cms": "^1.0 || ^4.0",
     "silverstripe/vendor-plugin": "^1.0",
     "dynamic/silverstripe-locator": "^3.0"
   },
