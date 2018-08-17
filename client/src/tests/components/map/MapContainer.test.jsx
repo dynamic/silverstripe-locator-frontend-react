@@ -80,7 +80,6 @@ test('Map container component should have markers', () => {
     lat: 45.5163147,
     lng: 25.3684474,
   });
-  expect(markers[0].infoContent.props.children).toEqual('template');
 });
 
 /**
