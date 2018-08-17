@@ -54,7 +54,7 @@ module.exports = (ENV) => ([
     },
     output: {
       path: PATHS.DIST_CSS,
-      filename: 'locator.css',
+      filename: Path.join('styles', 'locator.css'),
     },
     devtool: (ENV !== 'production') ? 'source-map' : '',
     module: moduleCSS(ENV, PATHS),
