@@ -1,5 +1,5 @@
 module.exports = {
-  loadComponent: jest.fn((className) => className),
+  loadComponent: jest.fn(className => className),
   component: {
     register: jest.fn(),
   },
