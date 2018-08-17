@@ -2,7 +2,9 @@
 
 namespace Dynamic\Locator\React\Extensions;
 
+use Dynamic\Locator\Control\APIController;
 use Dynamic\SilverStripeGeocoder\GoogleGeocoder;
+use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Extension;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
@@ -43,6 +45,8 @@ class LocatorControllerExtension extends Extension
      */
     public function customScript()
     {
+        $path = Controller::join_links(APIController::create()->Link(), 'json');
+
         $radii = $this->owner->getShowRadius() ? $this->owner->getRadii() : [];
         $radiiString = json_encode($radii);
 
@@ -63,6 +67,7 @@ class LocatorControllerExtension extends Extension
 
         Requirements::customScript("
             window.dynamic_locator = {
+                'dataLocation': '{$path}',
                 'radii': {$radiiString},
                 'categories': {$categoriesString},
                 'unit': '{$unit}',
