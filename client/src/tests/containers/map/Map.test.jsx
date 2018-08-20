@@ -5,7 +5,7 @@ import { Marker } from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
 
-import { Map, markers } from '../../../js/components/map/Map';
+import { Map, markers } from '../../../js/containers/map/Map';
 
 const onMarkerClick = jest.fn();
 const onMarkerClose = jest.fn();

@@ -6,7 +6,7 @@ import Fragment from 'render-fragment';
 
 import { openMarker } from 'actions/mapActions';
 import { changePage } from 'actions/listActions';
-import Location from 'components/list/Location';
+import Location from 'containers/list/Location';
 import Pagination from 'components/list/Pagination';
 
 /**

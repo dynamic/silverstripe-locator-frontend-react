@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 
 import renderComponent from 'renderComponent';
 import { fetchLocations } from 'actions/locationActions';
-import { fetchInfoWindow, fetchList, fetchMapStyle } from 'actions/settingsActions';
+import { fetchMapStyle } from 'actions/settingsActions';
 
 import Search from 'components/search/SearchBar';
-import MapContainer from 'components/map/MapContainer';
-import List from 'components/list/List';
+import MapContainer from 'containers/map/MapContainer';
+import List from 'containers/list/List';
 
 // exported for tests
 export class Loading extends Component {
@@ -17,8 +17,6 @@ export class Loading extends Component {
    */
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchInfoWindow());
-    dispatch(fetchList());
     dispatch(fetchMapStyle());
   }
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { Loading, mapStateToProps } from '../../js/components/Loading';
+import { Loading, mapStateToProps } from '../../js/containers/Loading';
 
 import Search from '../../js/components/search/SearchBar';
-import MapContainer from '../../js/components/map/MapContainer';
-import List from '../../js/components/list/List';
+import MapContainer from '../../js/containers/map/MapContainer';
+import List from '../../js/containers/list/List';
 
 import * as locationActions from '../../js/actions/locationActions';
 import * as settingsActions from '../../js/actions/settingsActions';

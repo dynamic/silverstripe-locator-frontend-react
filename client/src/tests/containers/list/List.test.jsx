@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { List, mapStateToProps } from '../../../js/components/list/List';
+import { List, mapStateToProps } from '../../../js/containers/list/List';
 
 import * as mock from '../../../js/actions/mapActions';
 
