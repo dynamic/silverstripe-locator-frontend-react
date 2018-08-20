@@ -1,15 +1,10 @@
 /* global dynamic_locator, ss */
-import handlebars from 'handlebars';
 import ActionType from 'actions/ActionTypes';
 
 const defaultState = {
   loadedSettings: false,
-  loadedWindowTemplate: false,
-  loadedListTemplate: false,
   loadedMapStyle: false,
 
-  infoWindowTemplate: null,
-  listTemplate: null,
   mapStyle: null,
   markerImagePath: false,
 
@@ -55,10 +50,8 @@ function settings() {
 }
 
 function didSettingsLoad(state = defaultState) {
-  const { loadedListTemplate, loadedWindowTemplate, loadedMapStyle } = state;
-  return loadedListTemplate === true &&
-    loadedWindowTemplate === true &&
-    loadedMapStyle === true;
+  const {loadedMapStyle} = state;
+  return loadedMapStyle === true;
 }
 
 /**
@@ -66,40 +59,8 @@ function didSettingsLoad(state = defaultState) {
  */
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
-    case ActionType.FETCH_INFO_WINDOW_SUCCESS: {
-      const { data } = action.payload;
-      const loaded = didSettingsLoad({
-        ...state,
-        loadedWindowTemplate: true,
-      });
-
-      return {
-        ...state,
-        ...settings(),
-        loadedSettings: loaded,
-        loadedWindowTemplate: true,
-        infoWindowTemplate: handlebars.compile(data),
-      };
-    }
-
-    case ActionType.FETCH_LIST_SUCCESS: {
-      const { data } = action.payload;
-      const loaded = didSettingsLoad({
-        ...state,
-        loadedListTemplate: true,
-      });
-
-      return {
-        ...state,
-        ...settings(),
-        loadedSettings: loaded,
-        loadedListTemplate: true,
-        listTemplate: handlebars.compile(data),
-      };
-    }
-
     case ActionType.FETCH_MAP_STYLE_SUCCESS: {
-      const { data } = action.payload;
+      const {data} = action.payload;
       const loaded = didSettingsLoad({
         ...state,
         loadedMapStyle: true,
@@ -115,20 +76,20 @@ export default function reducer(state = defaultState, action) {
     }
 
     case ActionType.FETCH_MAP_STYLE_ERROR: {
-      if (action.payload === ActionType.FETCH_MAP_STYLE_ERROR) {
-        const loaded = didSettingsLoad({
-          ...state,
-          loadedMapStyle: true,
-        });
-
-        return {
-          ...state,
-          ...settings(),
-          loadedSettings: loaded,
-          loadedMapStyle: true,
-        };
+      if (action.payload !== ActionType.FETCH_MAP_STYLE_ERROR) {
+        console.error('Invalid path for map style was specified. Using default style.');
       }
-      return state;
+      const loaded = didSettingsLoad({
+        ...state,
+        loadedMapStyle: true,
+      });
+
+      return {
+        ...state,
+        ...settings(),
+        loadedSettings: loaded,
+        loadedMapStyle: true,
+      };
     }
 
     default:

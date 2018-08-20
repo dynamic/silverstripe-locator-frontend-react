@@ -2,24 +2,20 @@ const Path = require('path');
 
 const webpackConfig = require('@silverstripe/webpack-config');
 const {
-// resolveJS
+// resolveJS,
   externalJS,
-//  moduleJS,
+  moduleJS,
   pluginJS,
   moduleCSS,
   pluginCSS,
 } = webpackConfig;
-/*
-const moduleCSS = require('./css/modules');
-const pluginCSS = require('./css/plugins');
-const externalJS = require('./js/externals');
-const pluginJS = require('./js/plugins');
-*/
-const moduleJS = require('./js/modules');
+
 const resolveJS = require('./js/resolve');
 
 
 const PATHS = {
+  MODULES: 'node_modules',
+  FILES_PATH: '../',
   ROOT: Path.resolve(),
   SRC: Path.resolve('client', 'src'),
   DIST: Path.resolve('client', 'dist'),
@@ -29,7 +25,6 @@ const PATHS = {
   SRC_JS: Path.resolve('client', 'src', 'js'),
   DIST_JS: Path.resolve('client', 'dist', 'js'),
 };
-PATHS.DIST_IMAGES = Path.relative(PATHS.DIST_CSS, Path.resolve('client', 'dist', 'images')),
 
 module.exports = (ENV) => ([
   {

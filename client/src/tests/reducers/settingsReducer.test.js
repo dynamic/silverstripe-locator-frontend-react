@@ -18,11 +18,7 @@ test('Settings reducer has a default state', () => {
   expect(reducer(undefined, {
     type: 'invalid-type',
   })).toEqual({
-    infoWindowTemplate: null,
-    listTemplate: null,
-    loadedListTemplate: false,
     loadedSettings: false,
-    loadedWindowTemplate: false,
     loadedMapStyle: false,
     mapStyle: null,
     markerImagePath: false,
@@ -41,136 +37,6 @@ test('Settings reducer has a default state', () => {
 });
 
 /**
- * Tests FETCH_INFO_WINDOW_SUCCESS
- */
-test('Settings reducer has a valid state when a fetch info window action is called', () => {
-  window.dynamic_locator = {
-    unit: 'm',
-    clusters: false,
-    limit: 0,
-    radii: [],
-    categories: [],
-    listTemplate: '',
-    listTemplatePath: '',
-    infoWindowTemplate: '',
-    infoWindowTemplatePath: '',
-    defaultCenter: {
-      lat: 0,
-      lng: 0,
-    },
-    defaultLimit: 20,
-    autocomplete: false,
-    markerImagePath: false,
-  };
-
-  // so settings are loaded
-  let state = reducer(undefined, {
-    type: ActionType.FETCH_LIST_SUCCESS,
-    payload: '',
-  });
-
-  state = reducer(state, {
-    type: ActionType.FETCH_MAP_STYLE_ERROR,
-    payload: ActionType.FETCH_MAP_STYLE_ERROR,
-  });
-
-  expect(reducer(state, {
-    type: ActionType.FETCH_INFO_WINDOW_SUCCESS,
-    payload: '',
-  })).toEqual({
-    categories: [],
-    clusters: false,
-    limit: 0,
-    infoWindowTemplate: 'template',
-    listTemplate: 'template',
-    loadedSettings: true,
-    loadedListTemplate: true,
-    loadedWindowTemplate: true,
-    loadedMapStyle: true,
-    mapStyle: null,
-    markerImagePath: false,
-    radii: [],
-    unit: 'm',
-    defaultCenter: {
-      lat: 0,
-      lng: 0,
-    },
-    defaultLimit: 20,
-    autocomplete: false,
-    directionsText: 'Directions',
-    emailText: 'Email',
-    unitText: 'mi',
-    websiteText: 'Website',
-  });
-});
-
-/**
- * Tests FETCH_LIST_SUCCESS with everything is defined
- */
-test('Settings reducer has a valid state when a fetch list action is called', () => {
-  window.dynamic_locator = {
-    unit: 'm',
-    clusters: false,
-    limit: 0,
-    radii: [],
-    categories: [],
-    listTemplate: '',
-    listTemplatePath: '',
-    infoWindowTemplate: '',
-    infoWindowTemplatePath: '',
-    defaultCenter: {
-      lat: 0,
-      lng: 0,
-    },
-    defaultLimit: 20,
-    autocomplete: false,
-    markerImagePath: false,
-  };
-
-  // so settings are loaded
-  let state = reducer(undefined, {
-    type: ActionType.FETCH_INFO_WINDOW_SUCCESS,
-    payload: '',
-  });
-
-  state = reducer(state, {
-    type: ActionType.FETCH_MAP_STYLE_ERROR,
-    payload: ActionType.FETCH_MAP_STYLE_ERROR,
-  });
-
-  expect(reducer(state, {
-    type: ActionType.FETCH_LIST_SUCCESS,
-    payload: {
-      data: '',
-    },
-  })).toEqual({
-    categories: [],
-    clusters: false,
-    limit: 0,
-    infoWindowTemplate: 'template',
-    listTemplate: 'template',
-    loadedSettings: true,
-    loadedListTemplate: true,
-    loadedWindowTemplate: true,
-    loadedMapStyle: true,
-    mapStyle: null,
-    markerImagePath: false,
-    radii: [],
-    unit: 'm',
-    defaultCenter: {
-      lat: 0,
-      lng: 0,
-    },
-    defaultLimit: 20,
-    directionsText: 'Directions',
-    emailText: 'Email',
-    unitText: 'mi',
-    websiteText: 'Website',
-    autocomplete: false,
-  });
-});
-
-/**
  * Tests FETCH_MAP_STYLE_SUCCESS with everything is defined
  */
 test('Settings reducer has a valid state when a fetch map styles action is called', () => {
@@ -180,10 +46,6 @@ test('Settings reducer has a valid state when a fetch map styles action is calle
     limit: 0,
     radii: [],
     categories: [],
-    listTemplate: '',
-    listTemplatePath: '',
-    infoWindowTemplate: '',
-    infoWindowTemplatePath: '',
     defaultCenter: {
       lat: 0,
       lng: 0,
@@ -193,18 +55,7 @@ test('Settings reducer has a valid state when a fetch map styles action is calle
     markerImagePath: false,
   };
 
-  // so settings are loaded
-  let state = reducer(undefined, {
-    type: ActionType.FETCH_INFO_WINDOW_SUCCESS,
-    payload: '',
-  });
-
-  state = reducer(state, {
-    type: ActionType.FETCH_LIST_SUCCESS,
-    payload: '',
-  });
-
-  expect(reducer(state, {
+  expect(reducer(undefined, {
     type: ActionType.FETCH_MAP_STYLE_SUCCESS,
     payload: {
       data: 'test',
@@ -213,11 +64,7 @@ test('Settings reducer has a valid state when a fetch map styles action is calle
     categories: [],
     clusters: false,
     limit: 0,
-    infoWindowTemplate: 'template',
-    listTemplate: 'template',
     loadedSettings: true,
-    loadedListTemplate: true,
-    loadedWindowTemplate: true,
     loadedMapStyle: true,
     mapStyle: 'test',
     markerImagePath: false,
@@ -246,10 +93,6 @@ test("Settings reducer has a valid state when a fetch map styles action is calle
     limit: 0,
     radii: [],
     categories: [],
-    listTemplate: '',
-    listTemplatePath: '',
-    infoWindowTemplate: '',
-    infoWindowTemplatePath: '',
     defaultCenter: {
       lat: 0,
       lng: 0,
@@ -259,30 +102,15 @@ test("Settings reducer has a valid state when a fetch map styles action is calle
     markerImagePath: false,
   };
 
-  // so settings are loaded
-  let state = reducer(undefined, {
-    type: ActionType.FETCH_INFO_WINDOW_SUCCESS,
-    payload: '',
-  });
-
-  state = reducer(state, {
-    type: ActionType.FETCH_LIST_SUCCESS,
-    payload: '',
-  });
-
-  expect(reducer(state, {
+  expect(reducer(undefined, {
     type: ActionType.FETCH_MAP_STYLE_ERROR,
     payload: `${ActionType.FETCH_MAP_STYLE_ERROR}__INVALID`,
   })).toEqual({
     categories: [],
     clusters: false,
     limit: 0,
-    infoWindowTemplate: 'template',
-    listTemplate: 'template',
-    loadedSettings: false,
-    loadedListTemplate: true,
-    loadedWindowTemplate: true,
-    loadedMapStyle: false,
+    loadedSettings: true,
+    loadedMapStyle: true,
     mapStyle: null,
     markerImagePath: false,
     radii: [],

@@ -1,15 +1,9 @@
 /**
  * @param {stirng} SRC_JS Path to javascript source
  */
-module.exports = ( ENV, { SRC_JS }) => {
+module.exports = ( ENV, {  ROOT, MODULES, SRC, SRC_JS }) => {
   return {
-    modules: [
-      SRC_JS,
-      'node_modules',
-    ],
-    alias: {
-      handlebars: 'handlebars/dist/handlebars.js',
-    },
+    modules: [ROOT, SRC, SRC_JS, MODULES],
     extensions: ['.js', '.jsx', '.json'],
   };
 };

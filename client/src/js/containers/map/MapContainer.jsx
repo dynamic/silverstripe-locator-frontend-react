@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Parser as HtmlToReactParser } from 'html-to-react';
 import scrollToElement from 'animated-scroll-to';
 import Fragment from 'render-fragment';
 
 import { openMarker, closeMarker } from 'actions/mapActions';
 import { changePage } from 'actions/listActions';
-import Map from 'components/map/Map';
+import Map from 'containers/map/Map';
 
 /**
  * The MapArea component.
@@ -29,10 +28,8 @@ export class MapContainer extends Component {
    * Generates an array of marker objects to use on the map
    */
   getMarkers() {
-    const { locations, template, emailText, websiteText, markerImagePath } = this.props;
+    const { locations, emailText, websiteText, markerImagePath } = this.props;
     const markers = [];
-
-    const htmlToReactParser = new HtmlToReactParser();
 
     let i;
     // eslint-disable-next-line no-plusplus
@@ -123,7 +120,7 @@ export class MapContainer extends Component {
 
 /**
  * Defines the prop types
- * @type {{locations: shim, dispatch: *, current: *, showCurrent: *, clusters: *, template: *, mapStyle: shim, center: (shim|*), defaultCenter: (shim|*)}}
+ * @type {{locations: shim, dispatch: *, current: *, showCurrent: *, clusters: *, mapStyle: shim, center: (shim|*), defaultCenter: (shim|*)}}
  */
 MapContainer.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
@@ -132,7 +129,6 @@ MapContainer.propTypes = {
   current: PropTypes.number.isRequired,
   showCurrent: PropTypes.bool.isRequired,
   clusters: PropTypes.bool.isRequired,
-  template: PropTypes.func.isRequired,
   mapStyle: PropTypes.oneOfType([
     () => {return null;},
     PropTypes.object,
@@ -170,7 +166,6 @@ export function mapStateToProps(state) {
     current: state.map.current,
     showCurrent: state.map.showCurrent,
     clusters: state.settings.clusters,
-    template: state.settings.infoWindowTemplate,
     mapStyle: state.settings.mapStyle,
     markerImagePath: state.settings.markerImagePath,
     locations: state.locations.locations,

@@ -17,7 +17,7 @@ import registerComponents from 'boot/registerComponents';
 import reducers from 'reducers';
 import renderComponent from 'renderComponent';
 
-import Loading from 'components/Loading';
+import Loading from 'containers/Loading';
 
 /**
  * Writes deeply nested function transformations without the rightward drift of the code.

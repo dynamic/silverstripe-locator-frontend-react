@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Parser as HtmlToReactParser } from 'html-to-react';
+import { loadComponent } from 'lib/Injector';
 
 /**
  * The Location component.
@@ -99,9 +99,9 @@ class Location extends Component {
    */
   render() {
     const {
-      location, index, search, template, unit, directionsText, emailText, websiteText, onClick,
+      location, index, search, unit, directionsText, emailText, websiteText, onClick,
     } = this.props;
-    const htmlToReactParser = new HtmlToReactParser();
+    const ListLocationContent = loadComponent('ListLocationContent');
 
     const loc = {
       ...location,
@@ -126,7 +126,7 @@ class Location extends Component {
         onClick={() => onClick(location.ID)}
         role="listitem"
       >
-        {htmlToReactParser.parse(template(loc))}
+        <ListLocationContent location={loc}/>
       </div>
     );
   }
@@ -154,7 +154,6 @@ Location.propTypes = {
   search: PropTypes.bool.isRequired,
   unit: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  template: PropTypes.func.isRequired,
 };
 
 /**

@@ -6,8 +6,6 @@ After:
 ---
 
 Dynamic\Locator\Locator:
-  infoWindowTemplate: 'dynamic/silverstripe-locator-react: client/infowindow-description.html'
-  listTemplate: 'dynamic/silverstripe-locator-react: client/location-list-description.html'
   radius_var: 'radius'
   category_var: 'category'
   extensions:

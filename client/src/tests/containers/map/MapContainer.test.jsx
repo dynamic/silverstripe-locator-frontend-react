@@ -1,17 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Parser as HtmlToReactParser } from 'html-to-react';
 
-import { MapContainer, mapStateToProps } from '../../../js/components/map/MapContainer';
+import { MapContainer, mapStateToProps } from '../../../js/containers/map/MapContainer';
 import PropTypes from "prop-types";
 
 const dispatch = jest.fn();
-
-// template function - just return what is passed
-const template = jest.fn(val => val);
-
-// html to react parser - just return what is passed
-HtmlToReactParser.parse = template;
 
 /**
  * Tests if the MapContainer component renders
@@ -23,7 +16,6 @@ test('Map container component should render', () => {
       current={-1}
       showCurrent={false}
       clusters={false}
-      template={() => 'template'}
       markerImagePath=""
       center={{
         Lat: 91,
@@ -49,7 +41,6 @@ test('Map container component should have markers', () => {
       current={-1}
       showCurrent={false}
       clusters={false}
-      template={() => 'template'}
       markerImagePath=""
       locations={[
         {
@@ -92,7 +83,6 @@ test('Map container component should handle marker clicks', () => {
       current={-1}
       showCurrent={false}
       clusters={false}
-      template={() => 'template'}
       markerImagePath=""
       center={{
         Lat: 91,
@@ -123,7 +113,6 @@ test('Map container component should handle marker closings', () => {
       current={-1}
       showCurrent={false}
       clusters={false}
-      template={() => 'template'}
       markerImagePath=""
       center={{
         Lat: 91,

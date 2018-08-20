@@ -76,8 +76,6 @@ class LocatorControllerExtension extends Extension
                 'unit': '{$unit}',
                 'limit': {$this->owner->getLimit()},
                 'clusters': {$clusters},
-                'infoWindowTemplatePath': '{$this->owner->getInfoWindowTemplate()}',
-                'listTemplatePath': '{$this->owner->getListTemplate()}',
                 'mapStylePath': '{$stylePath}',
                 'markerImagePath': '{$markerIconPath}',
                 'defaultCenter': {
