@@ -98,9 +98,7 @@ class Location extends Component {
    * @returns {XML}
    */
   render() {
-    const {
-      location, index, search, unit, directionsText, emailText, websiteText, onClick,
-    } = this.props;
+    const {location, index, search, unit, directionsText, emailText, websiteText, onClick} = this.props;
     const ListLocationContent = loadComponent('ListLocationContent');
 
     const loc = {

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import scrollToElement from 'animated-scroll-to';
 import Fragment from 'render-fragment';
 
-import { openMarker } from 'actions/mapActions';
-import { changePage } from 'actions/listActions';
+import {openMarker} from 'actions/mapActions';
+import {changePage} from 'actions/listActions';
 import Location from 'containers/list/Location';
 import Pagination from 'components/list/Pagination';
 
@@ -31,7 +31,7 @@ export class List extends Component {
    * @param target
    */
   handleLocationClick(target) {
-    const { dispatch, locations } = this.props;
+    const {dispatch, locations} = this.props;
     const location = locations.find(loc => loc.ID === target);
     dispatch(openMarker(location));
 
@@ -53,7 +53,7 @@ export class List extends Component {
    * @param page
    */
   handlePaginateClick(page) {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch(changePage(page));
   }
 
@@ -61,19 +61,7 @@ export class List extends Component {
    * Renders the list
    */
   renderList() {
-    const {
-      page,
-      defaultLimit,
-      locations,
-      current,
-      search,
-      unit,
-      unitText,
-      emailText,
-      websiteText,
-      directionsText,
-      template
-    } = this.props;
+    const {page, defaultLimit, locations, current, search, unit, unitText, emailText, websiteText, directionsText, template} = this.props;
     const realPage = page - 1 ? page - 1 : 0;
     // in case we want to implement a flexible limit
     const lim = defaultLimit;
@@ -100,7 +88,7 @@ export class List extends Component {
    * @returns {XML}
    */
   render() {
-    const { locations, current, page, defaultLimit } = this.props;
+    const {locations, current, page, defaultLimit} = this.props;
     return (
       <Fragment>
         <div className="loc-list-container" role="list">
