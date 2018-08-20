@@ -1,6 +1,7 @@
 const Path = require('path');
 
 const webpackConfig = require('@silverstripe/webpack-config');
+
 const {
 // resolveJS,
   externalJS,
@@ -11,7 +12,6 @@ const {
 } = webpackConfig;
 
 const resolveJS = require('./js/resolve');
-
 
 const PATHS = {
   MODULES: 'node_modules',
@@ -26,7 +26,7 @@ const PATHS = {
   DIST_JS: Path.resolve('client', 'dist', 'js'),
 };
 
-module.exports = (ENV) => ([
+module.exports = ENV => ([
   {
     name: 'js',
     entry: {
@@ -45,7 +45,7 @@ module.exports = (ENV) => ([
   {
     name: 'css',
     entry: {
-      locator: Path.join(PATHS.SRC_CSS, 'main.scss')
+      locator: Path.join(PATHS.SRC_CSS, 'main.scss'),
     },
     output: {
       path: PATHS.DIST_CSS,
