@@ -1,15 +1,9 @@
 /* global window */
-import handlebars from 'handlebars';
-
 import ActionType from '../../../src/js/actions/ActionTypes';
 import reducer from '../../../src/js/reducers/settingsReducer';
 
 const compile = jest.fn();
 compile.mockReturnValue('template');
-
-// setup fetchLocations to use mock function (so it can be checked against later)
-handlebars.compile = compile;
-jest.setMock('handlebars', handlebars);
 
 /**
  * Tests the default state

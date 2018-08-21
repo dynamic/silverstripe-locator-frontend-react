@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import ActionType from 'actions/ActionTypes';
 
+// eslint-disable-next-line import/prefer-default-export
 export function fetchMapStyle() {
   const loc = window.location;
   const path = dynamic_locator.mapStylePath;
