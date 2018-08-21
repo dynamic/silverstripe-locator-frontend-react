@@ -50,7 +50,7 @@ function settings() {
 }
 
 function didSettingsLoad(state = defaultState) {
-  const {loadedMapStyle} = state;
+  const { loadedMapStyle } = state;
   return loadedMapStyle === true;
 }
 
@@ -60,7 +60,7 @@ function didSettingsLoad(state = defaultState) {
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
     case ActionType.FETCH_MAP_STYLE_SUCCESS: {
-      const {data} = action.payload;
+      const { data } = action.payload;
       const loaded = didSettingsLoad({
         ...state,
         loadedMapStyle: true,
@@ -77,6 +77,7 @@ export default function reducer(state = defaultState, action) {
 
     case ActionType.FETCH_MAP_STYLE_ERROR: {
       if (action.payload !== ActionType.FETCH_MAP_STYLE_ERROR) {
+        // eslint-disable-next-line no-console
         console.error('Invalid path for map style was specified. Using default style.');
       }
       const loaded = didSettingsLoad({
