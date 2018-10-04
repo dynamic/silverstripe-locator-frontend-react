@@ -1,20 +1,17 @@
 /* global window, document */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {compose} from 'redux';
 import {connect} from 'react-redux';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import {faSearch} from '@fortawesome/fontawesome-free-solid';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import {loadComponent} from 'lib/Injector';
-import { reduxForm } from 'redux-form'
-
+import {loadComponent, provideInjector} from 'lib/Injector';
+import FormBuilderLoader from 'containers/FormBuilderLoader/FormBuilderLoader';
 
 import {fetchLocations} from 'actions/locationActions';
 import {search} from 'actions/searchActions';
 import {changePage} from 'actions/listActions';
-import CategoryDropDown from 'components/search/CategoryDropDown';
 
-export class SearchBar extends Component {
+export class SearchForm extends Component {
   /**
    * Turns a javascript object into url params.
    * Skips keys without values
@@ -38,13 +35,6 @@ export class SearchBar extends Component {
     return vars.replace(/([&\s]+$)/g, '').replace(/(\s)/g, '+');
   }
 
-  static getDropdownValue(name) {
-    if (document.getElementsByName(name)[0] !== undefined) {
-      return document.getElementsByName(name)[0].value;
-    }
-    return '';
-  }
-
   /**
    * Used to create the SearchBar.
    * needed to allow use of this keyword in handler.
@@ -54,44 +44,27 @@ export class SearchBar extends Component {
     super(props);
 
     this.searchAddress = props.address;
-
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAddressChange = this.handleAddressChange.bind(this);
   }
-
 
   /**
    * 'Submits' form. Really just fires state change and changes the url.
    */
-  handleSubmit(event) {
-    if (typeof event === 'string' || event instanceof String) {
-      this.searchAddress = event;
-      document.getElementsByName('address')[0].value = event;
-    } else {
-      // stops the submit from reloading
-      event.preventDefault();
-    }
-
-    const address = document.getElementsByName('address')[0].value;
-    const radius = SearchBar.getDropdownValue('Radius');
-    const category = SearchBar.getDropdownValue('Category');
-
-    const params = {
-      address,
-      radius,
-      category,
-    };
-
+  handleSubmit(data, action) {
     // selects dispatch and unit from this.props.
     // const dispatch = this.props.dispatch; const unit = this.props.unit;
     const {dispatch, unit} = this.props;
 
+    // removes all actions from the data
+    const params = Object.keys(data).reduce((object, key) => {
+      if (!key.startsWith('action_')) {
+        object[key] = data[key]
+      }
+      return object
+    }, {});
+
     // dispatches search (updates search values)
-    dispatch(search({
-      address,
-      radius,
-      category,
-    }));
+    // dispatch(search(params));
 
     // dispatches fetch locations (gets the locations)
     dispatch(fetchLocations({
@@ -103,7 +76,7 @@ export class SearchBar extends Component {
 
     // changes the url for the window and adds it to the browser history(no redirect)
     const loc = window.location;
-    const newurl = `${loc.protocol}//${loc.host}${loc.pathname}?${SearchBar.objToUrl(params)}`;
+    const newurl = `${loc.protocol}//${loc.host}${loc.pathname}?${SearchForm.objToUrl(params)}`;
     window.history.pushState({
       path: newurl,
     }, '', newurl);
@@ -111,22 +84,6 @@ export class SearchBar extends Component {
 
   handleAddressChange(searchAddress) {
     this.searchAddress = searchAddress;
-  }
-
-  getRadiiSource() {
-    const {radii, unit} = this.props;
-    return radii.map(radius => ({
-      value: radius,
-      title: `${radius} ${unit}`,
-    }));
-  }
-
-  getCategorySource() {
-    const {categories} = this.props;
-    return categories.map(category => ({
-      value: category.ID,
-      title: category.Name,
-    }));
   }
 
   /**
@@ -172,68 +129,25 @@ export class SearchBar extends Component {
    * @returns {XML}
    */
   render() {
-    const {
-      address, category, autocomplete
-    } = this.props;
-
-    const categories = this.getCategorySource();
-    const showCategories = categories.length !== 0;
-
-    const radii = this.getRadiiSource();
-    let {radius} = this.props;
-    if (typeof radius === 'string') {
-      radius = Number(radius);
-    }
-
-    const SingleSelectField = loadComponent('SingleSelectField');
-
+    const {identifier, formSchemaUrl} = this.props;
     return (
-      <form onSubmit={this.handleSubmit} className="search">
-        {/* not a fieldset because no flexbox */}
-        <div className="fieldset">
-          <div className="address-input form-group">
-            <label htmlFor="address"
-                   className="sr-only">{ss.i18n._t('Locator.ADDRESS_FIELD', 'Address or zip code')}</label>
-            {this.getAddressInput()}
-          </div>
-          <SingleSelectField
-            name={ss.i18n._t('Locator.RADIUS_FIELD', 'Radius')}
-            extraClass="radius-dropdown"
-            value={radius}
-            source={radii}
-            data={{
-              hasEmptyDefault: true,
-              emptyString: ss.i18n._t('Locator.RADIUS_FIELD', 'Radius'),
-            }}
-          />
-          {showCategories &&
-            <SingleSelectField
-              name={ss.i18n._t('Locator.CATEGORY_FIELD', 'Category')}
-              extraClass="category-dropdown"
-              defaultValue={category}
-              source={categories}
-              data={{
-                hasEmptyDefault: true,
-                emptyString: ss.i18n._t('Locator.CATEGORY_FIELD', 'Category'),
-              }}
-            />
-          }
-          <div className="form-group input-group-btn">
-            <button
-              className="btn btn-secondary"
-              type="button"
-              type="submit">
-              <FontAwesomeIcon icon={faSearch}/>
-              <span className="sr-only sr-only-focusable">{ss.i18n._t('Locator.SEARCH_BUTTON', 'Search')}</span>
-            </button>
-          </div>
-        </div>
-      </form>
+      <div>
+        {formSchemaUrl &&
+        <FormBuilderLoader
+          identifier={identifier}
+          schemaUrl={formSchemaUrl}
+          onSubmit={(data, action) => {
+            this.handleSubmit(data, action);
+            return Promise.resolve();
+          }}
+        />
+        }
+      </div>
     );
   }
 }
 
-SearchBar.propTypes = {
+SearchForm.propTypes = {
   address: PropTypes.string.isRequired,
   radius: PropTypes.oneOfType([
     PropTypes.number,
@@ -268,20 +182,16 @@ SearchBar.propTypes = {
  */
 export function mapStateToProps(state) {
   return {
-    // the defaults - for when it gets loaded from the url
-    address: state.search.address,
-    radius: state.search.radius,
-    category: state.search.category,
-
-    // the options
-    radii: state.settings.radii,
-    categories: state.settings.categories,
-
-    // other
-    unit: state.settings.unit,
-    autocomplete: state.settings.autocomplete,
-    center: state.settings.defaultCenter,
+    unit: state.locator.settings.unit,
+    autocomplete: state.locator.settings.autocomplete,
+    center: state.locator.settings.defaultCenter,
+    identifier: 'Locator.SearchForm',
+    formSchemaUrl: state.locator.settings.formSchemaUrl,
   };
 }
 
-export default connect(mapStateToProps)(SearchBar);
+export default compose(
+  connect(mapStateToProps),
+  // for FormBuilderLoader
+  provideInjector
+)(SearchForm);

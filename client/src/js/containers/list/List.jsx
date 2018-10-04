@@ -144,17 +144,17 @@ List.defaultProps = {
  */
 export function mapStateToProps(state) {
   return {
-    current: state.map.current,
-    search: state.search.address,
-    unit: state.settings.unit,
-    unitText: state.settings.unitText,
-    directionsText: state.settings.directionsText,
-    emailText: state.settings.emailText,
-    websiteText: state.settings.websiteText,
-    template: state.settings.listTemplate,
-    locations: state.locations.locations,
-    defaultLimit: state.settings.defaultLimit,
-    page: state.list.page,
+    current: state.locator.map.current,
+    search: state.locator.search.address,
+    unit: state.locator.settings.unit,
+    unitText: state.locator.settings.unitText,
+    directionsText: state.locator.settings.directionsText,
+    emailText: state.locator.settings.emailText,
+    websiteText: state.locator.settings.websiteText,
+    template: state.locator.settings.listTemplate,
+    locations: state.locator.locations.locations,
+    defaultLimit: state.locator.settings.defaultLimit,
+    page: state.locator.list.page,
   };
 }
 

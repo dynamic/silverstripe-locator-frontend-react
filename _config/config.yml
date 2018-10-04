@@ -18,3 +18,10 @@ Dynamic\Locator\LocatorController:
 Dynamic\SilverStripeGeocoder\DistanceDataExtension:
   address_var: 'address'
   unit_var: 'unit'
+
+---
+Only:
+  environment: 'dev'
+---
+Dynamic\Locator\LocatorController:
+  debugging: true

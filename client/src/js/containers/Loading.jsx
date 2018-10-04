@@ -6,7 +6,7 @@ import renderComponent from 'renderComponent';
 import { fetchLocations } from 'actions/locationActions';
 import { fetchMapStyle } from 'actions/settingsActions';
 
-import Search from 'components/search/SearchBar';
+import Search from 'containers/search/SearchForm';
 import MapContainer from 'containers/map/MapContainer';
 import List from 'containers/list/List';
 
@@ -75,13 +75,13 @@ Loading.propTypes = {
 
 export function mapStateToProps(state) {
   return {
-    isLoading: state.map.isLoading,
+    isLoading: state.locator.map.isLoading,
 
-    loadedSettings: state.settings.loadedSettings,
-    unit: state.settings.unit,
-    address: state.search.address,
-    radius: state.search.radius,
-    category: state.search.category,
+    loadedSettings: state.locator.settings.loadedSettings,
+    unit: state.locator.settings.unit,
+    address: state.locator.search.address,
+    radius: state.locator.search.radius,
+    category: state.locator.search.category,
   };
 }
 

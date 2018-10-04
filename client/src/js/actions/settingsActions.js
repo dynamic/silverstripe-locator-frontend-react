@@ -3,9 +3,8 @@ import axios from 'axios';
 
 import ActionType from 'actions/ActionTypes';
 
-// eslint-disable-next-line import/prefer-default-export
 export function fetchMapStyle() {
-  const loc = window.location;
+  const { protocol, host } = window.location;
   const path = dynamic_locator.mapStylePath;
 
   // so we don't try to fetch the home page of the site
@@ -18,6 +17,13 @@ export function fetchMapStyle() {
 
   return {
     type: ActionType.FETCH_MAP_STYLE,
-    payload: axios.get(`${loc.protocol}//${loc.host}/${path}`),
+    payload: axios.get(`${protocol}//${host}/${path}`),
+  };
+}
+
+export function createdStore() {
+  return {
+    type: ActionType.STORE_CREATED,
+    payload: '',
   };
 }
