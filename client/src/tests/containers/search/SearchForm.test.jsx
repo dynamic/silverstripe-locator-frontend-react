@@ -2,7 +2,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { SearchBar, mapStateToProps } from '../../../js/components/search/SearchBar';
+import { SearchForm, mapStateToProps } from '../../../js/containers/search/SearchForm';
 import RadiusDropDown from '../../../js/components/search/RadiusDropDown';
 import CategoryDropDown from '../../../js/components/search/CategoryDropDown';
 
@@ -25,7 +25,7 @@ window.google = {
 
 test('SearchBar component should render', () => {
   let search = shallow(
-    <SearchBar
+    <SearchForm
       address=""
       radius={-1}
       radii={[]}
@@ -47,7 +47,7 @@ test('SearchBar component should render', () => {
   expect(search.find(CategoryDropDown).length).toEqual(1);
 
   search = shallow(
-    <SearchBar
+    <SearchForm
       address=""
       radius="-1"
       radii={[]}
@@ -74,7 +74,7 @@ test('SearchBar component should render', () => {
  * Tests an empty object, an object with a single key/value pair, and an object with multiple key/value pairs with spaces in the values.
  */
 test('objToURL test', () => {
-  const toURL = SearchBar.objToUrl;
+  const toURL = SearchForm.objToUrl;
 
   // when an empty object is passed
   expect(toURL({})).toEqual('');
@@ -105,7 +105,7 @@ test('handleSubmit test', () => {
 
   // mount the component and attach it to the div created above
   const search = mount(
-    <SearchBar
+    <SearchForm
       address=""
       radius="-1"
       radii={[]}
@@ -163,7 +163,7 @@ test('handleSubmit test', () => {
 
 test('handleAddressChange test', () => {
   const search = shallow(
-    <SearchBar
+    <SearchForm
       address=""
       radius={-1}
       radii={[]}

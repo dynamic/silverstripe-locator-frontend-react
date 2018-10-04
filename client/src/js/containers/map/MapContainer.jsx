@@ -163,18 +163,18 @@ MapContainer.defaultProps = {
  */
 export function mapStateToProps(state) {
   return {
-    current: state.map.current,
-    showCurrent: state.map.showCurrent,
-    clusters: state.settings.clusters,
-    mapStyle: state.settings.mapStyle,
-    markerImagePath: state.settings.markerImagePath,
-    locations: state.locations.locations,
-    center: state.map.center,
-    defaultCenter: state.settings.defaultCenter,
+    current: state.locator.map.current,
+    showCurrent: state.locator.map.showCurrent,
+    clusters: state.locator.settings.clusters,
+    mapStyle: state.locator.settings.mapStyle,
+    markerImagePath: state.locator.settings.markerImagePath,
+    locations: state.locator.locations.locations,
+    center: state.locator.map.center,
+    defaultCenter: state.locator.settings.defaultCenter,
 
-    defaultLimit: state.settings.defaultLimit,
-    emailText: state.settings.emailText,
-    websiteText: state.settings.websiteText,
+    defaultLimit: state.locator.settings.defaultLimit,
+    emailText: state.locator.settings.emailText,
+    websiteText: state.locator.settings.websiteText,
   };
 }
 

@@ -1,12 +1,15 @@
-/* global dynamic_locator, ss */
+/* global dynamic_locator, ss, window */
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import Config from 'lib/Config';
+
 import ActionType from 'actions/ActionTypes';
 
 const defaultState = {
   loadedSettings: false,
-  loadedMapStyle: false,
 
   mapStyle: null,
   markerImagePath: false,
+  formSchemaUrl: '',
 
   unit: 'm',
 
@@ -27,6 +30,17 @@ const defaultState = {
 
 // eslint-disable-next-line no-underscore-dangle
 defaultState.unitText = ss.i18n._t(`Locator.UNIT.${defaultState.unit}`, 'mi');
+
+/**
+ * Constructs the schemaurl for the form
+ * @param config
+ * @returns {string}
+ */
+export function getSchemaURL() {
+  const { absoluteBaseUrl, url } = Config.getAll();
+  const { search } = window.location;
+  return `${absoluteBaseUrl}${url}/schema${search}`;
+}
 
 /**
  * Sets up settings
@@ -59,6 +73,13 @@ function didSettingsLoad(state = defaultState) {
  */
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
+    case ActionType.STORE_CREATED: {
+      return {
+        ...state,
+        formSchemaUrl: getSchemaURL(),
+      };
+    }
+
     case ActionType.FETCH_MAP_STYLE_SUCCESS: {
       const { data } = action.payload;
       const loaded = didSettingsLoad({

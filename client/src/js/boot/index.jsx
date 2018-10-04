@@ -1,59 +1,57 @@
 /* global window, document */
 import React from 'react';
-import ReactDom from 'react-dom';
 
-import {
-  createStore,
-  applyMiddleware,
-  compose,
-} from 'redux';
-import { Provider } from 'react-redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 
 import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import Config from 'lib/Config';
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import Injector from 'lib/Injector';
 
+import applyDevtools from 'boot/applyDevtools';
 import registerComponents from 'boot/registerComponents';
-import reducers from 'reducers';
+import registerReducers from 'reducers';
 import renderComponent from 'renderComponent';
 
 import Loading from 'containers/Loading';
+import { createdStore } from 'actions/settingsActions';
 
-/**
- * Writes deeply nested function transformations without the rightward drift of the code.
- * [redux compose]{@link http://redux.js.org/docs/api/compose.html}
- * @returns {Function}
- */
-/*
-// TODO: uncomment when redux gets updated
-function composedMiddleware() {
-  return compose(
-    applyMiddleware(thunk, promise({
-      // new suffixes
-      promiseTypeSuffixes: ['LOADING', 'SUCCESS', 'ERROR'],
-    })),
-    // eslint-disable-next-line no-underscore-dangle
-    (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
-  );
-}
-
-// creates the redux store with reducers and middleware
-const store = createStore(reducers, composedMiddleware());
-*/
-
-const finalCreateStore = compose(
-  applyMiddleware(thunk, promise({
-    // new suffixes
-    promiseTypeSuffixes: ['LOADING', 'SUCCESS', 'ERROR'],
-  })),
-  (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
-)(createStore)
-const store = finalCreateStore(reducers);
-
-// defers rendering until after content is loaded
 document.addEventListener('DOMContentLoaded', () => {
   registerComponents();
+  registerReducers();
 
-  // renders the locator
-  renderComponent(<Loading store={store}/>, store, '.locator-loading');
+  const middleware = [
+    thunk, promise({
+      // new suffixes
+      promiseTypeSuffixes: ['LOADING', 'SUCCESS', 'ERROR'],
+    }),
+  ];
+
+  const debugging = Config.get('debugging');
+  let runMiddleware = applyMiddleware(...middleware);
+
+  if (debugging) {
+    runMiddleware = applyDevtools(runMiddleware);
+  }
+
+  const createStoreWithMiddleware = runMiddleware(createStore);
+
+  Injector.ready(() => {
+    // need to build initial state of reducers for booting earlier
+    const rootReducer = combineReducers(Injector.reducer.getAll());
+    const store = createStoreWithMiddleware(rootReducer, {
+      config: Config.getAll(),
+    });
+
+    Injector.reducer.setStore(store);
+    store.dispatch(createdStore());
+    window.ss.store = store;
+
+    // renders the locator
+    window.setTimeout(() => {
+      renderComponent(<Loading store={store}/>, store, '.locator-loading');
+    }, 0);
+  });
 });

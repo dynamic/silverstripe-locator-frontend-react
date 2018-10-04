@@ -3,6 +3,8 @@
  * Could just be strings, but I feel better when referencing a constant that doesn't change without erroring.
  */
 const ActionTypes = {
+  STORE_CREATED: 'STORE_CREATED',
+
   // location fetching
   FETCH_LOCATIONS: 'FETCH_LOCATIONS',
 
