@@ -3,8 +3,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import { SearchForm, mapStateToProps } from '../../../js/containers/search/SearchForm';
-import RadiusDropDown from '../../../js/components/search/RadiusDropDown';
-import CategoryDropDown from '../../../js/components/search/CategoryDropDown';
 
 import * as mock from '../../../js/actions/locationActions';
 

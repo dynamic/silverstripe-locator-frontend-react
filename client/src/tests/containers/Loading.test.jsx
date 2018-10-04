@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import { Loading, mapStateToProps } from '../../js/containers/Loading';
 
-import Search from '../../js/components/search/SearchBar';
+import SearchForm from '../../js/containers/search/SearchForm';
 import MapContainer from '../../js/containers/map/MapContainer';
 import List from '../../js/containers/list/List';
 
