@@ -1,7 +1,5 @@
 import React from 'react';
 
-const FormBuilderloader = () => (
+module.exports = () => (
   <div id="form-builder-loader"></div>
 );
-
-export default FormBuilderloader;

@@ -148,23 +148,6 @@ export class SearchForm extends Component {
 }
 
 SearchForm.propTypes = {
-  address: PropTypes.string.isRequired,
-  radius: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]).isRequired,
-  category: PropTypes.string.isRequired,
-
-  // eslint-disable-next-line react/forbid-prop-types
-  radii: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array,
-  ]).isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  categories: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array,
-  ]).isRequired,
   unit: PropTypes.string.isRequired,
   autocomplete: PropTypes.bool.isRequired,
   center: PropTypes.shape({
