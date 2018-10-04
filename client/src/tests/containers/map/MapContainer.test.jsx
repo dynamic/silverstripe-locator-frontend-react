@@ -138,10 +138,12 @@ test('Map container component should handle marker closings', () => {
  */
 test('Map state to props', () => {
   const state = {
-    search: {},
-    map: {},
-    settings: {},
-    locations: {},
+    locator: {
+      search: {},
+      map: {},
+      settings: {},
+      locations: {},
+    },
   };
   // expects mapStateToProps to be an Object
   expect(mapStateToProps(state)).toEqual(expect.any(Object));

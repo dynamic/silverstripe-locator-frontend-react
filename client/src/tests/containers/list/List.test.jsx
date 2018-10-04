@@ -190,11 +190,13 @@ test('List component renderList', () => {
  */
 test('Map state to props', () => {
   const state = {
-    search: {},
-    map: {},
-    settings: {},
-    locations: {},
-    list: {},
+    locator: {
+      search: {},
+      map: {},
+      settings: {},
+      locations: {},
+      list: {},
+    },
   };
   // expects mapStateToProps to be an Object
   expect(mapStateToProps(state)).toEqual(expect.any(Object));

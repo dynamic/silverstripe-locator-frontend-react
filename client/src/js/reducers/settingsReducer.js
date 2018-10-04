@@ -6,6 +6,7 @@ import ActionType from 'actions/ActionTypes';
 
 const defaultState = {
   loadedSettings: false,
+  loadedMapStyle: false,
 
   mapStyle: null,
   markerImagePath: false,
