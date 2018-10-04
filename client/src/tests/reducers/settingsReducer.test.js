@@ -27,6 +27,7 @@ test('Settings reducer has a default state', () => {
     emailText: 'Email',
     unitText: 'mi',
     websiteText: 'Website',
+    formSchemaUrl: "",
   });
 });
 
@@ -74,6 +75,7 @@ test('Settings reducer has a valid state when a fetch map styles action is calle
     unitText: 'mi',
     websiteText: 'Website',
     autocomplete: false,
+    formSchemaUrl: "",
   });
 });
 
@@ -119,6 +121,7 @@ test("Settings reducer has a valid state when a fetch map styles action is calle
     unitText: 'mi',
     websiteText: 'Website',
     autocomplete: false,
+    formSchemaUrl: "",
   });
 });
 

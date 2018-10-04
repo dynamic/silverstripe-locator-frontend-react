@@ -42,31 +42,6 @@ test('SearchBar component should render', () => {
   );
 
   expect(search.length).toEqual(1);
-  // make sure we have everything we need
-  expect(search.find(RadiusDropDown).length).toEqual(1);
-  expect(search.find(CategoryDropDown).length).toEqual(1);
-
-  search = shallow(
-    <SearchForm
-      address=""
-      radius="-1"
-      radii={[]}
-      category=""
-      categories={[]}
-      unit="m"
-      autocomplete={true}
-      center={{
-        lat: 0,
-        lng: 0,
-      }}
-      dispatch={dispatch}
-    />,
-  );
-
-  expect(search.length).toEqual(1);
-  // make sure we have everything we need
-  expect(search.find(RadiusDropDown).length).toEqual(1);
-  expect(search.find(CategoryDropDown).length).toEqual(1);
 });
 
 /**
@@ -191,10 +166,12 @@ test('handleAddressChange test', () => {
  */
 test('Map state to props', () => {
   const state = {
-    search: {},
-    map: {},
-    settings: {},
-    locations: {},
+    locator: {
+      search: {},
+      map: {},
+      settings: {},
+      locations: {},
+    },
   };
   // expects mapStateToProps to be an Object
   expect(mapStateToProps(state)).toEqual(expect.any(Object));

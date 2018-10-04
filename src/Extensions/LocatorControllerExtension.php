@@ -193,7 +193,8 @@ class LocatorControllerExtension extends Extension
      * @param HTTPRequest $request
      * @return HTTPResponse
      */
-    public function schema($request) {
+    public function schema($request)
+    {
         return $this->getSchemaResponse("Locator.SearchForm", $this->owner->LocationSearch());
     }
 
