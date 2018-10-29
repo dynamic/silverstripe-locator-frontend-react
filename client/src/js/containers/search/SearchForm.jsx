@@ -64,7 +64,7 @@ export class SearchForm extends Component {
     }, {});
 
     // dispatches search (updates search values)
-    // dispatch(search(params));
+    dispatch(search(params));
 
     // dispatches fetch locations (gets the locations)
     dispatch(fetchLocations({

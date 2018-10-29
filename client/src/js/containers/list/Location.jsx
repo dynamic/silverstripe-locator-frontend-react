@@ -149,7 +149,7 @@ Location.propTypes = {
   }).isRequired,
   index: PropTypes.number.isRequired,
   current: PropTypes.bool.isRequired,
-  search: PropTypes.bool.isRequired,
+  search: PropTypes.string.isRequired,
   unit: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
