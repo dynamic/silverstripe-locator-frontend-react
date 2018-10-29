@@ -17,7 +17,7 @@ const locations = [
     Phone: '123-456-7777',
     Email: 'd@a.g',
     Distance: -1,
-    search: false,
+    search: '',
     current: true,
   },
   {
@@ -32,7 +32,7 @@ const locations = [
     Phone: '123-456-7777',
     Email: 'd@a.g',
     Distance: 10,
-    search: true,
+    search: 'AAA',
     current: false,
   },
   {
@@ -42,7 +42,7 @@ const locations = [
     Phone: '123-456-7777',
     Email: 'd@a.g',
     Distance: 10,
-    search: true,
+    search: 'AAA',
     current: false,
   },
 ];

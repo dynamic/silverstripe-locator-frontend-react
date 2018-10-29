@@ -15,9 +15,7 @@ export default function reducer(state = defaultState, action) {
     case ActionType.SEARCH:
       return {
         ...state,
-        address: action.payload.address,
-        radius: action.payload.radius,
-        category: action.payload.category,
+        ...action.payload,
       };
 
     default:

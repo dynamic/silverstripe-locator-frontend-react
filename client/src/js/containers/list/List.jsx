@@ -72,7 +72,7 @@ export class List extends Component {
         location={location}
         index={(realPage * lim) + index}
         current={current === location.ID}
-        search={search.length > 0}
+        search={search}
         unit={unitText}
         websiteText={websiteText}
         directionsText={directionsText}

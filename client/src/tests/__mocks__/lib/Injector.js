@@ -1,5 +1,7 @@
-import ListLocationContent from '../../../js/components/list/ListLocationContent';
 import MarkerContent from '../../../js/components/map/MarkerContent';
+import ListLocationContent from '../../../js/components/list/ListLocationContent';
+import Pagination from '../../../js/components/list/Pagination';
+import PaginationEnd from '../../../js/components/list/PaginationEnd';
 
 module.exports = {
   loadComponent: jest.fn((className) => {
@@ -8,6 +10,10 @@ module.exports = {
         return MarkerContent;
       case 'ListLocationContent':
         return ListLocationContent;
+      case 'Pagination':
+        return Pagination;
+      case 'PaginationEnd':
+        return PaginationEnd;
       default:
         return className;
     }
