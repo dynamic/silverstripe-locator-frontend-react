@@ -60,6 +60,7 @@
   },
   "browserslist": "> 1%",
   "jest": {
+    "testURL": "http://locator.test",
     "roots": [
       "<rootDir>/client/src/",
       "<rootDir>/client/tests/"
