@@ -3,6 +3,8 @@ import ListLocationContent from '../../../js/components/list/ListLocationContent
 import Pagination from '../../../js/components/list/Pagination';
 import PaginationEnd from '../../../js/components/list/PaginationEnd';
 
+var reducers;
+
 module.exports = {
   loadComponent: jest.fn((className) => {
     switch (className) {
@@ -20,5 +22,9 @@ module.exports = {
   }),
   component: {
     register: jest.fn(),
+  },
+  reducer: {
+    register: jest.fn((allReducers) => {reducers = allReducers}),
+    getAll: jest.fn(() => reducers),
   },
 };

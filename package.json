@@ -86,6 +86,11 @@
     "setupFiles": [
       "<rootDir>/client/src/tests/shim.js",
       "<rootDir>/client/src/tests/setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/client/src/tests/containers/Loading.test.jsx",
+      "/client/src/tests/containers/search/SearchForm.test.jsx"
     ]
   },
   "babel": {
