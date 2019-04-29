@@ -88,9 +88,7 @@
       "<rootDir>/client/src/tests/setup.js"
     ],
     "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/client/src/tests/containers/Loading.test.jsx",
-      "/client/src/tests/containers/search/SearchForm.test.jsx"
+      "/node_modules/"
     ]
   },
   "babel": {
