@@ -24,7 +24,7 @@ class LocatorControllerExtensionTest extends SapphireTest
      */
     public function testInit()
     {
-        Config::modify()->set(GoogleGeocoder::class, 'geocoder_api_key', 'YYYY');
+        Config::modify()->set(GoogleGeocoder::class, 'map_api_key', 'YYYY');
 
         $locator = Locator::create();
         $locator->Autocomplete = true;

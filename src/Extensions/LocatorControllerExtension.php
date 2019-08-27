@@ -30,7 +30,7 @@ class LocatorControllerExtension extends Extension
         // because we need another library when using autocomplete
         if ($this->owner->Autocomplete) {
             // google maps api key
-            $key = Config::inst()->get(GoogleGeocoder::class, 'geocoder_api_key');
+            $key = Config::inst()->get(GoogleGeocoder::class, 'map_api_key');
             Requirements::block("https://maps.google.com/maps/api/js?key={$key}");
             Requirements::javascript("https://maps.google.com/maps/api/js?key={$key}&libraries=places");
         }
