@@ -6,8 +6,6 @@ import ActionType from 'actions/ActionTypes';
 
 // eslint-disable-next-line import/prefer-default-export
 export function fetchLocations(params) {
-  const loc = window.location;
-
   // removed unused query variables
   if (params.address === '') {
     delete params.address;
@@ -24,7 +22,7 @@ export function fetchLocations(params) {
   return {
     type: ActionType.FETCH_LOCATIONS,
     payload: axios.get(
-      `${loc.protocol}//${loc.host}${loc.pathname}/json`,
+      `${window.dynamic_locator.dataLocation}`,
       {
         // same as "params: params"
         params,

@@ -1,14 +1,14 @@
 /* global window, document */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faSearch, faCheckCircle } from '@fortawesome/fontawesome-free-solid';
+import {faCheckCircle, faSearch} from '@fortawesome/fontawesome-free-solid';
 import PlacesAutocomplete from 'react-places-autocomplete';
 
-import { fetchLocations } from 'actions/locationActions';
-import { search } from 'actions/searchActions';
-import { changePage } from 'actions/listActions';
+import {fetchLocations} from 'actions/locationActions';
+import {search} from 'actions/searchActions';
+import {changePage} from 'actions/listActions';
 import RadiusDropDown from 'components/search/RadiusDropDown';
 import CategoryDropDown from 'components/search/CategoryDropDown';
 
@@ -57,6 +57,34 @@ export class SearchBar extends Component {
     this.handleAddressChange = this.handleAddressChange.bind(this);
   }
 
+  componentDidMount() {
+    if (!navigator.geolocation) {
+      return;
+    }
+
+    const success = position => {
+      const {latitude, longitude} = position.coords;
+      const geocoder = new google.maps.Geocoder;
+
+      geocoder.geocode({
+        location: {
+          lat: latitude,
+          lng: longitude,
+        }
+      }, (results, status) => {
+        if (status === 'OK') {
+          if (results[0]) {
+            this.handleSubmit(results[0].formatted_address);
+          }
+        }
+      });
+    };
+
+    const error = () => {
+    };
+
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
 
   /**
    * 'Submits' form. Really just fires state change and changes the url.
@@ -82,7 +110,7 @@ export class SearchBar extends Component {
 
     // selects dispatch and unit from this.props.
     // const dispatch = this.props.dispatch; const unit = this.props.unit;
-    const { dispatch, unit } = this.props;
+    const {dispatch, unit} = this.props;
 
     // dispatches search (updates search values)
     dispatch(search({
@@ -157,7 +185,7 @@ export class SearchBar extends Component {
     const {
       address, category, radii, categories, unit, autocomplete
     } = this.props;
-    let { radius } = this.props;
+    let {radius} = this.props;
     if (typeof radius === 'string') {
       radius = Number(radius);
     }
