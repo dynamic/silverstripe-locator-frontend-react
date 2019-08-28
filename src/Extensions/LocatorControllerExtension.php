@@ -9,6 +9,7 @@ use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Extension;
+use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 use SilverStripe\Forms\Schema\FormSchema;
 use SilverStripe\Security\SecurityToken;
@@ -114,8 +115,8 @@ class LocatorControllerExtension extends Extension
         $markerIconPath = ModuleResourceLoader::singleton()->resolveURL($this->owner->getMarkerIcon());
 
         // force to float
-        $defaultLat = (float) $this->owner->DefaultLat;
-        $defaultLng = (float) $this->owner->DefaultLng;
+        $defaultLat = (float)$this->owner->DefaultLat;
+        $defaultLng = (float)$this->owner->DefaultLng;
 
         Requirements::customScript("
             window.dynamic_locator = {
@@ -174,14 +175,12 @@ class LocatorControllerExtension extends Extension
             'baseUrl' => Director::baseURL(),
             'absoluteBaseUrl' => Director::absoluteBaseURL(),
             $token->getName() => $token->getValue(),
-            'sections' => [
-                [
-                    'name'=> '',
-                    'url' => '',
-                ],
-            ],
+            'sections' => [],
             'debugging' => $this->owner->config()->get('debugging'),
         ];
+
+        $clientConfig['sections'][] = Injector::inst()->get(LeftAndMain::class)->getClientConfig();
+
         $this->owner->extend('updateClientConfig', $clientConfig);
 
         return Convert::raw2json($clientConfig);
