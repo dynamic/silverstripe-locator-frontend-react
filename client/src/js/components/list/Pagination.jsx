@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { loadComponent } from 'lib/Injector';
-import Fragment from 'render-fragment';
 
 /**
  * The Pagination component.

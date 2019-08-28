@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import scrollToElement from 'animated-scroll-to';
-import Fragment from 'render-fragment';
 
 import { openMarker, closeMarker } from 'actions/mapActions';
 import { changePage } from 'actions/listActions';

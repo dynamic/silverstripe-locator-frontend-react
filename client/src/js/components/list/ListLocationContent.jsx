@@ -1,5 +1,4 @@
-import React from 'react';
-import Fragment from 'render-fragment';
+import React, { Fragment } from 'react';
 
 const ListLocationContent = ({location}) => (
   <Fragment>
