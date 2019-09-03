@@ -37,12 +37,12 @@ export class Loading extends Component {
   componentDidUpdate(nextProps) {
     const { loadedSettings, store } = this.props;
     if (loadedSettings !== nextProps.loadedSettings) {
-      const {dispatch, unit, address, radius, category} = nextProps;
+      const {dispatch, unit, Address, Radius, Category} = nextProps;
       dispatch(fetchLocations({
         unit,
-        address,
-        radius,
-        category,
+        Address,
+        Radius,
+        Category,
       }));
     }
 
@@ -79,9 +79,9 @@ export function mapStateToProps(state) {
 
     loadedSettings: state.locator.settings.loadedSettings,
     unit: state.locator.settings.unit,
-    address: state.locator.search.address,
-    radius: state.locator.search.radius,
-    category: state.locator.search.category,
+    Address: state.locator.search.Address,
+    Radius: state.locator.search.Radius,
+    Category: state.locator.search.Category,
   };
 }
 

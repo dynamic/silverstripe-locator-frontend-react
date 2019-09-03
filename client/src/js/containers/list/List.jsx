@@ -144,7 +144,7 @@ List.defaultProps = {
 export function mapStateToProps(state) {
   return {
     current: state.locator.map.current,
-    search: state.locator.search.address,
+    search: state.locator.search.Address,
     unit: state.locator.settings.unit,
     unitText: state.locator.settings.unitText,
     directionsText: state.locator.settings.directionsText,

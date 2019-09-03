@@ -6,8 +6,8 @@ After:
 ---
 
 Dynamic\Locator\Locator:
-  radius_var: 'radius'
-  category_var: 'category'
+  radius_var: 'Radius'
+  category_var: 'Category'
   extensions:
     - Dynamic\Locator\React\Extensions\LocatorExtension
 
@@ -15,9 +15,13 @@ Dynamic\Locator\LocatorController:
   extensions:
     - Dynamic\Locator\React\Extensions\LocatorControllerExtension
 
+Dynamic\Locator\LocatorForm:
+  extensions:
+    - Dynamic\Locator\React\Extensions\LocatorFormExtension
+
 Dynamic\SilverStripeGeocoder\DistanceDataExtension:
-  address_var: 'address'
-  unit_var: 'unit'
+  address_var: 'Address'
+  unit_var: 'Unit'
 
 ---
 Only:

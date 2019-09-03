@@ -10,6 +10,10 @@ const defaultState = {
     Lat: 91.0,
     Lng: 181.0,
   },
+  searchCenter: {
+    Lat: 91.0,
+    Lng: 181.0,
+  },
 };
 
 export default function reducer(state = defaultState, action) {
@@ -52,7 +56,7 @@ export default function reducer(state = defaultState, action) {
       return {
         ...state,
         isLoading: false,
-        center,
+        searchCenter: center,
       };
     }
 

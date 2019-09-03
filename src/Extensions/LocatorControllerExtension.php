@@ -19,7 +19,7 @@ use SilverStripe\View\Requirements;
  * Class LocatorControllerExtension
  * @package Dynamic\Locator\React\Extensions
  *
- * @property \Dynamic\Locator\LocatorController|\Dynamic\Locator\React\Extensions\LocatorControllerExtension $owner
+ * @property \Dynamic\Locator\LocatorController|LocatorControllerExtension|LocatorExtension $owner
  */
 class LocatorControllerExtension extends Extension
 {
@@ -112,7 +112,11 @@ class LocatorControllerExtension extends Extension
         $autocomplete = $this->owner->Autocomplete ? 'true' : 'false';
 
         $stylePath = ModuleResourceLoader::singleton()->resolveURL($this->owner->getMapStyle());
+        $searchMarkerIconPath = $this->owner->SearchMarkerImage ? $this->owner->SearchMarkerImage->URL : 'undefined';
         $markerIconPath = ModuleResourceLoader::singleton()->resolveURL($this->owner->getMarkerIcon());
+        if ($this->owner->DefaultMarkerImage) {
+            $markerIconPath = $this->owner->DefaultMarkerImage->URL;
+        }
 
         // force to float
         $defaultLat = (float)$this->owner->DefaultLat;
@@ -126,6 +130,7 @@ class LocatorControllerExtension extends Extension
                 'limit': {$this->owner->getLimit()},
                 'clusters': {$clusters},
                 'mapStylePath': '{$stylePath}',
+                'searchMarkerImagePath': '{$searchMarkerIconPath}',
                 'markerImagePath': '{$markerIconPath}',
                 'defaultCenter': {
                     'lat': {$defaultLat},

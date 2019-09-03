@@ -10,6 +10,7 @@ const defaultState = {
 
   mapStyle: null,
   markerImagePath: false,
+  searchMarkerImagePath: false,
   formSchemaUrl: '',
 
   unit: 'm',
@@ -60,6 +61,7 @@ function settings() {
     },
     autocomplete: dynamic_locator.autocomplete,
     markerImagePath: dynamic_locator.markerImagePath,
+    searchMarkerImagePath: dynamic_locator.searchMarkerImagePath,
     // defaultLimit: dynamic_locator.defaultLimit,
   };
 }

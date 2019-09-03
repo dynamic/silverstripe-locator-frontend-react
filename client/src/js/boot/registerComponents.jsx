@@ -10,10 +10,7 @@ const registerComponents = () => {
     PaginationEnd,
     MarkerContent,
     ListLocationContent,
-  });
-
-  Injector.transform('location-autocomplete-transform', (updater) => {
-    updater.component('TextField.Locator.SearchForm', AutoComplete);
+    AutoComplete,
   });
 };
 

@@ -1,76 +1,156 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import {GoogleMap, Marker, withGoogleMap} from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
-import { loadComponent } from 'lib/Injector';
 
-/**
- * Renders every marker
- *
- * @param props
- * @return {Array}
- */
-export function markers(props) {
-  const MarkerContent = loadComponent('MarkerContent');
-  return props.markers.map(marker => (
-    <Marker
-      key={marker.key}
-      position={marker.position}
-      defaultAnimation={marker.defaultAnimation}
-      defaultIcon={marker.defaultIcon}
-      onClick={() => props.onMarkerClick(marker)}
-    >
-      {props.current === marker.key && props.showCurrent && (
-        <InfoBox onCloseClick={() => props.onMarkerClose()}>
-          <div className="marker-content">
-            <MarkerContent info={marker.info}/>
-          </div>
-        </InfoBox>
-      )}
-    </Marker>
-  ));
-}
+export class Map extends Component {
+  constructor(props) {
+    super(props);
+    this.mapRef = React.createRef();
+  }
 
-/**
- * Renders the map, with all the markers
- *
- * @param props
- * @return {XML}
- * @constructor
- */
-export function Map(props) {
-  // we don't want a center if it is invalid
-  const opts = {};
-  if (props.center.Lat !== 91 && props.center.Lng !== 181) {
-    opts.center = {
-      lat: props.center.Lat,
-      lng: props.center.Lng,
+  componentDidUpdate() {
+    const {center} = this.props;
+    if (center.Lat !== 91 && center.Lng !== 181) {
+      this.mapRef.current.panTo(new google.maps.LatLng(center.Lat, center.Lng));
+      return;
     }
+
+    const bounds = this.getBounds();
+    this.mapRef.current.fitBounds(bounds);
+
+    const smallerLat = bounds.getNorthEast().lat() > bounds.getSouthWest().lat() ? bounds.getSouthWest().lat() : bounds.getNorthEast().lat();
+    const largerLat = bounds.getNorthEast().lat() <= bounds.getSouthWest().lat() ? bounds.getSouthWest().lat() : bounds.getNorthEast().lat();
+
+    const latDistance = largerLat - smallerLat;
+
+    const centerLat = (bounds.getCenter().lat() * (latDistance * .004)) + bounds.getCenter().lat();
+    const centerLng = bounds.getCenter().lng();
+    const calculatedCenter = new google.maps.LatLng(centerLat, centerLng);
+    this.mapRef.current.panTo(calculatedCenter);
   }
 
-  const defaultOptions = {};
-  if (props.mapStyle !== null) {
-    defaultOptions.styles = props.mapStyle;
+  getBounds() {
+    const {markers, search, searchCenter} = this.props;
+    const limit = search ? 3 : markers.length;
+    const bounds = new window.google.maps.LatLngBounds();
+    markers.slice(0, limit).map(marker => {
+      bounds.extend(new window.google.maps.LatLng(
+        marker.position.lat,
+        marker.position.lng
+      ));
+    });
+    if (searchCenter.Lat !== 91 && searchCenter.Lng !== 181) {
+      bounds.extend(new window.google.maps.LatLng(
+        searchCenter.Lat,
+        searchCenter.Lng
+      ));
+    }
+    return bounds;
   }
 
-  return (
-    <GoogleMap
-      defaultZoom={9}
-      defaultCenter={{ lat: props.defaultCenter.lat, lng: props.defaultCenter.lng }}
-      defaultOptions={defaultOptions}
-      {...opts}
-    >
-      {props.clusters === true ? <MarkerClusterer
-        averageCenter
-        enableRetinaIcons
-        gridSize={60}
+  markers() {
+    const {
+      markers,
+      search,
+      searchCenter,
+      searchMarkerImagePath,
+      current,
+      showCurrent,
+      onMarkerClick,
+      onMarkerClose
+    } = this.props;
+    const limit = search ? 3 : markers.length;
+
+    let markerList = markers.slice(0, limit).map(marker => (
+      <Marker
+        key={marker.key}
+        position={marker.position}
+        defaultAnimation={marker.defaultAnimation}
+        defaultIcon={{
+          url: marker.defaultIcon,
+          scaledSize: new window.google.maps.Size(30, 56),
+        }}
+        onClick={() => onMarkerClick(marker)}
+        optimized={false}
+        options={marker.icon ? {
+          icon: marker.icon,
+          scaledSize: new window.google.maps.Size(30, 56),
+        } : undefined}
       >
-        {markers(props)}
-      </MarkerClusterer> :
-        markers(props)}
-    </GoogleMap>
-  );
+        {current === marker.key && showCurrent && (
+          <InfoBox
+            onCloseClick={() => onMarkerClose()}
+            options={{
+              closeBoxURL: dynamic_locator.infoBoxCloseImage,
+              disableAutoPan: true,
+            }}
+          >
+            <div className="marker-content">{marker.infoContent}</div>
+          </InfoBox>
+        )}
+      </Marker>
+    ));
+
+    if (
+      searchMarkerImagePath !== '' &&
+      searchCenter.Lat !== 91 &&
+      searchCenter.Lng !== 181
+    ) {
+      markerList.push(<Marker
+        key="search"
+        position={{
+          lat: searchCenter.Lat,
+          lng: searchCenter.Lng,
+        }}
+        defaultIcon={{
+          url: searchMarkerImagePath,
+          scaledSize: new window.google.maps.Size(30, 56),
+        }}
+        optimized={false}
+
+      />);
+    }
+
+    return markerList;
+  }
+
+  render() {
+    const {center, defaultCenter, mapStyle, clusters} = this.props;
+
+    // we don't want a center if it is invalid
+    const opts = {};
+    if (center.Lat !== 91 && center.Lng !== 181) {
+      opts.center = {
+        lat: center.Lat,
+        lng: center.Lng,
+      }
+    }
+
+    const defaultOptions = {};
+    if (mapStyle !== null) {
+      defaultOptions.styles = mapStyle;
+    }
+
+    return (
+      <GoogleMap ref={this.mapRef}
+                 defaultZoom={9}
+                 defaultCenter={{lat: defaultCenter.lat, lng: defaultCenter.lng}}
+                 defaultOptions={defaultOptions}
+                 {...opts}
+      >
+        {clusters === true ? <MarkerClusterer
+            averageCenter
+            enableRetinaIcons
+            gridSize={60}
+          >
+            {this.markers()}
+          </MarkerClusterer> :
+          this.markers()}
+      </GoogleMap>
+    );
+  }
 }
 
 /**
@@ -80,7 +160,9 @@ export function Map(props) {
 Map.propTypes = {
   clusters: PropTypes.bool.isRequired,
   mapStyle: PropTypes.oneOfType([
-    () => {return null;},
+    () => {
+      return null;
+    },
     PropTypes.object
   ]),
   center: PropTypes.shape({
