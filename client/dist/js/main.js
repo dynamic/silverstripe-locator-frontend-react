@@ -1563,6 +1563,8 @@ var _InfoBox = __webpack_require__("./node_modules/react-google-maps/lib/compone
 
 var _InfoBox2 = _interopRequireDefault(_InfoBox);
 
+var _Injector = __webpack_require__(2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1626,68 +1628,43 @@ var Map = exports.Map = function (_Component) {
     }
   }, {
     key: 'markers',
-    value: function markers() {
-      var _props2 = this.props,
-          markers = _props2.markers,
-          search = _props2.search,
-          searchCenter = _props2.searchCenter,
-          searchMarkerImagePath = _props2.searchMarkerImagePath,
-          current = _props2.current,
-          showCurrent = _props2.showCurrent,
-          onMarkerClick = _props2.onMarkerClick,
-          onMarkerClose = _props2.onMarkerClose;
-
-      var limit = search ? 3 : markers.length;
-
-      var markerList = markers.slice(0, limit).map(function (marker) {
+    value: function markers(props) {
+      var MarkerContent = (0, _Injector.loadComponent)('MarkerContent');
+      var markerList = props.markers.map(function (marker) {
         return _react2.default.createElement(
           _reactGoogleMaps.Marker,
           {
             key: marker.key,
             position: marker.position,
             defaultAnimation: marker.defaultAnimation,
-            defaultIcon: {
-              url: marker.defaultIcon,
-              scaledSize: new window.google.maps.Size(30, 56)
-            },
+            defaultIcon: marker.defaultIcon,
             onClick: function onClick() {
-              return onMarkerClick(marker);
-            },
-            optimized: false,
-            options: marker.icon ? {
-              icon: marker.icon,
-              scaledSize: new window.google.maps.Size(30, 56)
-            } : undefined
+              return props.onMarkerClick(marker);
+            }
           },
-          current === marker.key && showCurrent && _react2.default.createElement(
+          props.current === marker.key && props.showCurrent && _react2.default.createElement(
             _InfoBox2.default,
-            {
-              onCloseClick: function onCloseClick() {
-                return onMarkerClose();
-              },
-              options: {
-                closeBoxURL: dynamic_locator.infoBoxCloseImage,
-                disableAutoPan: true
-              }
-            },
+            { onCloseClick: function onCloseClick() {
+                return props.onMarkerClose();
+              } },
             _react2.default.createElement(
               'div',
               { className: 'marker-content' },
-              marker.infoContent
+              _react2.default.createElement(MarkerContent, { info: marker.info })
             )
           )
         );
       });
 
-      if (searchMarkerImagePath !== '' && searchCenter.Lat !== 91 && searchCenter.Lng !== 181) {
+      if (props.searchMarkerImagePath !== '' && props.searchCenter.Lat !== 91 && props.searchCenter.Lng !== 181) {
         markerList.push(_react2.default.createElement(_reactGoogleMaps.Marker, {
           key: 'search',
           position: {
-            lat: searchCenter.Lat,
-            lng: searchCenter.Lng
+            lat: props.searchCenter.Lat,
+            lng: props.searchCenter.Lng
           },
           defaultIcon: {
-            url: searchMarkerImagePath,
+            url: props.searchMarkerImagePath,
             scaledSize: new window.google.maps.Size(30, 56)
           },
           optimized: false
@@ -1700,11 +1677,11 @@ var Map = exports.Map = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _props3 = this.props,
-          center = _props3.center,
-          defaultCenter = _props3.defaultCenter,
-          mapStyle = _props3.mapStyle,
-          clusters = _props3.clusters;
+      var _props2 = this.props,
+          center = _props2.center,
+          defaultCenter = _props2.defaultCenter,
+          mapStyle = _props2.mapStyle,
+          clusters = _props2.clusters;
 
       var opts = {};
       if (center.Lat !== 91 && center.Lng !== 181) {
@@ -1733,8 +1710,8 @@ var Map = exports.Map = function (_Component) {
             enableRetinaIcons: true,
             gridSize: 60
           },
-          this.markers()
-        ) : this.markers()
+          this.markers(this.props)
+        ) : this.markers(this.props)
       );
     }
   }]);

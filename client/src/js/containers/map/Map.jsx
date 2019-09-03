@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {GoogleMap, Marker, withGoogleMap} from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
+import { loadComponent } from 'lib/Injector';
 
 export class Map extends Component {
   constructor(props) {
@@ -50,62 +51,39 @@ export class Map extends Component {
     return bounds;
   }
 
-  markers() {
-    const {
-      markers,
-      search,
-      searchCenter,
-      searchMarkerImagePath,
-      current,
-      showCurrent,
-      onMarkerClick,
-      onMarkerClose
-    } = this.props;
-    const limit = search ? 3 : markers.length;
-
-    let markerList = markers.slice(0, limit).map(marker => (
+  markers(props) {
+    const MarkerContent = loadComponent('MarkerContent');
+    const markerList = props.markers.map(marker => (
       <Marker
         key={marker.key}
         position={marker.position}
         defaultAnimation={marker.defaultAnimation}
-        defaultIcon={{
-          url: marker.defaultIcon,
-          scaledSize: new window.google.maps.Size(30, 56),
-        }}
-        onClick={() => onMarkerClick(marker)}
-        optimized={false}
-        options={marker.icon ? {
-          icon: marker.icon,
-          scaledSize: new window.google.maps.Size(30, 56),
-        } : undefined}
+        defaultIcon={marker.defaultIcon}
+        onClick={() => props.onMarkerClick(marker)}
       >
-        {current === marker.key && showCurrent && (
-          <InfoBox
-            onCloseClick={() => onMarkerClose()}
-            options={{
-              closeBoxURL: dynamic_locator.infoBoxCloseImage,
-              disableAutoPan: true,
-            }}
-          >
-            <div className="marker-content">{marker.infoContent}</div>
+        {props.current === marker.key && props.showCurrent && (
+          <InfoBox onCloseClick={() => props.onMarkerClose()}>
+            <div className="marker-content">
+              <MarkerContent info={marker.info}/>
+            </div>
           </InfoBox>
         )}
       </Marker>
     ));
 
     if (
-      searchMarkerImagePath !== '' &&
-      searchCenter.Lat !== 91 &&
-      searchCenter.Lng !== 181
+      props.searchMarkerImagePath !== '' &&
+      props.searchCenter.Lat !== 91 &&
+      props.searchCenter.Lng !== 181
     ) {
       markerList.push(<Marker
         key="search"
         position={{
-          lat: searchCenter.Lat,
-          lng: searchCenter.Lng,
+          lat: props.searchCenter.Lat,
+          lng: props.searchCenter.Lng,
         }}
         defaultIcon={{
-          url: searchMarkerImagePath,
+          url: props.searchMarkerImagePath,
           scaledSize: new window.google.maps.Size(30, 56),
         }}
         optimized={false}
@@ -145,9 +123,9 @@ export class Map extends Component {
             enableRetinaIcons
             gridSize={60}
           >
-            {this.markers()}
+            {this.markers(this.props)}
           </MarkerClusterer> :
-          this.markers()}
+          this.markers(this.props)}
       </GoogleMap>
     );
   }
