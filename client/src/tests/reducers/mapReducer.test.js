@@ -33,6 +33,10 @@ test('Map reducer has a default state', () => {
       Lat: 91,
       Lng: 181,
     },
+    searchCenter: {
+      Lat: 91,
+      Lng: 181,
+    },
   });
 });
 
@@ -50,6 +54,10 @@ test('Map reducer has a valid clicked state', () => {
     center: {
       Lat: 50,
       Lng: 60,
+    },
+    searchCenter: {
+      Lat: 91,
+      Lng: 181,
     },
   });
 });
@@ -86,6 +94,10 @@ test('Map reducer has a valid search state', () => {
       Lat: 91,
       Lng: 181,
     },
+    searchCenter: {
+      Lat: 91,
+      Lng: 181,
+    },
   });
 });
 
@@ -117,6 +129,10 @@ test('Map reducer has a valid success state', () => {
     showCurrent: false,
     isLoading: false,
     center: {
+      Lat: 91,
+      Lng: 181,
+    },
+    searchCenter: {
       Lat: 91,
       Lng: 181,
     },

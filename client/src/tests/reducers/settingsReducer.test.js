@@ -15,6 +15,7 @@ test('Settings reducer has a default state', () => {
     loadedSettings: false,
     loadedMapStyle: false,
     mapStyle: null,
+    searchMarkerImagePath: false,
     markerImagePath: false,
     unit: 'm',
     defaultCenter: {

@@ -8,9 +8,9 @@ test('Search reducer has a default state', () => {
   expect(reducer(undefined, {
     type: 'invalid-type',
   })).toEqual({
-    address: '',
-    radius: -1,
-    category: '',
+    Address: '',
+    Radius: -1,
+    Category: '',
   });
 });
 
@@ -21,13 +21,13 @@ test('Search reducer has a valid search state', () => {
   expect(reducer(undefined, {
     type: ActionType.SEARCH,
     payload: {
-      address: 'test',
-      radius: 25,
-      category: '5',
+      Address: 'test',
+      Radius: 25,
+      Category: '5',
     },
   })).toEqual({
-    address: 'test',
-    radius: 25,
-    category: '5',
+    Address: 'test',
+    Radius: 25,
+    Category: '5',
   });
 });

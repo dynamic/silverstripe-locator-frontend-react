@@ -28,6 +28,7 @@
     "@fortawesome/react-fontawesome": "0.0.18",
     "animated-scroll-to": "^1.2.2",
     "axios": "^0.18.1",
+    "babel-jest": "^24.9.0",
     "bootstrap": "^4.3.1",
     "prop-types": "^15.7.2",
     "react": "^16.6.1",
@@ -44,15 +45,15 @@
     "@silverstripe/eslint-config": "0.0.5",
     "@silverstripe/webpack-config": "^1.0.0",
     "axios-mock-adapter": "^1.17.0",
-    "babel-jest": "^25.0.0",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "enzyme": "^3.10.0",
-    "enzyme-adapter-react-15.4": "^1.4.0",
+    "enzyme-adapter-react-16": "^1.1.0",
     "es6-promise": "^3.1.2",
+    "eslint": "^6.3.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "jest": "^25.0.0",
-    "jest-cli": "^25.0.0",
+    "jest-cli": "^23.6.0",
     "jest-enzyme": "^7.1.0",
     "react-addons-test-utils": "15.0.0",
     "remote-redux-devtools": "^0.5.13",
@@ -96,6 +97,10 @@
       "env",
       "react",
       "stage-2"
+    ],
+    "plugins": [
+      "transform-class-properties",
+      "transform-object-rest-spread"
     ]
   }
 }

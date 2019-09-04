@@ -1,14 +1,34 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {shallow} from 'enzyme';
 
-import { Marker } from 'react-google-maps';
+import {Marker} from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
 
-import { Map, markers } from '../../../js/containers/map/Map';
+import {Map} from '../../../js/containers/map/Map';
 
 const onMarkerClick = jest.fn();
 const onMarkerClose = jest.fn();
+
+const shallowMap = shallow(
+  <Map
+    // eslint-disable-next-line react/jsx-boolean-value
+    clusters={true}
+    markers={[]}
+    defaultCenter={{
+      lat: 0,
+      lng: 0,
+    }}
+    center={{
+      Lat: 91,
+      Lng: 181,
+    }}
+    searchCenter={{
+      Lat: 91,
+      Lng: 181,
+    }}
+  />,
+);
 
 const markerList = [
   {
@@ -42,6 +62,10 @@ test('Map should render without clusters', () => {
         Lat: 90,
         Lng: 180,
       }}
+      searchCenter={{
+        Lat: 91,
+        Lng: 181,
+      }}
     />,
   );
 
@@ -63,6 +87,10 @@ test('Map should render with clusters', () => {
         Lat: 91,
         Lng: 181,
       }}
+      searchCenter={{
+        Lat: 91,
+        Lng: 181,
+      }}
     />,
   );
 
@@ -71,12 +99,16 @@ test('Map should render with clusters', () => {
 });
 
 test('Markers should render', () => {
-  const markerMap = markers({
+  const markerMap = shallowMap.instance().markers({
     onMarkerClick,
     onMarkerClose,
     current: -1,
     showCurrent: false,
     markers: markerList,
+    searchCenter: {
+      Lat: 91,
+      Lng: 181,
+    }
   });
 
   expect(markerMap.length).toEqual(2);
@@ -86,12 +118,16 @@ test('Marker should have info window', () => {
   const markerMap = shallow(
     <div>
       {
-        markers({
+        shallowMap.instance().markers({
           onMarkerClick,
           onMarkerClose,
           current: 1,
           showCurrent: true,
           markers: markerList,
+          searchCenter: {
+            Lat: 91,
+            Lng: 181,
+          }
         })
       }
     </div>,
@@ -105,12 +141,16 @@ test('Marker click', () => {
   const markerMap = shallow(
     <div>
       {
-        markers({
+        shallowMap.instance().markers({
           onMarkerClick,
           onMarkerClose,
           current: 1,
           showCurrent: true,
           markers: markerList,
+          searchCenter: {
+            Lat: 91,
+            Lng: 181,
+          }
         })
       }
     </div>,
@@ -125,12 +165,16 @@ test('Marker close', () => {
   const markerMap = shallow(
     <div>
       {
-        markers({
+        shallowMap.instance().markers({
           onMarkerClick,
           onMarkerClose,
           current: 1,
           showCurrent: true,
           markers: markerList,
+          searchCenter: {
+            Lat: 91,
+            Lng: 181,
+          }
         })
       }
     </div>,
