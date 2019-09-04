@@ -69,7 +69,7 @@ class LocatorExtension extends DataExtension
             UploadField::create('DefaultMarkerImage')
                 ->setRightTitle('The default image to use for markers.'),
             UploadField::create('SearchMarkerImage')
-                ->setRightTitle('The image the search marker will have. If one is not provided a search marker will not be used.'),
+                ->setRightTitle('The image the search marker will have.'),
             CheckboxField::create('Clusters')
                 ->setRightTitle('Cluster the markers when zoomed out.'),
             CheckboxField::create('Autocomplete')
