@@ -3,9 +3,9 @@ import ActionType from 'actions/ActionTypes';
 import url from 'url';
 
 const defaultState = Object.assign({
-  address: '',
-  radius: -1,
-  category: '',
+  Address: '',
+  Radius: -1,
+  Category: '',
 }, url.parse(window.location.href, true).query);
 
 delete defaultState.page;
@@ -15,9 +15,7 @@ export default function reducer(state = defaultState, action) {
     case ActionType.SEARCH:
       return {
         ...state,
-        address: action.payload.address,
-        radius: action.payload.radius,
-        category: action.payload.category,
+        ...action.payload,
       };
 
     default:

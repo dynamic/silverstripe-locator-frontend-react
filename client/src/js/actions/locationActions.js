@@ -9,17 +9,12 @@ export function fetchLocations(params) {
   const loc = window.location;
 
   // removed unused query variables
-  if (params.address === '') {
-    delete params.address;
-  }
-
-  if (params.radius === -1) {
-    delete params.radius;
-  }
-
-  if (params.category === '') {
-    delete params.category;
-  }
+  Object.keys(params).forEach((key) => {
+    const param = params[key];
+    if (param === null || param === '' || param === -1) {
+      delete params[key];
+    }
+  });
 
   return {
     type: ActionType.FETCH_LOCATIONS,

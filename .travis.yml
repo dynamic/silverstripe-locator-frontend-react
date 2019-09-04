@@ -15,8 +15,8 @@ before_install:
   # ony install node and update npm if javascript
   - |
     if [[ $LANG == JS ]]; then
-      nvm install 6.10
-      nvm use 6.10
+      nvm install 8.16
+      nvm use 8.16
       npm i npm -g
     fi
 

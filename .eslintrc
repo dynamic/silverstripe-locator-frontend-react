@@ -10,13 +10,19 @@
         "moduleDirectory": [
           "client/src/js",
           "client/src/sass",
+          "client/build",
           "node_modules"
         ]
       }
     }
   },
   "env": {
-    "jest": true
+    "jest": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "module"
   },
   "rules": {
     "react/prefer-stateless-function": "off",

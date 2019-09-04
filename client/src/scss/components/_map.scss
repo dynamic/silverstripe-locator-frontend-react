@@ -4,7 +4,11 @@
 
 // loc-name is in general
 
-.map-container {
+.map {
+  float: right;
+  height: $map-height;
+  width: 100%;
+
   a {
     color: $orange;
     text-decoration: none;
@@ -30,12 +34,6 @@
 
 .marker-content {
   margin: 2px;
-}
-
-.map {
-  float: right;
-  height: $map-height;
-  width: 100%;
 }
 
 .gm-style .cluster img {
