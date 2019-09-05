@@ -37,7 +37,7 @@ export class Loading extends Component {
   componentDidUpdate(nextProps) {
     const { loadedSettings, store } = this.props;
     if (loadedSettings !== nextProps.loadedSettings) {
-      const {dispatch, unit, Address, Radius, Category} = nextProps;
+      const { dispatch, unit, Address, Radius, Category } = nextProps;
       dispatch(fetchLocations({
         unit,
         Address,
@@ -46,9 +46,9 @@ export class Loading extends Component {
       }));
     }
 
-    renderComponent(<Search />, store, '.locator-search');
-    renderComponent(<List />, store, '.locator-list');
-    renderComponent(<MapContainer />, store, '.locator-map');
+    renderComponent(<Search/>, store, '.locator-search');
+    renderComponent(<List/>, store, '.locator-list');
+    renderComponent(<MapContainer/>, store, '.locator-map');
   }
 
   render() {
@@ -57,14 +57,14 @@ export class Loading extends Component {
       return (
         <div className="loading show">
           <div className="loading-content">
-            <div className="spinner" />
+            <div className="spinner"/>
             <span>Loading</span>
           </div>
         </div>
       );
     }
     return (
-      <div className="loading" />
+      <div className="loading"/>
     );
   }
 }
