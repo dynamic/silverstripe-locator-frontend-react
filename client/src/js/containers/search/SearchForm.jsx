@@ -1,15 +1,15 @@
 /* global window, document */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {compose} from 'redux';
-import {connect} from 'react-redux';
-import PlacesAutocomplete from 'react-places-autocomplete';
-import {loadComponent, provideInjector} from 'lib/Injector';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import url from 'url';
+import { provideInjector } from 'lib/Injector';
 import FormBuilderLoader from 'containers/FormBuilderLoader/FormBuilderLoader';
 
-import {fetchLocations} from 'actions/locationActions';
-import {search} from 'actions/searchActions';
-import {changePage} from 'actions/listActions';
+import { fetchLocations } from 'actions/locationActions';
+import { search as searchAction } from 'actions/searchActions';
+import { changePage } from 'actions/listActions';
 
 export class SearchForm extends Component {
   /**
@@ -53,18 +53,21 @@ export class SearchForm extends Component {
   handleSubmit(data, action) {
     // selects dispatch and unit from this.props.
     // const dispatch = this.props.dispatch; const unit = this.props.unit;
-    const {dispatch, unit} = this.props;
+    const { dispatch, unit } = this.props;
+    const { search, protocol, host, pathname } = window.location;
 
     // removes all actions from the data
-    const params = Object.keys(data).reduce((object, key) => {
+    let params = Object.keys(data).reduce((object, key) => {
       if (!key.startsWith('action_')) {
         object[key] = data[key]
       }
       return object
     }, {});
 
+    params = { ...url.parse(search, true).query, ...params };
+
     // dispatches search (updates search values)
-    dispatch(search(params));
+    dispatch(searchAction(params));
 
     // dispatches fetch locations (gets the locations)
     dispatch(fetchLocations({
@@ -75,8 +78,7 @@ export class SearchForm extends Component {
     dispatch(changePage(1));
 
     // changes the url for the window and adds it to the browser history(no redirect)
-    const loc = window.location;
-    const newurl = `${loc.protocol}//${loc.host}${loc.pathname}?${SearchForm.objToUrl(params)}`;
+    const newurl = `${protocol}//${host}${pathname}?${SearchForm.objToUrl(params)}`;
     window.history.pushState({
       path: newurl,
     }, '', newurl);
@@ -91,7 +93,7 @@ export class SearchForm extends Component {
    * @returns {XML}
    */
   render() {
-    const {identifier, formSchemaUrl} = this.props;
+    const { identifier, formSchemaUrl } = this.props;
     return (
       <div>
         {formSchemaUrl &&

@@ -70,6 +70,7 @@ export class Map extends Component {
           url: marker.defaultIcon,
           scaledSize: new window.google.maps.Size(30, 56),
         }}
+        optimized={false}
         onClick={() => props.onMarkerClick(marker)}
       >
         {props.current === marker.key && props.showCurrent && (
@@ -107,7 +108,6 @@ export class Map extends Component {
           scaledSize: new window.google.maps.Size(30, 56),
         }}
         optimized={false}
-
       />);
     }
     return markers;

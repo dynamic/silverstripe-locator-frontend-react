@@ -34,14 +34,29 @@ const defaultState = {
 defaultState.unitText = ss.i18n._t(`Locator.UNIT.${defaultState.unit}`, 'mi');
 
 /**
+ * @param str
+ * @returns {string}
+ */
+function trimExcessSlashes(str) {
+  if (str.substring(str.length - 1, str.length) === '/') {
+    return str.slice(0, -1);
+  }
+  return str;
+}
+
+/**
  * Constructs the schemaurl for the form
  * @param config
  * @returns {string}
  */
 export function getSchemaURL() {
-  const { absoluteBaseUrl, url } = Config.getAll();
-  const { search } = window.location;
-  return `${absoluteBaseUrl}${url}/schema${search}`;
+  const { absoluteBaseUrl } = Config.getAll();
+  const { pathname, search } = window.location;
+
+  const url = trimExcessSlashes(absoluteBaseUrl);
+  const path = trimExcessSlashes(pathname);
+
+  return `${url}${path}/schema${search}`;
 }
 
 /**
