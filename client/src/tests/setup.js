@@ -14,7 +14,7 @@ global.ss = {
 // mocks the google api
 global.google = {
   maps: {
-    Size: class{},
-    LatLng: class{},
+    Size: class {},
+    LatLng: class {},
   },
 };
