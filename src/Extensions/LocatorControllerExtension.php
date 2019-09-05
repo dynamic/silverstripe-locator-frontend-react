@@ -2,6 +2,7 @@
 
 namespace Dynamic\Locator\React\Extensions;
 
+use Dynamic\SilverStripeGeocoder\AddressDataExtension;
 use Dynamic\SilverStripeGeocoder\GoogleGeocoder;
 use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Control\Director;
@@ -14,6 +15,8 @@ use SilverStripe\Core\Manifest\ModuleResourceLoader;
 use SilverStripe\Forms\Schema\FormSchema;
 use SilverStripe\Security\SecurityToken;
 use SilverStripe\View\Requirements;
+use SilverStripe\View\SSViewer;
+use SilverStripe\View\ThemeResourceLoader;
 
 /**
  * Class LocatorControllerExtension
@@ -111,11 +114,21 @@ class LocatorControllerExtension extends Extension
         $clusters = $this->owner->Clusters ? 'true' : 'false';
         $autocomplete = $this->owner->Autocomplete ? 'true' : 'false';
 
-        $stylePath = ModuleResourceLoader::singleton()->resolveURL($this->owner->getMapStyle());
-        $searchMarkerIconPath = $this->owner->SearchMarkerImage ? $this->owner->SearchMarkerImage->URL : 'undefined';
-        $markerIconPath = ModuleResourceLoader::singleton()->resolveURL($this->owner->getMarkerIcon());
-        if ($this->owner->DefaultMarkerImage) {
-            $markerIconPath = $this->owner->DefaultMarkerImage->URL;
+        $stylePath = ModuleResourceLoader::singleton()->resolveURL(
+            $this->owner->getMapStyle()
+        );
+        $searchMarkerIconPath = ModuleResourceLoader::singleton()->resolveURL(
+            $this->owner->getSearchIconImage()
+        );
+        $markerIconPath = ModuleResourceLoader::singleton()->resolveURL(
+            AddressDataExtension::getIconImage(true)
+        );
+
+        if ($this->owner->SearchMarkerImageID) {
+            $searchMarkerIconPath = $this->owner->SearchMarkerImage()->URL;
+        }
+        if ($this->owner->DefaultMarkerImageID) {
+            $markerIconPath = $this->owner->DefaultMarkerImage()->URL;
         }
 
         // force to float
@@ -139,6 +152,49 @@ class LocatorControllerExtension extends Extension
                 'autocomplete': {$autocomplete}
             };
         ", 'react-locator');
+    }
+
+    /**
+     * Gets the maker icon image
+     * @return null|string
+     * @var boolean $svg if svgs should be included
+     */
+    public static function getSearchIconImage($svg = true)
+    {
+        $folders = [
+            'client/dist/img/',
+            'client/dist/images/',
+            'dist/img/',
+            'dist/images/',
+            'img/',
+            'images/',
+        ];
+
+        $extensions = [
+            'png',
+            'jpg',
+            'jpeg',
+            'gif',
+        ];
+
+        if ($svg === true) {
+            array_unshift($extensions, 'svg');
+        }
+
+        $file = 'mapSearchIcon';
+
+        foreach ($folders as $folder) {
+            foreach ($extensions as $extension) {
+                if ($icon = ThemeResourceLoader::inst()->findThemedResource(
+                    "{$folder}{$file}.{$extension}",
+                    SSViewer::get_themes()
+                )) {
+                    return ModuleResourceLoader::resourceURL($icon);
+                }
+            }
+        }
+
+        return false;
     }
 
     /**

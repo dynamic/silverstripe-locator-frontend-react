@@ -19,12 +19,6 @@ jest.mock('containers/FormBuilderLoader/FormBuilderLoader', () => ()=> <div id="
     FormBuilderLoader
 </div>);
 */
-// mocks the google api
-window.google = {
-  maps: {
-    LatLng: class{},
-  },
-};
 
 test('SearchBar component should render', () => {
   let search = shallow(

@@ -10,3 +10,11 @@ global.ss = {
     _t: jest.fn((entity, fallback) => fallback),
   },
 };
+
+// mocks the google api
+global.google = {
+  maps: {
+    Size: class {},
+    LatLng: class {},
+  },
+};

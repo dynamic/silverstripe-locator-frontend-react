@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {GoogleMap, Marker, withGoogleMap} from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
-import { loadComponent } from 'lib/Injector';
+import {loadComponent} from 'lib/Injector';
 
 export class Map extends Component {
   constructor(props) {
@@ -19,7 +19,10 @@ export class Map extends Component {
     }
 
     const bounds = this.getBounds();
-    this.mapRef.current.fitBounds(bounds);
+    // don't fit to bounds if only one marker (prevents insane zoom level)
+    if (!bounds.getNorthEast().equals(bounds.getSouthWest())) {
+      this.mapRef.current.fitBounds(bounds);
+    }
 
     const smallerLat = bounds.getNorthEast().lat() > bounds.getSouthWest().lat() ? bounds.getSouthWest().lat() : bounds.getNorthEast().lat();
     const largerLat = bounds.getNorthEast().lat() <= bounds.getSouthWest().lat() ? bounds.getSouthWest().lat() : bounds.getNorthEast().lat();
@@ -51,6 +54,11 @@ export class Map extends Component {
     return bounds;
   }
 
+  /**
+   * Generates the markers
+   * @param props
+   * @returns {*}
+   */
   markers(props) {
     const MarkerContent = loadComponent('MarkerContent');
     const markerList = props.markers.map(marker => (
@@ -58,7 +66,10 @@ export class Map extends Component {
         key={marker.key}
         position={marker.position}
         defaultAnimation={marker.defaultAnimation}
-        defaultIcon={marker.defaultIcon}
+        defaultIcon={{
+          url: marker.defaultIcon,
+          scaledSize: new window.google.maps.Size(30, 56),
+        }}
         onClick={() => props.onMarkerClick(marker)}
       >
         {props.current === marker.key && props.showCurrent && (
@@ -70,28 +81,36 @@ export class Map extends Component {
         )}
       </Marker>
     ));
+    return this.addSearchMarker(markerList);
+  }
 
+  /**
+   * Adds default search marker, if a search center is available
+   * @param markers
+   * @returns {*}
+   */
+  addSearchMarker(markers) {
+    const {searchMarkerImagePath, searchCenter} = this.props;
     if (
-      props.searchMarkerImagePath !== '' &&
-      props.searchCenter.Lat !== 91 &&
-      props.searchCenter.Lng !== 181
+      searchMarkerImagePath !== '' &&
+      searchCenter.Lat !== 91 &&
+      searchCenter.Lng !== 181
     ) {
-      markerList.push(<Marker
+      markers.push(<Marker
         key="search"
         position={{
-          lat: props.searchCenter.Lat,
-          lng: props.searchCenter.Lng,
+          lat: searchCenter.Lat,
+          lng: searchCenter.Lng,
         }}
         defaultIcon={{
-          url: props.searchMarkerImagePath,
+          url: searchMarkerImagePath,
           scaledSize: new window.google.maps.Size(30, 56),
         }}
         optimized={false}
 
       />);
     }
-
-    return markerList;
+    return markers;
   }
 
   render() {
@@ -112,11 +131,12 @@ export class Map extends Component {
     }
 
     return (
-      <GoogleMap ref={this.mapRef}
-                 defaultZoom={9}
-                 defaultCenter={{lat: defaultCenter.lat, lng: defaultCenter.lng}}
-                 defaultOptions={defaultOptions}
-                 {...opts}
+      <GoogleMap
+        ref={this.mapRef}
+        defaultZoom={16}
+        defaultCenter={{lat: defaultCenter.lat, lng: defaultCenter.lng}}
+        defaultOptions={defaultOptions}
+        {...opts}
       >
         {clusters === true ? <MarkerClusterer
             averageCenter

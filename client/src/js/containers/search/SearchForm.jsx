@@ -87,44 +87,6 @@ export class SearchForm extends Component {
   }
 
   /**
-   * Gets the address input.
-   * @return {*}
-   */
-  getAddressInput() {
-    const {address, radii, center, autocomplete} = this.props;
-    if (autocomplete === true) {
-      const inputProps = {
-        value: this.searchAddress,
-        onChange: this.handleAddressChange,
-        placeholder: ss.i18n._t('Locator.ADDRESS_FIELD', 'Address or zip code'),
-        name: 'address',
-      };
-      const cssClasses = {
-        root: 'form-control autocomplete-root',
-        input: 'form-control',
-      };
-      const options = {
-        location: new google.maps.LatLng(center.lat, center.lng),
-        radius: Math.max(...radii),
-      };
-      return (<PlacesAutocomplete
-        inputProps={inputProps}
-        classNames={cssClasses}
-        onSelect={this.handleSubmit}
-        onEnterKeyDown={this.handleSubmit}
-        options={options}
-      />);
-    }
-    return (<input
-      type="text"
-      name="address"
-      className="form-control"
-      placeholder={ss.i18n._t('Locator.ADDRESS_FIELD', 'Address or zip code')}
-      defaultValue={address}
-    />);
-  }
-
-  /**
    * Renders the component.
    * @returns {XML}
    */
