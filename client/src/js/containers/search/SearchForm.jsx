@@ -10,6 +10,7 @@ import FormBuilderLoader from 'containers/FormBuilderLoader/FormBuilderLoader';
 import { fetchLocations } from 'actions/locationActions';
 import { search as searchAction } from 'actions/searchActions';
 import { changePage } from 'actions/listActions';
+import { createFormSchemaUrl } from 'actions/settingsActions';
 
 export class SearchForm extends Component {
   /**
@@ -36,35 +37,72 @@ export class SearchForm extends Component {
   }
 
   /**
-   * Used to create the SearchBar.
-   * needed to allow use of this keyword in handler.
-   * @param props
+   * Removes all actions from the data and will include current url parameters
+   * @param data
+   * @returns {U}
    */
-  constructor(props) {
-    super(props);
-
-    this.searchAddress = props.address;
-    this.handleAddressChange = this.handleAddressChange.bind(this);
-  }
-
-  /**
-   * 'Submits' form. Really just fires state change and changes the url.
-   */
-  handleSubmit(data, action) {
-    // selects dispatch and unit from this.props.
-    // const dispatch = this.props.dispatch; const unit = this.props.unit;
-    const { dispatch, unit } = this.props;
-    const { search, protocol, host, pathname } = window.location;
-
-    // removes all actions from the data
-    let params = Object.keys(data).reduce((object, key) => {
+  static getQueryParameters(data) {
+    const { search } = window.location;
+    const params = Object.keys(data).reduce((object, key) => {
       if (!key.startsWith('action_')) {
         object[key] = data[key]
       }
       return object
     }, {});
 
-    params = { ...url.parse(search, true).query, ...params };
+    return { ...url.parse(search, true).query, ...params };
+  }
+
+  /**
+   * @returns {string|*}
+   */
+  static getAddress() {
+    const params = url.parse(window.location.href, true).query;
+    if (params.hasOwnProperty('Address')) {
+      return params.Address;
+    }
+    return '';
+  }
+
+  componentDidMount() {
+    const currentAddress = SearchForm.getAddress();
+    if (currentAddress !== '' || !navigator.geolocation) {
+      return;
+    }
+
+    const success = position => {
+      const { latitude, longitude } = position.coords;
+      const geocoder = new google.maps.Geocoder;
+
+      geocoder.geocode({
+        location: {
+          lat: latitude,
+          lng: longitude,
+        }
+      }, (results, status) => {
+        if (status === 'OK') {
+          if (results[0]) {
+            this.handleSubmit({
+              Address: results[0].formatted_address,
+            });
+            this.props.dispatch(createFormSchemaUrl());
+          }
+        }
+      });
+    };
+
+    const error = failure => {console.log(failure.message)};
+
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+
+  /**
+   * 'Submits' form. Really just fires state change and changes the url.
+   */
+  handleSubmit(data, action) {
+    const { dispatch, unit } = this.props;
+    const { protocol, host, pathname } = window.location;
+    const params = SearchForm.getQueryParameters(data);
 
     // dispatches search (updates search values)
     dispatch(searchAction(params));
@@ -75,6 +113,7 @@ export class SearchForm extends Component {
       unit,
     }));
 
+    // changes to the first page of results
     dispatch(changePage(1));
 
     // changes the url for the window and adds it to the browser history(no redirect)
@@ -82,10 +121,6 @@ export class SearchForm extends Component {
     window.history.pushState({
       path: newurl,
     }, '', newurl);
-  }
-
-  handleAddressChange(searchAddress) {
-    this.searchAddress = searchAddress;
   }
 
   /**

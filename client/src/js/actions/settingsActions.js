@@ -27,3 +27,10 @@ export function createdStore() {
     payload: '',
   };
 }
+
+export function createFormSchemaUrl() {
+  return {
+    type: ActionType.CREATE_FORM_SCHEMA_URL,
+    payload: '',
+  };
+}

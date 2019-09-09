@@ -4,6 +4,7 @@
  */
 const ActionTypes = {
   STORE_CREATED: 'STORE_CREATED',
+  CREATE_FORM_SCHEMA_URL: 'CREATE_FORM_SCHEMA_URL',
 
   // location fetching
   FETCH_LOCATIONS: 'FETCH_LOCATIONS',
