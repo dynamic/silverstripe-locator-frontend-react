@@ -58,7 +58,6 @@ export class SearchForm extends Component {
    */
   static getAddress() {
     const params = url.parse(window.location.href, true).query;
-    console.log(params);
     if (params.Address) {
       return params.Address;
     }
