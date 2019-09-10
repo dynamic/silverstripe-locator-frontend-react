@@ -98,6 +98,13 @@ export default function reducer(state = defaultState, action) {
       };
     }
 
+    case ActionType.CREATE_FORM_SCHEMA_URL: {
+      return {
+        ...state,
+        formSchemaUrl: getSchemaURL(),
+      };
+    }
+
     case ActionType.FETCH_MAP_STYLE_SUCCESS: {
       const { data } = action.payload;
       const loaded = didSettingsLoad({
