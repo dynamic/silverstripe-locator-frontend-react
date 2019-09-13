@@ -75,8 +75,5 @@ class LocatorExtension extends DataExtension
             CheckboxField::create('Autocomplete')
                 ->setRightTitle('Address field will suggest locations')
         ]);
-
-        // temporary
-        $fields->removeByName('Autocomplete');
     }
 }

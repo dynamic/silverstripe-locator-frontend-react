@@ -25,7 +25,7 @@ class LocatorFormExtension extends Extension
 
         $address = $fields->fieldByName('Address');
         if ($this->owner->getController()->Autocomplete) {
-          //  $address->setSchemaComponent('AutoComplete');
+            $address->setSchemaComponent('AutoComplete');
         }
     }
 }
