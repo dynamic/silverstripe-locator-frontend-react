@@ -20,7 +20,7 @@
     @include make-col-ready;
     box-sizing: border-box;
 
-    .address-input {
+    .input[name=Address] {
       @include make-col(12);
 
       @include media-breakpoint-up(md) {
@@ -59,7 +59,7 @@
     }
   }
 
-  .address-input button {
+  .input[name=Address] button {
     font-size: 14px;
     height: 100%;
     line-height: 1.428;
@@ -68,8 +68,24 @@
     width: auto;
   }
 
-  .address-input .autocomplete-root {
+  .input[name=Address] .autocomplete-root {
     border: 0;
     padding: 0;
+  }
+}
+
+.autocomplete-root {
+  position: relative;
+
+  .autocomplete-dropdown-container {
+    position: absolute;
+    background-color: white;
+    min-width: 100%;
+    padding: 5px;
+    z-index: 9999;
+
+    div[role=option] {
+      cursor: default;
+    }
   }
 }
