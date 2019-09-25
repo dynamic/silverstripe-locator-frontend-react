@@ -24,33 +24,11 @@ A frontend made with react, webpack, and SCSS for Dynamic's locator.
 
 Some customization is done through the locator module. This includes the locator limit and templates for locations. See [the Locator's documentation](https://github.com/dynamic/silverstripe-locator/blob/master/docs/en/index.md)
 
-### Custom Silverstripe Template
+#### [Custom Silverstripe Template](docs/template.md)
+#### [Custom Components](docs/custom-component.md)
+#### [Modifying Reducers](docs/reducer-modification.md)
 
-There are some caveats when creating a custom template. These do not need to be grouped in a parent container, but custom css is recomended if they are not.
-
-#### Loading Container
-The loading container must always be included as this is where the initial react render is done. It must always have a class of `locator-loading`.
-```html
-<div class="locator-loading"></div>
-```
-
-#### Search Container
-The search container is optional. It must always have a class of `locator-search`.
-```html
-<div class="locator-search"></div>
-```
-
-#### List Container
-The search container is optional. It must always have a class of `locator-list`.
-```html
-<div class="locator-list"></div>
-```
-
-#### Map Container
-The map container is optional. It must always have a class of `locator-map`.
-```html
-<div class="locator-map"></div>
-```
+[Example of using the react injector](https://github.com/mak001/react-locator-test)
 
 ## Maintainer Contact
 
