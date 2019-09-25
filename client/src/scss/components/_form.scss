@@ -78,13 +78,13 @@
   position: relative;
 
   .autocomplete-dropdown-container {
-    position: absolute;
-    background-color: white;
+    background-color: #ffffff;
     min-width: 100%;
     padding: 5px;
+    position: absolute;
     z-index: 9999;
 
-    div[role=option] {
+    .suggestion {
       cursor: default;
     }
   }

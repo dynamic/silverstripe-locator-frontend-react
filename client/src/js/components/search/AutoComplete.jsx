@@ -55,7 +55,7 @@ class AutoComplete extends Component {
         <div className="autocomplete-dropdown-container">
           {loading && <div>Loading...</div>}
           {suggestions.map(suggestion => (
-            <div {...getSuggestionItemProps(suggestion)}>
+            <div {...getSuggestionItemProps(suggestion)} className="suggestion">
               <span>{suggestion.description}</span>
             </div>
           ))}
