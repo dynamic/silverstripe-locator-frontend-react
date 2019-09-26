@@ -25,7 +25,7 @@ A frontend made with react, webpack, and SCSS for Dynamic's locator.
 Some customization is done through the locator module. This includes the locator limit and templates for locations. See [the Locator's documentation](https://github.com/dynamic/silverstripe-locator/blob/master/docs/en/index.md)
 
 #### [Custom Silverstripe Template](docs/template.md)
-#### [Custom Components](docs/custom-component.md)
+#### [Custom Components](docs/custom-components.md)
 #### [Modifying Reducers](docs/reducer-modification.md)
 
 [Example of using the react injector](https://github.com/mak001/react-locator-test)
