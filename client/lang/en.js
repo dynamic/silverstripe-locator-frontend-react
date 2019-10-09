@@ -7,6 +7,7 @@ if (typeof ss === 'undefined' || typeof ss.i18n === 'undefined') {
     'Locator.RADIUS_FIELD': 'Radius',
     'Locator.FILTER_BUTTON': 'Filter',
     'Locator.SEARCH_BUTTON': 'Search',
+    'Locator.NO_RESULTS': 'No Results',
     'Locator.NEXT_PAGE': 'Next',
     'Locator.PREVIOUS_PAGE': 'Previous',
     'Locator.CURRENT': 'Current',

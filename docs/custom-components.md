@@ -3,6 +3,7 @@ The extendable or replacable components are:
  - `ListLocationContent`
  - `MarkerContent`
  - `PaginationEnd`
+ - `NoResults`
 Along with any form fields.
 
 To replace or modify a component the injector must be used.
