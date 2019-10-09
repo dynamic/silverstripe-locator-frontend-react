@@ -4,7 +4,7 @@ import MarkerContent from '../../../js/components/map/MarkerContent';
 import ListLocationContent from '../../../js/components/list/ListLocationContent';
 import Pagination from '../../../js/components/list/Pagination';
 import PaginationEnd from '../../../js/components/list/PaginationEnd';
-import NoResult from '../../../js/components/list/NoResult';
+import NoResult from '../../../js/components/list/NoResults';
 
 let reducers;
 
