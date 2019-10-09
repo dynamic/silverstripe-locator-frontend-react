@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import scrollToElement from 'animated-scroll-to';
+import { loadComponent } from 'lib/Injector';
 
 import {openMarker} from 'actions/mapActions';
 import {changePage} from 'actions/listActions';
@@ -88,6 +89,11 @@ export class List extends Component {
    */
   render() {
     const {locations, current, page, defaultLimit} = this.props;
+    if (locations.length === 0) {
+      const NoResults = loadComponent('NoResults');
+      return (<NoResults/>);
+    }
+
     return (
       <Fragment>
         <div className="loc-list-container" role="list">
