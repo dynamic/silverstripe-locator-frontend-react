@@ -4,7 +4,7 @@
       "ID": $ID,
       "Title": "$Title.RAW",
       "Featured": $Featured,
-      "Website": "$Website",
+      "Website": "$WebsiteURL",
       "Phone": "$Phone",
       "Fax": "$Fax",
       "Email": "$Email",
