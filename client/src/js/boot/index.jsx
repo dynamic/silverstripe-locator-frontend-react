@@ -49,6 +49,21 @@ document.addEventListener('DOMContentLoaded', () => {
     store.dispatch(createdStore());
     window.ss.store = store;
 
+    var search = store.getState().locator.search;
+    if (search.Address != '') {
+      var element = document.querySelector('.locator-list-hidden');
+      if (element) {
+        element.classList.add('locator-list');
+        element.classList.remove('locator-list-hidden');
+      }
+
+      element = document.querySelector('.locator-map-hidden')
+      if (element) {
+        element.classList.add('locator-map');
+        element.classList.remove('locator-map-hidden');
+      }
+    }
+
     // renders the locator
     window.setTimeout(() => {
       renderComponent(<Loading store={store}/>, store, '.locator-loading');

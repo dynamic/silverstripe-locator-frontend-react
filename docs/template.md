@@ -25,6 +25,15 @@ The map container is optional. It must always have a class of `locator-map`.
 <div class="locator-map"></div>
 ```
 
+#### Hiding the map and list on initial load
+To hide the map conatiner and the list on initial page load `-hidden` can be appended to their classes.
+They will still show on search and when the page is loaded with a search in the url.
+
+```html
+<div class="locator-list-hidden"></div>
+<div class="locator-map-hidden"></div>
+```
+
 #### Required Javascript
 To make the react locator work some javascript is required.
  - `silverstripe/admin: client/dist/js/vendor.js`
