@@ -46,7 +46,7 @@ export class Loading extends Component {
       }));
     }
 
-    renderComponent(<Search/>, store, '.locator-search');
+    renderComponent(<Search store={store}/>, store, '.locator-search');
     renderComponent(<List/>, store, '.locator-list');
     renderComponent(<MapContainer/>, store, '.locator-map');
   }

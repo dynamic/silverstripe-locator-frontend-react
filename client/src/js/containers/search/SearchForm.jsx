@@ -7,6 +7,9 @@ import url from 'url';
 import { provideInjector } from 'lib/Injector';
 import FormBuilderLoader from 'containers/FormBuilderLoader/FormBuilderLoader';
 
+import renderComponent from 'renderComponent';
+import MapContainer from 'containers/map/MapContainer';
+import List from 'containers/list/List';
 import { fetchLocations } from 'actions/locationActions';
 import { search as searchAction } from 'actions/searchActions';
 import { changePage } from 'actions/listActions';
@@ -100,7 +103,7 @@ export class SearchForm extends Component {
    * 'Submits' form. Really just fires state change and changes the url.
    */
   handleSubmit(data, action) {
-    const { dispatch, unit } = this.props;
+    const { dispatch, unit, store } = this.props;
     const { protocol, host, pathname } = window.location;
     const params = SearchForm.getQueryParameters(data);
 
@@ -121,6 +124,20 @@ export class SearchForm extends Component {
     window.history.pushState({
       path: newurl,
     }, '', newurl);
+
+    var element = document.querySelector('.locator-list-hidden')
+    if (element) {
+      element.classList.add('locator-list');
+      element.classList.remove('locator-list-hidden');
+      renderComponent(<List/>, store, '.locator-list');
+    }
+
+    element = document.querySelector('.locator-map-hidden')
+    if (element) {
+      element.classList.add('locator-map');
+      element.classList.remove('locator-map-hidden');
+      renderComponent(<MapContainer/>, store, '.locator-map');
+    }
   }
 
   /**

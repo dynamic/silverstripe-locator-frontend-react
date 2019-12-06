@@ -6,6 +6,10 @@ services:
   - mysql
   - postgresql
 
+cache:
+  directories:
+    - "$HOME/.npm"
+
 addons:
   apt:
     packages:
@@ -24,7 +28,7 @@ install:
   # only install node packages if javascript
   - |
     if [[ $LANG == JS ]]; then
-      npm install
+      npm ci
     fi
 
 env:
