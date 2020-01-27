@@ -117,18 +117,20 @@ class LocatorControllerExtension extends Extension
         $stylePath = ModuleResourceLoader::singleton()->resolveURL(
             $this->owner->getMapStyle()
         );
-        $searchMarkerIconPath = ModuleResourceLoader::singleton()->resolveURL(
-            $this->owner->getSearchIconImage()
-        );
-        $markerIconPath = ModuleResourceLoader::singleton()->resolveURL(
-            AddressDataExtension::getIconImage(true)
-        );
+        $searchMarkerIconPath = $this->owner->getSearchIconImage();
+        $markerIconPath = AddressDataExtension::getIconImage(true);
 
         if ($this->owner->SearchMarkerImageID) {
             $searchMarkerIconPath = $this->owner->SearchMarkerImage()->URL;
         }
         if ($this->owner->DefaultMarkerImageID) {
             $markerIconPath = $this->owner->DefaultMarkerImage()->URL;
+        }
+
+        $clusterData = $this->getClusterIconData();
+        if ($clusterData) {
+            $clusterImagePath = $clusterData['url'];
+            $clusterImageExtension = $clusterData['extension'];
         }
 
         // force to float
@@ -145,6 +147,8 @@ class LocatorControllerExtension extends Extension
                 'mapStylePath': '{$stylePath}',
                 'searchMarkerImagePath': '{$searchMarkerIconPath}',
                 'markerImagePath': '{$markerIconPath}',
+                'clusterImagePath': '{$clusterImagePath}',
+                'clusterImageExtension': '{$clusterImageExtension}',
                 'defaultCenter': {
                     'lat': {$defaultLat},
                     'lng': {$defaultLng}
@@ -190,6 +194,55 @@ class LocatorControllerExtension extends Extension
                     SSViewer::get_themes()
                 )) {
                     return ModuleResourceLoader::resourceURL($icon);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public function getClusterIconData()
+    {
+        $folders = [
+            'client/dist/img/clusters/',
+            'client/dist/images/clusters/',
+            'dist/img/clusters/',
+            'dist/images/clusters/',
+            'img/clusters/',
+            'images/clusters/',
+
+            'client/dist/img/',
+            'client/dist/images/',
+            'dist/img/',
+            'dist/images/',
+            'img/',
+            'images/',
+        ];
+
+        $extensions = [
+            'png',
+            'jpg',
+            'jpeg',
+        ];
+
+        // prefix is in config or defaults to 'm'
+        $prefix = $this->owner->getFailover()->config()->get('ClusterIconPrefix') ?: 'm';
+        $file = $prefix . '1' ;
+
+        foreach ($folders as $folder) {
+            foreach ($extensions as $extension) {
+                if ($icon = ThemeResourceLoader::inst()->findThemedResource(
+                    "{$folder}{$file}.{$extension}",
+                    SSViewer::get_themes()
+                )) {
+                    // gets the resource URL without
+                    $resourceURL = strtok(ModuleResourceLoader::resourceURL($icon), '?');
+                    // add 2, one for the '.' and another for the number
+                    $extentionLength = strlen($extension) + 2;
+                    return [
+                        'url' => substr($resourceURL, 0, -$extentionLength),
+                        'extension' => $extension,
+                     ];
                 }
             }
         }

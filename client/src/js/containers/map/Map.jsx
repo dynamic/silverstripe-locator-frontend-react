@@ -114,7 +114,7 @@ export class Map extends Component {
   }
 
   render() {
-    const {center, defaultCenter, mapStyle, clusters} = this.props;
+    const {center, defaultCenter, mapStyle, clusters, clusterImagePath, clusterImageExtension} = this.props;
 
     // we don't want a center if it is invalid
     const opts = {};
@@ -129,7 +129,7 @@ export class Map extends Component {
     if (mapStyle !== null) {
       defaultOptions.styles = mapStyle;
     }
-
+console.log(clusterImagePath);
     return (
       <GoogleMap
         ref={this.mapRef}
@@ -142,6 +142,8 @@ export class Map extends Component {
             averageCenter
             enableRetinaIcons
             gridSize={60}
+            imagePath={clusterImagePath || undefined}
+            imageExtension={clusterImageExtension || undefined}
           >
             {this.markers(this.props)}
           </MarkerClusterer> :
@@ -157,6 +159,14 @@ export class Map extends Component {
  */
 Map.propTypes = {
   clusters: PropTypes.bool.isRequired,
+  clusterImagePath: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]).isRequired,
+  clusterImageExtension: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]).isRequired,
   mapStyle: PropTypes.oneOfType([
     () => {
       return null;

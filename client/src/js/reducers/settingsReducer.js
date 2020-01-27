@@ -11,6 +11,8 @@ const defaultState = {
   mapStyle: null,
   markerImagePath: false,
   searchMarkerImagePath: false,
+  clusterImagePath: false,
+  clusterImageExtension: false,
   formSchemaUrl: '',
 
   unit: 'm',
@@ -67,6 +69,8 @@ function settings() {
   return {
     unit: dynamic_locator.unit,
     clusters: dynamic_locator.clusters,
+    clusterImagePath: dynamic_locator.clusterImagePath,
+    clusterImageExtension: dynamic_locator.clusterImageExtension,
     limit: dynamic_locator.limit,
     radii: dynamic_locator.radii,
     categories: dynamic_locator.categories,
