@@ -113,40 +113,8 @@ export class Map extends Component {
     return markers;
   }
 
-  async getImageData(url) {
-    return new Promise((resolve, reject) => {
-      let img = new Image();
-      img.onload = () => resolve(img);
-      img.onerror = reject;
-      img.src = url;
-    });
-  }
-
-  /**
-   * @returns {[]|undefined}
-   */
-  getClusterStyles() {
-    const {clusterImages} = this.props;
-
-    if (clusterImages.length === 0) {
-      return undefined;
-    }
-
-    let styles = [];
-    clusterImages.forEach(async (url) => {
-      let imageData = await this.getImageData(url);
-      styles.push({
-        url,
-        width: imageData.width,
-        height: imageData.height,
-      });
-    })
-
-    return styles;
-  }
-
   render() {
-    const {center, defaultCenter, mapStyle, clusters, clusterImages} = this.props;
+    const {center, defaultCenter, mapStyle, clusters, clusterStyles} = this.props;
 
     // we don't want a center if it is invalid
     const opts = {};
@@ -174,7 +142,7 @@ export class Map extends Component {
             averageCenter
             enableRetinaIcons
             gridSize={60}
-            styles={this.getClusterStyles()}
+            styles={clusterStyles}
           >
             {this.markers(this.props)}
           </MarkerClusterer> :
@@ -190,7 +158,7 @@ export class Map extends Component {
  */
 Map.propTypes = {
   clusters: PropTypes.bool.isRequired,
-  clusterImages: PropTypes.array.isRequired,
+  clusterStyles: PropTypes.array,
   mapStyle: PropTypes.oneOfType([
     () => {
       return null;
@@ -213,6 +181,7 @@ Map.propTypes = {
  */
 Map.defaultProps = {
   mapStyle: null,
+  clusterStyles: undefined,
 };
 
 export default withGoogleMap(Map);

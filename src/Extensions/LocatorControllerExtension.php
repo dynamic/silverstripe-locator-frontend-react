@@ -203,19 +203,26 @@ class LocatorControllerExtension extends Extension
     {
         $iconPaths = $this->owner->getFailover()->config()->get('ClusterImages');
         if (!$iconPaths) {
-            return false;
+            return [];
         }
 
         $icons = [];
         foreach ($iconPaths as $path) {
+            // valid full url
+            if (filter_var($path, FILTER_VALIDATE_URL)) {
+                $icons[] = $path;
+                continue;
+            }
+
+            if (substr($path, 0, strlen('/_resources/')) === '/_resources/') {
+                $icons[] = $path;
+                continue;
+            }
+
             $icon = ThemeResourceLoader::inst()->findThemedResource($path, SSViewer::get_themes());
             if ($icon) {
                 $icons[] = ModuleResourceLoader::resourceURL($icon);
             }
-        }
-
-        if (empty($icons)) {
-            return false;
         }
 
         return $icons;

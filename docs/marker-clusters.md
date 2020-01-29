@@ -14,6 +14,6 @@ If the images are not found the locator will use the default cluster images.
 Dynamic\Locator\Locator:
   ClusterImages:
     - 'dist/images/m1.png'
-    - 'dist/images/m2.png'
-    - 'dist/images/m3.png'
+    - '/_resources/dist/images/m2.png'
+    - 'https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclusterer/images/heart30.png'
 ```
