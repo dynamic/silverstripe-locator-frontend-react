@@ -202,6 +202,10 @@ class LocatorControllerExtension extends Extension
     public function getClusterImages()
     {
         $iconPaths = $this->owner->getFailover()->config()->get('ClusterImages');
+        if (!$iconPaths) {
+            return false;
+        }
+
         $icons = [];
         foreach ($iconPaths as $path) {
             $icon = ThemeResourceLoader::inst()->findThemedResource($path, SSViewer::get_themes());
