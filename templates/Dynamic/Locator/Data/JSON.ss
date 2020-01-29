@@ -3,7 +3,7 @@
     <% loop $Locations %>{
       "ID": $ID,
       "Title": "$Title.RAW",
-      "Featured": $Featured,
+      "Featured": "$Featured",
       "Website": "$WebsiteURL",
       "Phone": "$Phone",
       "Fax": "$Fax",

@@ -117,12 +117,8 @@ class LocatorControllerExtension extends Extension
         $stylePath = ModuleResourceLoader::singleton()->resolveURL(
             $this->owner->getMapStyle()
         );
-        $searchMarkerIconPath = ModuleResourceLoader::singleton()->resolveURL(
-            $this->owner->getSearchIconImage()
-        );
-        $markerIconPath = ModuleResourceLoader::singleton()->resolveURL(
-            AddressDataExtension::getIconImage(true)
-        );
+        $searchMarkerIconPath = $this->owner->getSearchIconImage();
+        $markerIconPath = AddressDataExtension::getIconImage(true);
 
         if ($this->owner->SearchMarkerImageID) {
             $searchMarkerIconPath = $this->owner->SearchMarkerImage()->URL;
@@ -130,6 +126,8 @@ class LocatorControllerExtension extends Extension
         if ($this->owner->DefaultMarkerImageID) {
             $markerIconPath = $this->owner->DefaultMarkerImage()->URL;
         }
+
+        $clusterImages = json_encode($this->getClusterImages());
 
         // force to float
         $defaultLat = (float)$this->owner->DefaultLat;
@@ -145,6 +143,7 @@ class LocatorControllerExtension extends Extension
                 'mapStylePath': '{$stylePath}',
                 'searchMarkerImagePath': '{$searchMarkerIconPath}',
                 'markerImagePath': '{$markerIconPath}',
+                'clusterImages': {$clusterImages},
                 'defaultCenter': {
                     'lat': {$defaultLat},
                     'lng': {$defaultLng}
@@ -195,6 +194,31 @@ class LocatorControllerExtension extends Extension
         }
 
         return false;
+    }
+
+    /**
+     * @return array|bool
+     */
+    public function getClusterImages()
+    {
+        $iconPaths = $this->owner->getFailover()->config()->get('ClusterImages');
+        if (!$iconPaths) {
+            return false;
+        }
+
+        $icons = [];
+        foreach ($iconPaths as $path) {
+            $icon = ThemeResourceLoader::inst()->findThemedResource($path, SSViewer::get_themes());
+            if ($icon) {
+                $icons[] = ModuleResourceLoader::resourceURL($icon);
+            }
+        }
+
+        if (empty($icons)) {
+            return false;
+        }
+
+        return $icons;
     }
 
     /**

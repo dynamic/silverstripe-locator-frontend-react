@@ -15,6 +15,7 @@ const shallowMap = shallow(
     // eslint-disable-next-line react/jsx-boolean-value
     clusters={true}
     markers={[]}
+    clusterImages={[]}
     defaultCenter={{
       lat: 0,
       lng: 0,
@@ -54,6 +55,7 @@ test('Map should render without clusters', () => {
     <Map
       clusters={false}
       markers={[]}
+      clusterImages={[]}
       defaultCenter={{
         lat: 0,
         lng: 0,
@@ -79,6 +81,7 @@ test('Map should render with clusters', () => {
       // eslint-disable-next-line react/jsx-boolean-value
       clusters={true}
       markers={[]}
+      clusterImages={[]}
       defaultCenter={{
         lat: 0,
         lng: 0,
