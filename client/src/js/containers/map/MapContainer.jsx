@@ -93,7 +93,7 @@ export class MapContainer extends Component {
 
   render() {
     const { current, showCurrent, clusters, center, defaultCenter, mapStyle, searchMarkerImagePath,
-      search, searchCenter, clusterImagePath, clusterImageExtension } = this.props;
+      search, searchCenter, clusterImages } = this.props;
     return (
       <Fragment>
         <Map
@@ -110,8 +110,7 @@ export class MapContainer extends Component {
           current={current}
           showCurrent={showCurrent}
           clusters={clusters}
-          clusterImagePath={clusterImagePath}
-          clusterImageExtension={clusterImageExtension}
+          clusterImages={clusterImages}
           center={center}
           defaultCenter={defaultCenter}
           searchMarkerImagePath={searchMarkerImagePath}
@@ -134,14 +133,7 @@ MapContainer.propTypes = {
   current: PropTypes.number.isRequired,
   showCurrent: PropTypes.bool.isRequired,
   clusters: PropTypes.bool.isRequired,
-  clusterImagePath: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string,
-  ]).isRequired,
-  clusterImageExtension: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string,
-  ]).isRequired,
+  clusterImages: PropTypes.array.isRequired,
   mapStyle: PropTypes.oneOfType([
     () => {return null;},
     PropTypes.object,
@@ -182,8 +174,7 @@ export function mapStateToProps(state) {
     mapStyle: state.locator.settings.mapStyle,
     markerImagePath: state.locator.settings.markerImagePath,
     searchMarkerImagePath: state.locator.settings.searchMarkerImagePath,
-    clusterImagePath: state.locator.settings.clusterImagePath,
-    clusterImageExtension: state.locator.settings.clusterImageExtension,
+    clusterImages: state.locator.settings.clusterImages,
     locations: state.locator.locations.locations,
     center: state.locator.map.center,
     defaultCenter: state.locator.settings.defaultCenter,
