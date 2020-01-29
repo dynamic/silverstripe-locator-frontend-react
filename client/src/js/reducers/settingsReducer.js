@@ -69,7 +69,6 @@ function settings() {
     unit: dynamic_locator.unit,
     clusters: dynamic_locator.clusters,
     clusterImages: dynamic_locator.clusterImages,
-    clusterImageExtension: dynamic_locator.clusterImageExtension,
     limit: dynamic_locator.limit,
     radii: dynamic_locator.radii,
     categories: dynamic_locator.categories,

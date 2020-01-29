@@ -16,6 +16,7 @@ test('Map container component should render', () => {
       current={-1}
       showCurrent={false}
       clusters={false}
+      clusterImages={[]}
       markerImagePath=""
       center={{
         Lat: 91,
@@ -41,6 +42,7 @@ test('Map container component should have markers', () => {
       current={-1}
       showCurrent={false}
       clusters={false}
+      clusterImages={[]}
       markerImagePath=""
       locations={[
         {
@@ -83,6 +85,7 @@ test('Map container component should handle marker clicks', () => {
       current={-1}
       showCurrent={false}
       clusters={false}
+      clusterImages={[]}
       markerImagePath=""
       center={{
         Lat: 91,
@@ -113,6 +116,7 @@ test('Map container component should handle marker closings', () => {
       current={-1}
       showCurrent={false}
       clusters={false}
+      clusterImages={[]}
       markerImagePath=""
       center={{
         Lat: 91,
