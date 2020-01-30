@@ -214,7 +214,7 @@ class LocatorControllerExtension extends Extension
                 continue;
             }
 
-            if (substr($path, 0, strlen('/_resources/')) === '/_resources/') {
+            if (substr(ltrim($path, '/'), 0, strlen(RESOURCES_DIR)) === RESOURCES_DIR) {
                 $icons[] = $path;
                 continue;
             }
