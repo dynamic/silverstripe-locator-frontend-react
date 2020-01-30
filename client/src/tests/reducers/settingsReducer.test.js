@@ -17,7 +17,7 @@ test('Settings reducer has a default state', () => {
     mapStyle: null,
     searchMarkerImagePath: false,
     markerImagePath: false,
-    clusterImages: [],
+    clusterStyles: undefined,
     unit: 'm',
     defaultCenter: {
       lat: 0,
@@ -66,7 +66,7 @@ test('Settings reducer has a valid state when a fetch map styles action is calle
     mapStyle: 'test',
     markerImagePath: false,
     searchMarkerImagePath: undefined,
-    clusterImages: undefined,
+    clusterStyles: undefined,
     radii: [],
     unit: 'm',
     defaultCenter: {
@@ -114,7 +114,7 @@ test("Settings reducer has a valid state when a fetch map styles action is calle
     mapStyle: null,
     markerImagePath: false,
     searchMarkerImagePath: undefined,
-    clusterImages: undefined,
+    clusterStyles: undefined,
     radii: [],
     unit: 'm',
     defaultCenter: {

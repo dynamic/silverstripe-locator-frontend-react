@@ -93,7 +93,7 @@ export class MapContainer extends Component {
 
   render() {
     const { current, showCurrent, clusters, center, defaultCenter, mapStyle, searchMarkerImagePath,
-      search, searchCenter, clusterImages } = this.props;
+      search, searchCenter, clusterStyles } = this.props;
     return (
       <Fragment>
         <Map
@@ -110,7 +110,7 @@ export class MapContainer extends Component {
           current={current}
           showCurrent={showCurrent}
           clusters={clusters}
-          clusterImages={clusterImages}
+          clusterStyles={clusterStyles}
           center={center}
           defaultCenter={defaultCenter}
           searchMarkerImagePath={searchMarkerImagePath}
@@ -133,7 +133,7 @@ MapContainer.propTypes = {
   current: PropTypes.number.isRequired,
   showCurrent: PropTypes.bool.isRequired,
   clusters: PropTypes.bool.isRequired,
-  clusterImages: PropTypes.array.isRequired,
+  clusterStyles: PropTypes.array,
   mapStyle: PropTypes.oneOfType([
     () => {return null;},
     PropTypes.object,
@@ -174,7 +174,7 @@ export function mapStateToProps(state) {
     mapStyle: state.locator.settings.mapStyle,
     markerImagePath: state.locator.settings.markerImagePath,
     searchMarkerImagePath: state.locator.settings.searchMarkerImagePath,
-    clusterImages: state.locator.settings.clusterImages,
+    clusterStyles: state.locator.settings.clusterStyles,
     locations: state.locator.locations.locations,
     center: state.locator.map.center,
     defaultCenter: state.locator.settings.defaultCenter,

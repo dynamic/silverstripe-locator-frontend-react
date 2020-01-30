@@ -1,4 +1,4 @@
-/* global dynamic_locator, ss, window */
+/* global dynamic_locator, ss, window, Image */
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import Config from 'lib/Config';
 
@@ -11,7 +11,7 @@ const defaultState = {
   mapStyle: null,
   markerImagePath: false,
   searchMarkerImagePath: false,
-  clusterImages: [],
+  clusterStyles: undefined,
   formSchemaUrl: '',
 
   unit: 'm',
@@ -61,6 +61,41 @@ export function getSchemaURL() {
 }
 
 /**
+ * @param url
+ * @return Promise
+ */
+async function getImageData(url) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
+/**
+ * @param clusterImages
+ * @returns {[]|undefined}
+ */
+export function getClusterStyles(clusterImages) {
+  if (!Array.isArray(clusterImages) || clusterImages.length === 0) {
+    return undefined;
+  }
+
+  const styles = [];
+  clusterImages.forEach(async (url) => {
+    const imageData = await getImageData(url);
+    styles.push({
+      url,
+      width: imageData.width,
+      height: imageData.height,
+    });
+  });
+
+  return styles;
+}
+
+/**
  * Sets up settings
  * @return {{unit, clusters, limit, radii, categories}}
  */
@@ -68,7 +103,7 @@ function settings() {
   return {
     unit: dynamic_locator.unit,
     clusters: dynamic_locator.clusters,
-    clusterImages: dynamic_locator.clusterImages,
+    clusterStyles: getClusterStyles(dynamic_locator.clusterImages),
     limit: dynamic_locator.limit,
     radii: dynamic_locator.radii,
     categories: dynamic_locator.categories,
