@@ -197,31 +197,53 @@ class LocatorControllerExtension extends Extension
     }
 
     /**
+     * @param string $path
+     * @return bool
+     */
+    protected function isResourcePath($path)
+    {
+        $path = ltrim($path, '/');
+        return substr($path, 0, strlen(RESOURCES_DIR)) === RESOURCES_DIR;
+    }
+
+    /**
+     * @param string $path
+     * @return bool|string
+     */
+    protected function getClusterImageFromPath($path)
+    {
+        // valid full url
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            return $path;
+        }
+
+        if ($this->owner->isResourcePath($path)) {
+            return $path;
+        }
+
+        $icon = ThemeResourceLoader::inst()->findThemedResource($path, SSViewer::get_themes());
+        if ($icon) {
+            return ModuleResourceLoader::resourceURL($icon);
+        }
+
+        return false;
+    }
+
+    /**
      * @return array|bool
      */
     public function getClusterImages()
     {
         $iconPaths = $this->owner->getFailover()->config()->get('ClusterImages');
+        $icons = [];
         if (!$iconPaths) {
-            return [];
+            return $icons;
         }
 
-        $icons = [];
         foreach ($iconPaths as $path) {
-            // valid full url
-            if (filter_var($path, FILTER_VALIDATE_URL)) {
-                $icons[] = $path;
-                continue;
-            }
-
-            if (substr(ltrim($path, '/'), 0, strlen(RESOURCES_DIR)) === RESOURCES_DIR) {
-                $icons[] = $path;
-                continue;
-            }
-
-            $icon = ThemeResourceLoader::inst()->findThemedResource($path, SSViewer::get_themes());
-            if ($icon) {
-                $icons[] = ModuleResourceLoader::resourceURL($icon);
+            $iconPath = $this->owner->getClusterImageFromPath($path);
+            if ($iconPath) {
+                $icons[] = $iconPath;
             }
         }
 
