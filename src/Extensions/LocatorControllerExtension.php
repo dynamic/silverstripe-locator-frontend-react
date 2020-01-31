@@ -200,7 +200,7 @@ class LocatorControllerExtension extends Extension
      * @param string $path
      * @return bool
      */
-    protected function isResourcePath($path)
+    public function isResourcePath($path)
     {
         $path = ltrim($path, '/');
         return substr($path, 0, strlen(RESOURCES_DIR)) === RESOURCES_DIR;
@@ -210,7 +210,7 @@ class LocatorControllerExtension extends Extension
      * @param string $path
      * @return bool|string
      */
-    protected function getClusterImageFromPath($path)
+    public function getClusterImageFromPath($path)
     {
         // valid full url
         if (filter_var($path, FILTER_VALIDATE_URL)) {
