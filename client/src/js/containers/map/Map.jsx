@@ -70,6 +70,10 @@ export class Map extends Component {
           url: marker.defaultIcon,
           scaledSize: new window.google.maps.Size(30, 56),
         }}
+        icon={{
+          url: marker.icon ? marker.icon  : marker.defaultIcon,
+          scaledSize: new window.google.maps.Size(30, 56),
+        }}
         optimized={false}
         onClick={() => props.onMarkerClick(marker)}
       >

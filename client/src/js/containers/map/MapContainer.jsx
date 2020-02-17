@@ -48,6 +48,7 @@ export class MapContainer extends Component {
         key: location.ID,
         defaultAnimation: 2,
         defaultIcon: markerImagePath,
+        icon: location.MarkerIcon,
         info: loc,
       };
     }
