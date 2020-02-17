@@ -16,7 +16,8 @@
       "Country": "$Country",
       "Distance": <% if $Distance %>$Distance<% else %>-1<% end_if %>,
       "Lat": $Lat,
-      "Lng": $Lng
+      "Lng": $Lng,
+      "MarkerIcon": "$MarkerIcon"
     }<% if not $Last %>,<%end_if%><% end_loop %>
   ]<% if $AddressCoords %>,
   "center": {

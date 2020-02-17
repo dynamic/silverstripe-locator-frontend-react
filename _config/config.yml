@@ -23,6 +23,10 @@ Dynamic\SilverStripeGeocoder\DistanceDataExtension:
   address_var: 'Address'
   unit_var: 'Unit'
 
+Dynamic\Locator\Location:
+  extensions:
+    - Dynamic\Locator\React\Extensions\LocationExtension
+
 ---
 Only:
   environment: 'dev'
