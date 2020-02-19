@@ -70,7 +70,7 @@ class LocationExtension extends DataExtension
     /**
      * @return Image|string
      */
-    public function MarkerIcon()
+    public function getMarkerIcon()
     {
         if ($this->owner->MarkerIconImageID) {
             return $this->owner->MarkerIconImage()->getURL();
