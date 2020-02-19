@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/dynamic/silverstripe-locator-frontend-react/tree/1.0.1) (2020-02-19)
+
+[Full Changelog](https://github.com/dynamic/silverstripe-locator-frontend-react/compare/1.0.0...1.0.1)
+
+**Merged pull requests:**
+
+- Added ability to specify single marker images [\#57](https://github.com/dynamic/silverstripe-locator-frontend-react/pull/57) ([mak001](https://github.com/mak001))
+
 ## [1.0.0](https://github.com/dynamic/silverstripe-locator-frontend-react/tree/1.0.0) (2020-02-05)
 
 [Full Changelog](https://github.com/dynamic/silverstripe-locator-frontend-react/compare/1.0.0-beta7...1.0.0)
