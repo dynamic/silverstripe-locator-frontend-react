@@ -6,7 +6,11 @@ use Dynamic\Locator\Location;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Assets\Image;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldSortableHeader;
 use SilverStripe\ORM\DataExtension;
+use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use Symbiote\GridFieldExtensions\GridFieldTitleHeader;
 
 /**
  * Class LocationExtension
@@ -34,14 +38,33 @@ class LocationExtension extends DataExtension
         'MarkerIconImage',
     ];
 
+    /**
+     * @var array
+     */
+    private static $many_many_extraFields = [
+        'Categories' => [
+            'Sort' => 'Int',
+        ],
+    ];
+
+    /**
+     * @param FieldList $fields
+     */
     public function updateCMSFields(FieldList $fields)
     {
         parent::updateCMSFields($fields);
 
-        $fields->insertAfter(
-            'Fax',
-            UploadField::create('MarkerIconImage', 'MarkerIcon')
-        );
+        if ($this->owner->ID) {
+
+            /** @var GridField $categoryField */
+            $categoryField = $fields->dataFieldByName('Categories');
+            $categoryField->getConfig()->removeComponentsByType([
+                GridFieldSortableHeader::class,
+            ])->addComponents([
+                new GridFieldOrderableRows(),
+                new GridFieldTitleHeader(),
+            ]);
+        }
     }
 
     /**
@@ -51,6 +74,11 @@ class LocationExtension extends DataExtension
     {
         if ($this->owner->MarkerIconImageID) {
             return $this->owner->MarkerIconImage()->getURL();
+        }
+
+        if ($this->owner->Categories()->count()) {
+            $icon = $this->owner->Categories()->sort('Sort')->first()->MarkerIconImage();
+            return $icon->getURL();
         }
 
         $imageURL = '';

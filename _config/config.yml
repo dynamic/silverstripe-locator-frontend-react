@@ -27,6 +27,10 @@ Dynamic\Locator\Location:
   extensions:
     - Dynamic\Locator\React\Extensions\LocationExtension
 
+Dynamic\Locator\LocationCategory:
+  extensions:
+    - Dynamic\Locator\React\Extensions\CategoryExtension
+
 ---
 Only:
   environment: 'dev'
