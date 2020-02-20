@@ -83,6 +83,7 @@ class LocatorControllerExtension extends Extension
         if (!$this->owner->Autocomplete) {
             Requirements::javascript("https://maps.google.com/maps/api/js?key={$key}");
         } else {
+            Requirements::block("https://maps.google.com/maps/api/js?key={$key}");
             Requirements::javascript("https://maps.google.com/maps/api/js?key={$key}&libraries=places");
         }
 

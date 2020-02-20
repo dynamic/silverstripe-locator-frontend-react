@@ -97,7 +97,11 @@ export class Map extends Component {
     const markerList = props.markers.map(marker => {
 
       let className = 'marker-content';
-      if (marker.info.hasOwnProperty('Categories') && categoriesToClasses(marker.info.Categories) !== '') {
+      if (
+        marker.hasOwnProperty('info') &&
+        marker.info.hasOwnProperty('Categories') &&
+        categoriesToClasses(marker.info.Categories) !== ''
+      ) {
         className += ' ' + categoriesToClasses(marker.info.Categories);
       }
 
