@@ -78,17 +78,17 @@ class LocatorControllerExtension extends Extension
         // stops script from loading
         Requirements::block('jquery-locator');
 
+        // google maps api key
+        $key = Config::inst()->get(GoogleGeocoder::class, 'map_api_key');
+        if (!$this->owner->Autocomplete) {
+            Requirements::javascript("https://maps.google.com/maps/api/js?key={$key}");
+        } else {
+            Requirements::javascript("https://maps.google.com/maps/api/js?key={$key}&libraries=places");
+        }
+
         // require i18n translation stuff
         Requirements::javascript('silverstripe/admin: client/dist/js/i18n.js');
         Requirements::add_i18n_javascript('dynamic/silverstripe-locator-react: client/lang');
-
-        // because we need another library when using autocomplete
-        if ($this->owner->Autocomplete) {
-            // google maps api key
-            $key = Config::inst()->get(GoogleGeocoder::class, 'map_api_key');
-            Requirements::block("https://maps.google.com/maps/api/js?key={$key}");
-            Requirements::javascript("https://maps.google.com/maps/api/js?key={$key}&libraries=places");
-        }
 
         Requirements::customScript("
             window.ss = window.ss || {};

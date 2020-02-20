@@ -5,6 +5,8 @@ import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClust
 import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
 import {loadComponent} from 'lib/Injector';
 
+import {categoriesToClasses} from 'generalFunctions';
+
 export class Map extends Component {
   constructor(props) {
     super(props);
@@ -55,37 +57,62 @@ export class Map extends Component {
   }
 
   /**
+   * Generates the marker props
+   * @param props
+   * @returns {*}
+   */
+  getMarkerProps(marker, props) {
+    const markerProps = {
+      key: marker.key,
+      position: marker.position,
+      defaultAnimation: marker.defaultAnimation,
+      optomized: false,
+      onClick: () => props.onMarkerClick(marker),
+    };
+
+    if (marker.defaultIcon) {
+      markerProps.defaultIcon = {
+        url: marker.defaultIcon,
+        scaledSize: new window.google.maps.Size(30, 56),
+      };
+    }
+
+    if (marker.icon) {
+      markerProps.icon = {
+        url: marker.icon,
+        scaledSize: new window.google.maps.Size(30, 56),
+      };
+    }
+
+    return markerProps;
+  }
+
+  /**
    * Generates the markers
    * @param props
    * @returns {*}
    */
   markers(props) {
     const MarkerContent = loadComponent('MarkerContent');
-    const markerList = props.markers.map(marker => (
-      <Marker
-        key={marker.key}
-        position={marker.position}
-        defaultAnimation={marker.defaultAnimation}
-        defaultIcon={{
-          url: marker.defaultIcon,
-          scaledSize: new window.google.maps.Size(30, 56),
-        }}
-        icon={{
-          url: marker.icon ? marker.icon  : marker.defaultIcon,
-          scaledSize: new window.google.maps.Size(30, 56),
-        }}
-        optimized={false}
-        onClick={() => props.onMarkerClick(marker)}
-      >
-        {props.current === marker.key && props.showCurrent && (
-          <InfoBox onCloseClick={() => props.onMarkerClose()}>
-            <div className="marker-content">
-              <MarkerContent info={marker.info}/>
-            </div>
-          </InfoBox>
-        )}
-      </Marker>
-    ));
+    const markerList = props.markers.map(marker => {
+
+      let className = 'marker-content';
+      if (marker.info.hasOwnProperty('Categories') && categoriesToClasses(marker.info.Categories) !== '') {
+        className += ' ' + categoriesToClasses(marker.info.Categories);
+      }
+
+      return (
+        <Marker {...this.getMarkerProps(marker, props)}>
+          {props.current === marker.key && props.showCurrent && (
+            <InfoBox onCloseClick={() => props.onMarkerClose()}>
+              <div className={className}>
+                <MarkerContent info={marker.info}/>
+              </div>
+            </InfoBox>
+          )}
+        </Marker>
+      )
+    });
     return this.addSearchMarker(markerList);
   }
 

@@ -85,4 +85,16 @@ class LocationExtension extends DataExtension
         $this->owner->extend('updateMarkerIconURL', $imageURL);
         return $imageURL;
     }
+
+    /**
+     * @return array
+     */
+    public function getCategoryData($json = true)
+    {
+        if ($this->owner->Categories()->count()) {
+            $names = $this->owner->Categories()->map('ID', 'Name')->toArray();
+            return $json ? json_encode($names) : $names;
+        }
+        return $json ? json_encode([]) : [];
+    }
 }
