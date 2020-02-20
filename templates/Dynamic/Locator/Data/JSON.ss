@@ -17,6 +17,7 @@
       "Distance": <% if $Distance %>$Distance<% else %>-1<% end_if %>,
       "Lat": $Lat,
       "Lng": $Lng,
+      <% if $Categories %>"Categories": $CategoryData.RAW,<% end_if %>
       "MarkerIcon": "$MarkerIcon"
     }<% if not $Last %>,<%end_if%><% end_loop %>
   ]<% if $AddressCoords %>,

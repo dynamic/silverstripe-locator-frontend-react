@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { loadComponent } from 'lib/Injector';
 
+import {categoriesToClasses} from 'generalFunctions';
+
 /**
  * The Location component.
  * Used in the location list.
@@ -75,7 +77,7 @@ class Location extends Component {
    */
   getClassName() {
     const {
-      index, current,
+      index, current, location
     } = this.props;
     let className = 'list-location';
     // if it should be focused
@@ -90,6 +92,11 @@ class Location extends Component {
     if (index === 0) {
       className += ' first';
     }
+
+    if (location.hasOwnProperty('Categories') && categoriesToClasses(location.Categories) !== '') {
+      className += ' ' + categoriesToClasses(location.Categories);
+    }
+
     return className;
   }
 
