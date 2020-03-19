@@ -5,35 +5,100 @@ After:
   - silverstripegeocoderconfig
 ---
 
-Dynamic\Locator\Locator:
+Dynamic\SilverStripeGeocoder\DistanceDataExtension:
+  address_var: 'Address'
+  unit_var: 'Unit'
+
+---
+Only:
+  classexists: 'Dynamic\Locator\Page\LocatorController'
+---
+Dynamic\Locator\Page\LocatorController:
+  extensions:
+    - Dynamic\Locator\React\Extensions\LocatorControllerExtension
+
+---
+Only:
+  classexists: 'Dynamic\Locator\Form\LocatorForm'
+---
+Dynamic\Locator\Form\LocatorForm:
+  extensions:
+    - Dynamic\Locator\React\Extensions\LocatorFormExtension
+
+---
+Only:
+  classexists: 'Dynamic\Locator\Page\LocationPage'
+---
+Dynamic\Locator\Page\LocationPage:
+  extensions:
+    - Dynamic\Locator\React\Extensions\LocationExtension
+
+---
+Only:
+  classexists: 'Dynamic\Locator\Model\LocationCategory'
+---
+Dynamic\Locator\Model\LocationCategory:
+  extensions:
+    - Dynamic\Locator\React\Extensions\CategoryExtension
+
+---
+Only:
+  classexists: 'Dynamic\Locator\Page\Locator'
+---
+Dynamic\Locator\Page\Locator:
   radius_var: 'Radius'
   category_var: 'Category'
   extensions:
     - Dynamic\Locator\React\Extensions\LocatorExtension
 
+---
+Only:
+  classexists: 'Dynamic\Locator\LocatorController'
+---
 Dynamic\Locator\LocatorController:
   extensions:
     - Dynamic\Locator\React\Extensions\LocatorControllerExtension
 
+---
+Only:
+  classexists: 'Dynamic\Locator\LocatorForm'
+---
 Dynamic\Locator\LocatorForm:
   extensions:
     - Dynamic\Locator\React\Extensions\LocatorFormExtension
 
-Dynamic\SilverStripeGeocoder\DistanceDataExtension:
-  address_var: 'Address'
-  unit_var: 'Unit'
-
+---
+Only:
+  classexists: 'Dynamic\Locator\Location'
+---
 Dynamic\Locator\Location:
   extensions:
     - Dynamic\Locator\React\Extensions\LocationExtension
 
+---
+Only:
+  classexists: 'Dynamic\Locator\LocationCategory'
+---
 Dynamic\Locator\LocationCategory:
   extensions:
     - Dynamic\Locator\React\Extensions\CategoryExtension
 
 ---
 Only:
+  classexists: 'Dynamic\Locator\Locator'
+---
+Dynamic\Locator\Locator:
+  radius_var: 'Radius'
+  category_var: 'Category'
+  extensions:
+    - Dynamic\Locator\React\Extensions\LocatorExtension
+
+---
+Only:
   environment: 'dev'
 ---
 Dynamic\Locator\LocatorController:
+  debugging: true
+
+Dynamic\Locator\Page\LocatorController:
   debugging: true
