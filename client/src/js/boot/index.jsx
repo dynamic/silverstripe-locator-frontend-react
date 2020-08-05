@@ -1,8 +1,7 @@
 /* global window, document */
+import axios from 'axios';
 import React from 'react';
-
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-
 import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 // eslint-disable-next-line import/no-unresolved, import/extensions
@@ -19,6 +18,26 @@ import Loading from 'containers/Loading';
 import { createdStore } from 'actions/settingsActions';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // will cause errors with invalid json instead of silently failing
+  axios.interceptors.response.use(response => {
+    // check if content is supposed to be json
+    if (response.headers['content-type'] === 'application/json') {
+      // return properly if data is already parsed
+      if (typeof response.data === 'object') {
+        return response;
+      }
+      try { // try parsing the data
+        JSON.parse(response.data);
+        return response;
+      } catch (e) { // can't parse response - reject promise
+        console.error(response.request.responseURL);
+        return Promise.reject(e);
+      }
+    }
+    // return the reponse if not a json file
+    return response;
+  }, error => Promise.reject(error));
+
   registerComponents();
   registerReducers();
 
