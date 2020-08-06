@@ -1,4 +1,3 @@
-/* global window */
 import ActionType from 'actions/ActionTypes';
 import { getAllURLParameters } from 'generalFunctions';
 

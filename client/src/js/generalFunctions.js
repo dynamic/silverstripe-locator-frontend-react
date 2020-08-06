@@ -27,9 +27,11 @@ export function getAllURLParameters(url) {
     passedURL = new URL(passedURL);
   }
 
-  const currentParams = [];
-  for (const pair of passedURL.searchParams.entries()) {
-    currentParams[pair[0]] = pair[1];
-  }
-  return currentParams;
+  const currentParams = Array.from(passedURL.searchParams.entries());
+  const params = [];
+  currentParams.forEach((pair) => {
+    params[pair[0]] = pair[1];
+  });
+
+  return params;
 }
