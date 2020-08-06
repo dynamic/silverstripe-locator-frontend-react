@@ -1,8 +1,7 @@
-/* global window */
 import ActionType from 'actions/ActionTypes';
-import url from 'url';
+import { getAllURLParameters } from 'generalFunctions';
 
-const { page } = url.parse(window.location.href, true).query;
+const { page } = getAllURLParameters();
 const defaultState = {
   page: Number.isNaN(Number(page)) ? 1 : Number(page),
 };

@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import url from 'url';
 import { provideInjector } from 'lib/Injector';
 import FormBuilderLoader from 'containers/FormBuilderLoader/FormBuilderLoader';
 
@@ -14,6 +13,7 @@ import { fetchLocations } from 'actions/locationActions';
 import { search as searchAction } from 'actions/searchActions';
 import { changePage } from 'actions/listActions';
 import { createFormSchemaUrl } from 'actions/settingsActions';
+import { getAllURLParameters } from 'generalFunctions';
 
 export class SearchForm extends Component {
   /**
@@ -53,14 +53,14 @@ export class SearchForm extends Component {
       return object
     }, {});
 
-    return { ...url.parse(search, true).query, ...params };
+    return { ...getAllURLParameters(), ...params };
   }
 
   /**
    * @returns {string|*}
    */
   static getAddress() {
-    const params = url.parse(window.location.href, true).query;
+    const params = getAllURLParameters();
     if (params.Address) {
       return params.Address;
     }
