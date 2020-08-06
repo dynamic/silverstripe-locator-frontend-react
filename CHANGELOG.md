@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.3](https://github.com/dynamic/silverstripe-locator-frontend-react/tree/1.0.3) (2020-08-06)
+
+[Full Changelog](https://github.com/dynamic/silverstripe-locator-frontend-react/compare/1.0.2...1.0.3)
+
+**Closed issues:**
+
+- Add classes to marker content and list content based on categories [\#58](https://github.com/dynamic/silverstripe-locator-frontend-react/issues/58)
+- Add json parse error detection for fetching location data [\#49](https://github.com/dynamic/silverstripe-locator-frontend-react/issues/49)
+
+**Merged pull requests:**
+
+- updated node modules [\#65](https://github.com/dynamic/silverstripe-locator-frontend-react/pull/65) ([mak001](https://github.com/mak001))
+- fixed bad json fetches not throwing errors [\#64](https://github.com/dynamic/silverstripe-locator-frontend-react/pull/64) ([mak001](https://github.com/mak001))
+
 ## [1.0.2](https://github.com/dynamic/silverstripe-locator-frontend-react/tree/1.0.2) (2020-02-20)
 
 [Full Changelog](https://github.com/dynamic/silverstripe-locator-frontend-react/compare/1.0.1...1.0.2)
