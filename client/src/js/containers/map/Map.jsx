@@ -1,61 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {GoogleMap, Marker, withGoogleMap} from 'react-google-maps';
-import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
-import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
+import {GoogleMap, Marker, InfoBox, MarkerClusterer, withGoogleMap} from '@react-google-maps/api';
 import {loadComponent} from 'lib/Injector';
 
 import {categoriesToClasses} from 'generalFunctions';
+import MapHooks from "containers/map/MapHooks";
 
 export class Map extends Component {
-  constructor(props) {
-    super(props);
-    this.mapRef = React.createRef();
-  }
-
-  componentDidUpdate() {
-    const {center} = this.props;
-    if (center.Lat !== 91 && center.Lng !== 181) {
-      this.mapRef.current.panTo(new google.maps.LatLng(center.Lat, center.Lng));
-      return;
-    }
-
-    const bounds = this.getBounds();
-    // don't fit to bounds if only one marker (prevents insane zoom level)
-    if (!bounds.getNorthEast().equals(bounds.getSouthWest())) {
-      this.mapRef.current.fitBounds(bounds);
-    }
-
-    const smallerLat = bounds.getNorthEast().lat() > bounds.getSouthWest().lat() ? bounds.getSouthWest().lat() : bounds.getNorthEast().lat();
-    const largerLat = bounds.getNorthEast().lat() <= bounds.getSouthWest().lat() ? bounds.getSouthWest().lat() : bounds.getNorthEast().lat();
-
-    const latDistance = largerLat - smallerLat;
-
-    const centerLat = (bounds.getCenter().lat() * (latDistance * .004)) + bounds.getCenter().lat();
-    const centerLng = bounds.getCenter().lng();
-    const calculatedCenter = new google.maps.LatLng(centerLat, centerLng);
-    this.mapRef.current.panTo(calculatedCenter);
-  }
-
-  getBounds() {
-    const {markers, search, searchCenter} = this.props;
-    const limit = search ? 3 : markers.length;
-    const bounds = new window.google.maps.LatLngBounds();
-    markers.slice(0, limit).map(marker => {
-      bounds.extend(new window.google.maps.LatLng(
-        marker.position.lat,
-        marker.position.lng
-      ));
-    });
-    if (searchCenter.Lat !== 91 && searchCenter.Lng !== 181) {
-      bounds.extend(new window.google.maps.LatLng(
-        searchCenter.Lat,
-        searchCenter.Lng
-      ));
-    }
-    return bounds;
-  }
-
   /**
    * Generates the marker props
    * @param props
@@ -149,10 +100,12 @@ export class Map extends Component {
   }
 
   render() {
-    const {center, defaultCenter, mapStyle, clusters, clusterStyles} = this.props;
+    const {center, defaultCenter, mapStyle, clusters, clusterStyles, markers, search, searchCenter} = this.props;
 
     // we don't want a center if it is invalid
-    const opts = {};
+    const opts = {
+      mapContainerClassName: 'map',
+    };
     if (center.Lat !== 91 && center.Lng !== 181) {
       opts.center = {
         lat: center.Lat,
@@ -167,12 +120,17 @@ export class Map extends Component {
 
     return (
       <GoogleMap
-        ref={this.mapRef}
         defaultZoom={16}
         defaultCenter={{lat: defaultCenter.lat, lng: defaultCenter.lng}}
         defaultOptions={defaultOptions}
         {...opts}
       >
+        <MapHooks
+          center={center}
+          markers={markers}
+          search={search}
+          searchCenter={searchCenter}
+        />
         {clusters === true ? <MarkerClusterer
             averageCenter
             enableRetinaIcons
@@ -219,4 +177,4 @@ Map.defaultProps = {
   clusterStyles: undefined,
 };
 
-export default withGoogleMap(Map);
+export default Map;
