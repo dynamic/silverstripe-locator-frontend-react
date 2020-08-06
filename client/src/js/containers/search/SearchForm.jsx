@@ -13,6 +13,7 @@ import { fetchLocations } from 'actions/locationActions';
 import { search as searchAction } from 'actions/searchActions';
 import { changePage } from 'actions/listActions';
 import { createFormSchemaUrl } from 'actions/settingsActions';
+import { getAllURLParameters } from 'generalFunctions';
 
 export class SearchForm extends Component {
   /**
@@ -52,15 +53,14 @@ export class SearchForm extends Component {
       return object
     }, {});
 
-    return { ...url.parse(search, true).query, ...params };
+    return { ...getAllURLParameters(), ...params };
   }
 
   /**
    * @returns {string|*}
    */
   static getAddress() {
-    const currentURL = new URL(window.location.href);
-    const params = currentURL.searchParams;
+    const params = getAllURLParameters();
     if (params.Address) {
       return params.Address;
     }

@@ -1,12 +1,12 @@
 /* global window */
 import ActionType from 'actions/ActionTypes';
+import { getAllURLParameters } from 'generalFunctions';
 
-const currentURL = new URL(window.location.href);
 const defaultState = Object.assign({
   Address: '',
   Radius: -1,
   Category: '',
-}, currentURL.searchParams);
+}, getAllURLParameters());
 
 delete defaultState.page;
 

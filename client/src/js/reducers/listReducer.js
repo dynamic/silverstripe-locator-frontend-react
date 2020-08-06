@@ -1,8 +1,9 @@
 /* global window */
 import ActionType from 'actions/ActionTypes';
+import { getAllURLParameters } from 'generalFunctions';
 
 const currentURL = new URL(window.location.href);
-const { page } = currentURL.searchParams;
+const { page } = getAllURLParameters();
 const defaultState = {
   page: Number.isNaN(Number(page)) ? 1 : Number(page),
 };

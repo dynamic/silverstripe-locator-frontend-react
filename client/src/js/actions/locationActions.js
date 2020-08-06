@@ -5,6 +5,7 @@ import Config from 'lib/Config';
 import axios from 'axios';
 
 import ActionType from 'actions/ActionTypes';
+import { getAllURLParameters } from 'generalFunctions';
 
 /**
  * @param str
@@ -20,7 +21,7 @@ function trimExcessSlashes(str) {
 // eslint-disable-next-line import/prefer-default-export
 export function fetchLocations(params) {
   const { absoluteBaseUrl } = Config.getAll();
-  const { pathname, search } = window.location;
+  const { pathname } = window.location;
 
   const baseUrl = trimExcessSlashes(absoluteBaseUrl);
   const path = trimExcessSlashes(pathname);
@@ -33,9 +34,8 @@ export function fetchLocations(params) {
     }
   });
 
-  const currentURL = new URL(window.location.href);
   const paramaters = {
-    ...currentURL.searchParams,
+    ...getAllURLParameters(),
     ...params,
   };
 
