@@ -30,7 +30,8 @@ export function getAllURLParameters(url) {
   const currentParams = Array.from(passedURL.searchParams.entries());
   const params = [];
   currentParams.forEach((pair) => {
-    params[pair[0]] = pair[1];
+    const [key, value] = pair;
+    params[key] = value;
   });
 
   return params;
