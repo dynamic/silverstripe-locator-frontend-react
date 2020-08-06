@@ -1,3 +1,5 @@
+/* global window */
+
 /**
  * @param {array} categories
  * @return {string}
@@ -16,17 +18,18 @@ export function categoriesToClasses(categories) {
  * @return {array}
  */
 export function getAllURLParameters(url) {
-  if (url === undefined) {
-    url = new URL(window.location.href);
+  let passedURL = url;
+  if (passedURL === undefined) {
+    passedURL = new URL(window.location.href);
   }
 
-  if (typeof url !== 'URL') {
-    url = new URL(url);
+  if (typeof passedURL !== 'object') {
+    passedURL = new URL(passedURL);
   }
 
   const currentParams = [];
-  for (const [param, value] of url.searchParams.entries()) {
-    currentParams[param] = value;
+  for (const pair of passedURL.searchParams.entries()) {
+    currentParams[pair[0]] = pair[1];
   }
   return currentParams;
 }
