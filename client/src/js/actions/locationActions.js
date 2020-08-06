@@ -2,7 +2,6 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import Config from 'lib/Config';
-import url from 'url';
 import axios from 'axios';
 
 import ActionType from 'actions/ActionTypes';
@@ -34,8 +33,9 @@ export function fetchLocations(params) {
     }
   });
 
+  const currentURL = new URL(window.location.href);
   const paramaters = {
-    ...url.parse(search, true).query,
+    ...currentURL.searchParams,
     ...params,
   };
 

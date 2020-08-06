@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import url from 'url';
 import { provideInjector } from 'lib/Injector';
 import FormBuilderLoader from 'containers/FormBuilderLoader/FormBuilderLoader';
 
@@ -60,7 +59,8 @@ export class SearchForm extends Component {
    * @returns {string|*}
    */
   static getAddress() {
-    const params = url.parse(window.location.href, true).query;
+    const currentURL = new URL(window.location.href);
+    const params = currentURL.searchParams;
     if (params.Address) {
       return params.Address;
     }
