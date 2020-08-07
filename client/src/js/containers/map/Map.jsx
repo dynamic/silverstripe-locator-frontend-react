@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {GoogleMap, Marker, InfoBox, MarkerClusterer, withGoogleMap} from '@react-google-maps/api';
+import {GoogleMap, Marker, InfoBox, MarkerClusterer} from '@react-google-maps/api';
 import {loadComponent} from 'lib/Injector';
 
 import {categoriesToClasses} from 'generalFunctions';

@@ -1,9 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-
-import {Marker} from 'react-google-maps';
-import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
-import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
+import {Marker, InfoBox, MarkerClusterer} from '@react-google-maps/api';
 
 import {Map} from '../../../js/containers/map/Map';
 
