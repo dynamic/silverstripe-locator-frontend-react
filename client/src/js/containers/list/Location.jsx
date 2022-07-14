@@ -105,17 +105,17 @@ class Location extends Component {
    * @returns {XML}
    */
   render() {
-    const {location, index, search, unit, directionsText, emailText, websiteText, onClick} = this.props;
+    const {location, index, search, unit, onClick} = this.props;
     const ListLocationContent = loadComponent('ListLocationContent');
 
     const loc = {
       ...location,
       Distance: this.getDistance(),
       DirectionsLink: `http://maps.google.com/maps?saddr=${Location.cleanAddress(search)}&daddr=${this.getDaddr()}`,
-      DirectionsText: directionsText,
-      EmailText: emailText,
-      WebsiteText: websiteText,
-      Unit: unit,
+      DirectionsText: ss.i18n._t('Locator.DIRECTIONS_TEXT', 'Directions'),
+      EmailText: ss.i18n._t('Locator.EMAIL_TEXT', 'Email'),
+      WebsiteText: ss.i18n._t('Locator.WEBSITE_TEXT', 'Website'),
+      Unit: ss.i18n._t(`Locator.UNIT.${unit}`, 'mi'),
       Number: index + 1,
     };
 

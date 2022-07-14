@@ -58,7 +58,7 @@ export class Loading extends Component {
         <div className="loading show">
           <div className="loading-content">
             <div className="spinner"/>
-            <span>Loading</span>
+            <span>{ss.i18n._t('Locator.LOADING','Loading')}</span>
           </div>
         </div>
       );

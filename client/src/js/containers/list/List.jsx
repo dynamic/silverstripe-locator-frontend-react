@@ -61,7 +61,7 @@ export class List extends Component {
    * Renders the list
    */
   renderList() {
-    const {page, defaultLimit, locations, current, search, unit, unitText, emailText, websiteText, directionsText, template} = this.props;
+    const {page, defaultLimit, locations, current, search, unit, template} = this.props;
     const realPage = page - 1 ? page - 1 : 0;
     // in case we want to implement a flexible limit
     const lim = defaultLimit;
@@ -73,10 +73,7 @@ export class List extends Component {
         index={(realPage * lim) + index}
         current={current === location.ID}
         search={search}
-        unit={unitText}
-        websiteText={websiteText}
-        directionsText={directionsText}
-        emailText={emailText}
+        unit={unit}
         onClick={this.handleLocationClick}
         template={template}
       />
