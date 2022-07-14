@@ -27,7 +27,7 @@ export class MapContainer extends Component {
    * Generates an array of marker objects to use on the map
    */
   getMarkers() {
-    const { locations, emailText, websiteText, markerImagePath } = this.props;
+    const { locations, markerImagePath } = this.props;
     const markers = [];
 
     let i;
@@ -37,8 +37,8 @@ export class MapContainer extends Component {
       const { Lat, Lng } = location;
       const loc = {
         ...location,
-        EmailText: emailText,
-        WebsiteText: websiteText,
+        EmailText: ss.i18n._t('Locator.EMAIL_TEXT', 'Email'),
+        WebsiteText: ss.i18n._t('Locator.WEBSITE_TEXT', 'Website'),
       }
       markers[markers.length] = {
         position: {
