@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.4](https://github.com/dynamic/silverstripe-locator-frontend-react/tree/1.0.4) (2022-07-14)
+
+[Full Changelog](https://github.com/dynamic/silverstripe-locator-frontend-react/compare/1.0.3...1.0.4)
+
+**Merged pull requests:**
+
+- Fixed translations not always working [\#77](https://github.com/dynamic/silverstripe-locator-frontend-react/pull/77) ([mak001](https://github.com/mak001))
+
 ## [1.0.3](https://github.com/dynamic/silverstripe-locator-frontend-react/tree/1.0.3) (2020-08-06)
 
 [Full Changelog](https://github.com/dynamic/silverstripe-locator-frontend-react/compare/1.0.2...1.0.3)
